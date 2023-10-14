@@ -4,4 +4,4 @@ description: Official Omnitool Blocks Registry
 author: Omnitool.ai team and contributors
 origin: https://github.com/omnitool-ai/omni-core-blocks.git
 client:
-  addToWorkbench: false
+  addToWorkbench: true
