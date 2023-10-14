@@ -1,0 +1,5 @@
+namespace: deepl
+api:
+  url: https://raw.githubusercontent.com/DeepLcom/openapi/main/openapi.yaml
+  basePath: https://api-free.deepl.com/v2
+title: deepl

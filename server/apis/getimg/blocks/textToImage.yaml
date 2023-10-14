@@ -1,0 +1,75 @@
+category: Image Generation
+description: >-
+  Stable Diffusion is a family of text-to-image generative AI models capable of
+  producing high-quality images based on given text prompts.
+title: Text to Image (Stable Diffusion)
+apiNamespace: getimg
+apiOperationId: textToImage
+displayNamespace: getimg
+displayOperationId: textToImage
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:image
+    opts:
+      readonly: true
+inputs:
+  model:
+    type: string
+    customSocket: text
+    default: stable-diffusion-v1-5
+    choices:
+      block: getimg.listModels
+      cache: global
+      args: 
+        pipeline: text-to-image
+        family: stable-diffusion
+      map:
+        title: name
+        value: id
+  # prompt:
+  #   description: Text input required to guide the image generation.
+  #   required: true
+  #   type: string
+  # negative_prompt:
+  #   description: Text input that will not guide the image generation.
+  #   type: string
+  width:
+    description: The width of the generated image in pixels. Width needs to be multiple of 64.
+    type: integer
+    default: 512
+    minimum: 512
+    maximum: 1536
+    step: 64
+  height:
+    description: The height of the generated image in pixels. Height needs to be multiple of 64.
+    type: integer
+    default: 512
+    minimum: 512
+    maximum: 1536
+    step: 64
+  # steps:
+  #   description: The number of denoising steps.
+  #   type: integer
+  #   default: 30
+  # guidance:
+  #   description: Guidance scale as defined in Classifier-Free Diffusion Guidance.
+  #   type: number
+  # seed:
+  #   description: Makes generation deterministic.
+  #   type: integer
+  #   default: 1
+  # scheduler:
+  #   description: Scheduler used to denoise the encoded image latents.
+  #   type: string
+  #   default: euler
+  # output_format:
+  #   description: File format of the output image.
+  #   type: string
+  #   default: jpeg
+  #   choices:
+  #     - jpeg
+  #     - png
+outputs:
+  image:
+    customSocket: image

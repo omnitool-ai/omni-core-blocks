@@ -1,0 +1,6 @@
+category: Translation
+title: Get Document Translation Status (WIP)
+apiNamespace: deepl
+apiOperationId: getDocumentStatus
+displayNamespace: deepl
+displayOperationId: getDocumentStatus_omni

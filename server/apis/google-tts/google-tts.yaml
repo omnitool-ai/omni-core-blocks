@@ -1,0 +1,10 @@
+namespace: google-tts
+api:
+  spec: ./api/google-tts.yaml
+  basePath: https://texttospeech.googleapis.com
+componentType: OAIComponent31
+filter:
+  operationIds:
+    - texttospeech_text_synthesize
+    - texttospeech_voices_list
+title: google-tts

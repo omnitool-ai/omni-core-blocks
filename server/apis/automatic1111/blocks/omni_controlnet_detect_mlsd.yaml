@@ -1,0 +1,55 @@
+category: Computer Vision
+description: 'ControlNet: Mobile Line Segmentation Detection'
+title: 'ControlNet: Line Segmentation'
+apiNamespace: automatic1111
+apiOperationId: detect_controlnet_detect_post
+displayNamespace: automatic1111
+displayOperationId: omni_controlnet_detect_mlsd
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:images
+    opts:
+      readonly: true
+inputs:
+  controlnet_module:
+    title: Module
+    default: mlsd
+    choices:
+      - title: MLSD
+        description: >-
+          Uses mobile line segmentation model to detect lines in an image -
+          straight lines usually found in architecture and inorganic structures.
+        value: mlsd
+  controlnet_threshold_a:
+    title: MLSD Value Threshold
+    default: 0.1
+    minimum: 0.01
+    maximum: 2
+    step: 0.01
+  controlnet_threshold_b:
+    title: MLSD Distance Threshold
+    default: 0.1
+    minimum: 0.01
+    maximum: 20
+    step: 0.01
+  controlnet_processor_res:
+    title: Processor Resolution
+    default: 512
+    minimum: 64
+    maximum: 2048
+    step: 64
+  controlnet_input_images:
+    title: Input Images
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+      array: true
+outputs:
+  images:
+    title: Images
+    type: object
+    customSocket: image
+    socketOpts:
+      array: true

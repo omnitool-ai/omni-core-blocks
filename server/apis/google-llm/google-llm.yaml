@@ -1,0 +1,5 @@
+namespace: google-llm
+api:
+  spec: ./api/google-llm.yaml
+  basePath: https://us-central1-aiplatform.googleapis.com
+title: google-llm

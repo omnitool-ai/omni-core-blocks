@@ -1,0 +1,68 @@
+category: Computer Vision
+description: 'ControlNet: Depth'
+title: 'ControlNet: Depth Map'
+apiNamespace: automatic1111
+apiOperationId: detect_controlnet_detect_post
+displayNamespace: automatic1111
+displayOperationId: omni_controlnet_detect_depth
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:images
+    opts:
+      readonly: true
+inputs:
+  controlnet_module:
+    title: Module
+    default: depth_zoe
+    choices:
+      - title: Midas Depth
+        description: Midas Depth - Detects depth in an image using the Midas Depth model.
+        value: depth
+      - title: ZOE Depth
+        description: ZOE Depth - Detects depth in an image using the ZOE Depth model.
+        value: depth_zoe
+      - title: Leres Depth
+        description: >-
+          Leres Depth - Detects depth in an image using the Leres model. This
+          model supports near/background removal.
+        value: depth_leres
+      - title: Leres++ Depth
+        description: >-
+          Leres++ Depth - Detects depth in an image using the Leres++ model.
+          This model supports near/background removal.
+        value: depth_leres++
+  controlnet_threshold_a:
+    title: Remove Near %
+    default: 0
+    minimum: 0
+    maximum: 100
+    scripts: {}
+    step: 0.1
+  controlnet_threshold_b:
+    title: Remove Background %
+    default: 0
+    minimum: 0
+    maximum: 100
+    scripts: {}
+    step: 0.1
+  controlnet_processor_res:
+    title: Processor Resolution
+    default: 512
+    minimum: 64
+    maximum: 2048
+    step: 64
+  controlnet_input_images:
+    title: Input Images
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+      array: true
+outputs:
+  images:
+    title: Images
+    type: object
+    customSocket: image
+    socketOpts:
+      array: true

@@ -1,0 +1,11 @@
+category: Image Generation
+title: Image To Image (Huggingface)
+apiNamespace: huggingface
+apiOperationId: image_to_image
+displayNamespace: huggingface
+displayOperationId: public_image_to_image
+outputs:
+  images:
+    customSocket: image
+    socketOpts:
+      array: true

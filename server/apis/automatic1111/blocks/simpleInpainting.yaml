@@ -1,0 +1,218 @@
+category: Image Manipulation
+description: >-
+  A block exposing inpainting and outpainting specific features from Stable
+  Diffusion Image2Image powered by automatic1111.
+meta:
+  source:
+    authors:
+      - Automatic1111 and contributors
+      - Stability.ai
+      - runway.ml
+    links:
+      Stable Diffusion XL: https://github.com/Stability-AI/generative-models
+      Stable Diffusion 2.x: https://github.com/Stability-AI/stablediffusion
+      Stable Diffusion 1.x: https://github.com/CompVis/stable-diffusion
+      Automatic111 (API): https://github.com/AUTOMATIC1111/stable-diffusion-webui
+      Guide: https://stable-diffusion-art.com/automatic1111
+      RunwayML Inpainting Model: >-
+        https://github.com/runwayml/stable-diffusion#inpainting-with-stable-diffusion
+      Realistic Visions Inpainting Models: https://civitai.com/models/4201
+title: Inpainting
+apiNamespace: automatic1111
+apiOperationId: img2imgapi_sdapi_v1_img2img_post
+displayNamespace: automatic1111
+displayOperationId: simpleInpainting
+scripts:
+  hideExcept:inputs:
+    - prompt
+    - checkpoint
+    - inpaint_full_res_padding
+    - inpaint_full_res
+    - inpainting_mask_xinvert
+    - inpainting_xfill
+    - negative_prompt
+    - steps
+    - cfg_scale
+    - width
+    - height
+    - init_images
+    - mask
+    - denoising_strength
+    - sampler_name
+    - cfg_scale
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:images
+    opts:
+      readonly: true
+inputs:
+  $fieldOrder: {}
+  checkpoint:
+    description: The checkpoint to use.
+    default: 512-inpainting-ema
+    choices:
+      - title: StabilityAI Inpainting Model
+        description: Stable Diffusion 1.5 Inpainting Checkpoint
+        value: sd-v1-5-inpainting
+      - title: RunwayML Inpainting Model
+        description: Stable Diffusion 2 Inpainting Checkpoint by RunwayML
+        value: 512-inpainting-ema
+      - title: RPGTools Inpainting
+        description: RPGTools Inpainting Model
+        value: aZovyaRPGArtistTools_v3Inpainting.safetensors
+      - title: Realistic Visions 2.0
+        description: >-
+          Realistic Visions 2.0 Inpainting Model
+          https://civitai.com/models/4201?modelVersionId=29461
+        value: realisticVisionV20_v20NoVAE-inpainting
+      - title: RealisticVisions 1.3
+        description: >-
+          RealisticVisions Inpainting Model 1.3
+          https://civitai.com/models/4201?modelVersionId=7935
+        value: realisticVisionV13_v13Inpainting
+      - title: I cant believe its not real Inpainting
+        description: Hyperrealistic Photo Inpainting
+        value: icbinpICantBelieveIts_finalInpainting
+      - title: (Depth Map) Stable Diffusion 2.0
+        description: Depth Map SD 2.0 Model
+        value: 512-depth-ema
+  inpaint_full_res:
+    title: Inpaint at full resolution
+    description: >-
+      If enabled, the inpainting will be done at full resolution. This will be
+      slower, but will produce higher quality results.
+    default: true
+  inpaint_full_res_padding:
+    title: Full Res Inpaint Padding
+    description: >-
+      The amount of padding to add to the image when inpainting at full
+      resolution.
+    default: 0
+    minimum: 0
+    maximum: 100
+    step: 1
+  inpainting_mask_invert:
+    scripts:
+      jsonata: $number(inpainting_mask_xinvert)
+      delete: inpainting_mask_xinvert
+  inpainting_mask_xinvert:
+    description: The mask mode to use for the inpainting mask.
+    default: '0'
+    choices:
+      - title: White Mask, Black Background
+        value: '0'
+      - title: Black Mask, White Background
+        value: '1'
+  inpainting_fill:
+    scripts:
+      jsonata: $number(inpainting_xfill)
+      delete: inpainting_xfill
+  inpainting_xfill:
+    title: Mask Area Fill
+    description: The fill mode to use for the inpainting mask.
+    default: '1'
+    choices:
+      - title: Noise
+        value: '0'
+      - title: Original Image
+        value: '1'
+      - title: Latent Noise
+        value: '2'
+      - title: Latent Nothing
+        value: '3'
+  denoising_strength:
+    minimum: 0
+    maximum: 1
+    step: 0.01
+  filter_nsfw:
+    description: Filter NSFW content.
+    default: true
+    type: boolean
+  override_settings:
+    scripts:
+      jsonata: '{ "sd_model_checkpoint": checkpoint }'
+      delete:
+        - filter_nsfw
+        - checkpoint
+    hidden: true
+    type: object
+  init_images:
+    customSocket: image
+    socketOpts:
+      format: base64
+      array: true
+  mask:
+    type: string
+    customSocket: image
+    socketOpts:
+      format: base64
+  steps:
+    default: 30
+    minimum: 1
+    maximum: 200
+    step: 1
+  sampler_name:
+    default: DPM++ 2M
+    choices:
+      - Euler a
+      - Euler
+      - LMS
+      - Heun
+      - DPM2
+      - DPM2 a
+      - DPM++ 2S a
+      - DPM++ 2M
+      - DPM++ SDE
+      - DPM fast
+      - DPM adaptive
+      - LMS Karras
+      - DPM2 Karras
+      - DPM2 a Karras
+      - DPM++ 2S a Karras
+      - DPM++ 2M Karras
+      - DPM++ SDE Karras
+      - DDIM
+      - PLMS
+      - UniPC
+  sampler_index:
+    scripts:
+      jsonata: sampler_name
+    hidden: true
+  batch_size:
+    default: 1
+    hidden: true
+  n_iter:
+    default: 1
+    hidden: true
+  cfg_scale:
+    description: >-
+      The CFG scale adjusts how much the image looks closer to the prompt and/
+      or input image. If CFG Scale is greater, the output will be more in line
+      with the input prompt and/or input image, but it will be distorted. On the
+      other hand, the lower the CFG Scale value, the more likely it is to drift
+      away from the prompt or the input image, but the better quality.
+    default: 7
+    minimum: 0.25
+    maximum: 25
+    step: 0.25
+  width:
+    default: 512
+    minimum: 512
+    maximum: 1536
+    scripts:
+      jsonata: $round(width / 64) * 64
+    step: 64
+  height:
+    default: 512
+    minimum: 512
+    maximum: 1536
+    scripts:
+      jsonata: $round(height / 64) * 64
+    step: 64
+outputs:
+  images:
+    title: Images
+    customSocket: image
+    socketOpts:
+      array: true

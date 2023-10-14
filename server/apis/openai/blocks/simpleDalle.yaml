@@ -1,0 +1,15 @@
+category: Image Generation
+title: 'DALL·E 2: Text to Image'
+apiNamespace: openai
+apiOperationId: createImage
+displayNamespace: openai
+displayOperationId: simpleDalle
+inputs:
+  'n':
+    title: '# of Images'
+  response_format:
+    default: url
+    hidden: true
+outputs:
+  data:
+    title: Images

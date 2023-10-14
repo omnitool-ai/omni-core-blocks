@@ -1,0 +1,38 @@
+category: Image Operations
+description: >-
+  Retrieve a single photo based on its ID.
+title: Get a Photo
+apiNamespace: unsplash
+apiOperationId: getPhotoById
+displayNamespace: unsplash
+displayOperationId: getPhotoById
+scripts:
+  hideExcept:outputs:
+    - image
+    - width
+    - height
+    - description
+    - urls
+    - url
+# inputs:
+  # resolution:
+  #   type: string
+  #   choice:
+  #     - raw
+  #     - full
+  #     - regular
+  #     - small
+  #     - thumb
+  #   default: regular
+outputs:
+  url:
+    type: string
+    scripts:  
+      jsonata: $.urls.regular
+  image:
+    type: object
+    customSocket: image
+    scripts:  
+      jsonata: url
+  
+    

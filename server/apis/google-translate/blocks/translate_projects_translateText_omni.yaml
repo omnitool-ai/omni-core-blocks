@@ -1,0 +1,172 @@
+category: Translation
+description: Translate text from one language to another using the Google Translate API.
+meta:
+  source:
+    title: 'Google: Translate Text'
+    links:
+      Website: https://cloud.google.com/translate
+      Subscription: https://cloud.google.com/pricing
+      API Reference: >-
+        https://cloud.google.com/translate/docs/reference/rest/v3/projects/translateText
+      Documentation: https://cloud.google.com/translate/docs
+    summary: >-
+      Translate text from one language to another using the Google Translate
+      API.
+title: Translate Text
+apiNamespace: google-translate
+apiOperationId: translate_projects_translateText
+displayNamespace: google-translate
+displayOperationId: translate_projects_translateText_omni
+inputs:
+  projectsId:
+    required: true
+    default: causal-rite-386205
+  sourceLanguageCode:
+    default: en
+    choices:
+      - title: Auto
+        value: ''
+      - title: English
+        value: en
+      - title: Spanish
+        value: es
+      - title: French
+        value: fr
+      - title: German
+        value: de
+      - title: Italian
+        value: it
+      - title: Portuguese
+        value: pt
+      - title: Russian
+        value: ru
+      - title: Chinese (Simplified)
+        value: zh-CN
+      - title: Chinese (Traditional)
+        value: zh-TW
+      - title: Japanese
+        value: ja
+      - title: Korean
+        value: ko
+      - title: Arabic
+        value: ar
+      - title: Dutch
+        value: nl
+      - title: Turkish
+        value: tr
+      - title: Vietnamese
+        value: vi
+      - title: Greek
+        value: el
+      - title: Hebrew
+        value: iw
+      - title: Hindi
+        value: hi
+      - title: Thai
+        value: th
+      - title: Indonesian
+        value: id
+      - title: Malay
+        value: ms
+      - title: Norwegian
+        value: 'no'
+      - title: Polish
+        value: pl
+      - title: Swedish
+        value: sv
+      - title: Ukrainian
+        value: uk
+      - title: Filipino
+        value: fil
+    type: string
+    customSocket: text
+  targetLanguageCode:
+    required: true
+    default: fr
+    choices:
+      - title: Auto
+        value: ''
+      - title: English
+        value: en
+      - title: Spanish
+        value: es
+      - title: French
+        value: fr
+      - title: German
+        value: de
+      - title: Italian
+        value: it
+      - title: Portuguese
+        value: pt
+      - title: Russian
+        value: ru
+      - title: Chinese (Simplified)
+        value: zh-CN
+      - title: Chinese (Traditional)
+        value: zh-TW
+      - title: Japanese
+        value: ja
+      - title: Korean
+        value: ko
+      - title: Arabic
+        value: ar
+      - title: Dutch
+        value: nl
+      - title: Turkish
+        value: tr
+      - title: Vietnamese
+        value: vi
+      - title: Greek
+        value: el
+      - title: Hebrew
+        value: iw
+      - title: Hindi
+        value: hi
+      - title: Thai
+        value: th
+      - title: Indonesian
+        value: id
+      - title: Malay
+        value: ms
+      - title: Norwegian
+        value: 'no'
+      - title: Polish
+        value: pl
+      - title: Swedish
+        value: sv
+      - title: Ukrainian
+        value: uk
+      - title: Filipino
+        value: fil
+    type: string
+    customSocket: text
+  text:
+    required: true
+    type: string
+    customSocket: text
+  contents:
+    scripts:
+      jsonata: '[text]'
+      delete:
+        - text
+    hidden: true
+  mimeType:
+    hidden: true
+  model:
+    hidden: true
+  glossaryConfig:
+    hidden: true
+  transliterationConfig:
+    hidden: true
+  labels:
+    hidden: true
+outputs:
+  translatedText:
+    scripts:
+      jsonata: translations[0].translatedText
+    type: string
+    customSocket: text
+  translations:
+    hidden: true
+  glossaryTranslations:
+    hidden: true

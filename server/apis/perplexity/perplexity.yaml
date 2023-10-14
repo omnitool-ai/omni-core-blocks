@@ -1,0 +1,5 @@
+namespace: perplexity
+api:
+  spec: ./api/perplexity.yaml
+  basePath: https://api.perplexity.ai
+title: perplexity

@@ -1,0 +1,11 @@
+namespace: replicate
+api:
+  url: https://api.replicate.com/openapi.json
+  basePath: https://api.replicate.com/
+  auth:
+    type: http_bearer
+    requireKeys:
+      - id: token
+        displayName: Token
+        type: string
+title: replicate

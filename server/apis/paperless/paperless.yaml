@@ -1,0 +1,11 @@
+namespace: paperless
+api:
+  spec: ./api/paperless.yaml
+  basePath: https://paperless-ng.intern.mercenaries.ai/api
+  auth:
+    type: http_bearer
+    requireKeys:
+      - id: token
+        displayName: Token
+        type: string
+title: paperless

@@ -1,0 +1,9 @@
+namespace: google-translate
+api:
+  spec: ./api/google-translate.yaml
+  basePath: https://translation.googleapis.com
+filter:
+  operationIds:
+    - translate_projects_translateText
+    - translate.projects.getSupportedLanguages
+title: google-translate

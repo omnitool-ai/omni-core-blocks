@@ -1,0 +1,15 @@
+category: Model Operations
+title: List Models
+apiNamespace: openai
+apiOperationId: listModels
+displayNamespace: openai
+displayOperationId: listModelsBlock
+outputs:
+  models:
+    scripts:
+      jsonata: data
+    type: object
+  object:
+    hidden: true
+  data:
+    hidden: true

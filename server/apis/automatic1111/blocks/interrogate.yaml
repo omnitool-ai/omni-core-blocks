@@ -1,0 +1,18 @@
+category: Computer Vision
+description: Analyze an image and generate a prompt that can be used to recreate similar images.
+title: Describe Image
+apiNamespace: automatic1111
+apiOperationId: interrogateapi_sdapi_v1_interrogate_post
+displayNamespace: automatic1111
+displayOperationId: interrogate
+inputs:
+  image:
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+  model:
+    default: clip
+outputs:
+  caption:
+    type: string

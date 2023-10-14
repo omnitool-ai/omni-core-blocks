@@ -1,0 +1,127 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Paperless API
+  description: An API for uploading documents to Paperless
+paths:
+  /documents/post_document/:
+    post:
+      summary: Upload a document to Paperless
+      operationId: uploadDocument
+      x-tags:
+        - default
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                document:
+                  type: object
+                  x-type: document
+                  format: binary
+                  description: The document file to upload
+                title:
+                  type: string
+                  description: A title for the document
+                created:
+                  type: string
+                  format: date-time
+                  description: The date and time when the document was created
+                correspondent:
+                  type: string
+                  description: The ID of a correspondent for the document
+                document_type:
+                  type: string
+                  description: The type of document
+                tags:
+                  type: array
+                  items:
+                    type: string
+                  description: An array of tags to add to the document
+      responses:
+        '200':
+          description: OK
+      x-patch:
+        outputs:
+          result:
+            type: boolean
+            jsonata:
+              output: _omni_status
+  /documents/:
+    get:
+      summary: Search for documents in Paperless
+      operationId: searchDocuments
+      x-tags:
+        - default
+      parameters:
+        - in: query
+          name: query
+          schema:
+            type: string
+          description: A full text query to search for documents
+          example: your search query
+        - in: query
+          name: more_like
+          schema:
+            type: integer
+          description: The ID of a document to find similar documents
+          example: 1234
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: The total number of documents matching the query
+                  next:
+                    type: string
+                    description: The URL of the next page of results
+                    nullable: true
+                  previous:
+                    type: string
+                    description: The URL of the previous page of results
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      x-type: objectArray
+                      properties:
+                        id:
+                          type: integer
+                          description: The ID of the document
+                        title:
+                          type: string
+                          description: The title of the document
+                        content:
+                          type: string
+                          description: The content of the document
+                        __search_hit__:
+                          type: object
+                          properties:
+                            score:
+                              type: number
+                              description: >-
+                                The score of the search result relative to
+                                others
+                            highlights:
+                              type: string
+                              description: >-
+                                An excerpt from the document content with
+                                highlights
+                            rank:
+                              type: integer
+                              description: The rank of the search result
+      x-patch:
+        inputs:
+          more_like:
+            hidden: true
+          query:
+            type: string
+            description: A full text query to search for documents

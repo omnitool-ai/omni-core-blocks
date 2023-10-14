@@ -1,0 +1,93 @@
+category: Image Analysis
+description: Annotate images using Google Cloud Vision API to detect various types of information in the images.
+meta:
+  source:
+    title: 'Google: Cloud Vision'
+    links:
+      Website: https://cloud.google.com/vision
+      Subscription: https://cloud.google.com/pricing
+      API Reference: >-
+        https://cloud.google.com/vision/docs/reference/rest/v1/images/annotate
+      Documentation: https://cloud.google.com/vision/docs
+    summary: Use the Cloud Vision API to analyze images with powerful machine learning models in an easy to use REST API.
+title: Annotate Images
+apiNamespace: google-vision
+apiOperationId: vision_images_annotate
+displayNamespace: google-vision
+displayOperationId: vision_images_annotate_omni
+inputs:
+  image:
+    required: true
+    type: string
+    customSocket: image
+    socketOpts:
+      format: 'base64'
+    description: The image data as a base64-encoded string or a Google Cloud Storage URI.
+  features:
+    required: true
+    type: string
+    description: The features to detect in the image. Choices include LABEL_DETECTION, TEXT_DETECTION, FACE_DETECTION, etc.
+    choices:
+    - title: Text Detection
+      description: Optical character recognition (OCR) for an image; identifies and extracts UTF-8 text in an image, optimized for sparse areas of text within a larger image.
+      value: TEXT_DETECTION
+    - title: Document Text Detection
+      description: Optical character recognition (OCR) for dense text images or files (PDF/TIFF); optimized for dense areas of text and images that contain handwriting.
+      value: DOCUMENT_TEXT_DETECTION
+    - title: Landmark Detection
+      description: Provides the name of the landmark, a confidence score, and a bounding box in the image for the landmark along with coordinates for the detected entity.
+      value: LANDMARK_DETECTION
+    - title: Logo Detection
+      description: Identifies logos in the image, providing a textual description, confidence score, and bounding polygon for the identified logo.
+      value: LOGO_DETECTION
+    - title: Label Detection
+      description: Provides generalized labels for an image, returning a textual description, confidence score, and topicality rating for each label.
+      value: LABEL_DETECTION
+    - title: Image Properties
+      description: Returns dominant colors in an image along with confidence scores and the fraction of pixels occupied by each color.
+      value: IMAGE_PROPERTIES
+    - title: Object Localization
+      description: Provides label and bounding box annotations for multiple objects recognized in a single image.
+      value: OBJECT_LOCALIZATION
+    - title: Crop Hint Detection
+      description: Provides a bounding polygon for the cropped image, confidence score, and an importance fraction of the salient region with respect to the original image.
+      value: CROP_HINTS
+    - title: Web Entities and Pages
+      description: Provides related web content to an image, including web entities, matching images, pages with matching images, visually similar images, and a best guess label.
+      value: WEB_DETECTION
+    - title: Explicit Content Detection (SafeSearch)
+      description: Provides likelihood ratings for explicit content categories including adult, spoof, medical, violence, and racy.
+      value: SAFE_SEARCH_DETECTION
+    - title: Face Detection
+      description: Locates faces with bounding polygons and identifies specific facial landmarks along with likelihood ratings for emotions and general image properties.
+      value: FACE_DETECTION
+  requests:
+    required: true
+    scripts:
+      jsonata: |
+        [
+            {
+              "image": {
+                "content": $.image
+              },
+              "features": [
+                {
+                  "type": $.features
+                }
+              ]
+            }
+        ]
+      delete:
+        - image
+        - features
+    hidden: true
+    type: array
+    customSocket: object
+    socketOpts:
+      array: true
+outputs:
+  responses:
+    title: Result
+    type: object
+    customSocket: object
+    description: The results of the image analysis.

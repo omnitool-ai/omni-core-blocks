@@ -1,0 +1,25 @@
+namespace: openai
+api:
+  url: https://raw.githubusercontent.com/openai/openai-openapi/master/openapi.yaml
+  basePath: https://api.openai.com/v1
+  componentType: OAIComponent31
+  auth:
+    type: http_bearer
+    requireKeys:
+      - id: Bearer
+        displayName: Bearer
+        type: string
+filter:
+  operationIds:
+    - createChatCompletion
+    - createCompletion
+    - createImage
+    - createModeration
+    - createTranscription
+    - createTranslation
+    - createImageVariation
+    - createImageEdit
+    - createEdit
+    - listModels
+    - createEmbedding
+title: openai

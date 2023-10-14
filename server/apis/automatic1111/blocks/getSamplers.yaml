@@ -1,0 +1,13 @@
+category: Utilities
+title: Get Samplers
+description: Get a list of diffusion samplers available on the server.
+apiNamespace: automatic1111
+apiOperationId: get_samplers_sdapi_v1_samplers_get
+displayNamespace: automatic1111
+displayOperationId: getSamplers
+outputs:
+  result:
+    type: object
+    customSocket: object
+    socketOpts:
+      array: true

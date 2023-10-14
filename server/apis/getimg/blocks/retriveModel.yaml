@@ -1,0 +1,9 @@
+category: Model Operations
+description: >-
+  Retrieves the details of a specific model.
+title: Retrieve Model Details
+apiNamespace: getimg
+apiOperationId: retrieveModel
+displayNamespace: getimg
+displayOperationId: retrieveModel
+    

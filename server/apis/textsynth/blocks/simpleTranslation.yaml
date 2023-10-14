@@ -1,0 +1,468 @@
+category: Translation
+meta:
+  source:
+    title: Text Translation
+    links:
+      TextSynth Website: https://textsynth.com/index.html
+      Playground: https://textsynth.com/translation.html
+      API Documentation: https://textsynth.com/documentation.html#translations
+      Pricing: https://textsynth.com/pricing.html
+      m2m100_1_2 paper: https://arxiv.org/abs/2010.11125
+    authors:
+      - >-
+        Angela Fan, Shruti Bhosale, Holger Schwenk, Zhiyi Ma, Ahmed El-Kishky,
+        Siddharth Goyal, Mandeep Baines, Onur Celebi, Guillaume Wenzek, Vishrav
+        Chaudhary, Naman Goyal, Tom Birch, Vitaliy Liptchinsky, Sergey Edunov,
+        Edouard Grave, Michael Auli, Armand Joulin
+      - Fabrice Bellard and contributors
+    summary: >-
+      Text Translation provided by TextSynth.com, using m2m100_1_2, a 1.2
+      billion parameter language model specialized for translation. It supports
+      multilingual translation between 100 languages.
+title: Translate Text
+apiNamespace: textsynth
+apiOperationId: translate
+displayNamespace: textsynth
+displayOperationId: simpleTranslation
+inputs:
+  engine_id:
+    hidden: true
+  prompt:
+    title: Text
+    description: The text to translate. Each line is treated as a separate sentence.
+    required: true,
+    customSocket: text
+  text:
+    scripts:
+      jsonata: $split(prompt, "\n")
+      delete:
+        - prompt
+    hidden: true
+  num_beams:
+    title: Number of Beams
+    description: >-
+      Number of beams used to generate the translated text. The translation is
+      usually better with a larger number of beams. Each beam requires
+      generating a separate translated text, hence the number of generated
+      tokens is multiplied by the number of beams.
+    default: 1
+    minimum: 1
+    maximum: 6
+    step: 0.01
+  source_lang:
+    title: Source Language
+    default: auto
+    choices:
+      - title: (Auto)
+        value: auto
+      - title: Afrikaans
+        value: af
+      - title: Albanian
+        value: sq
+      - title: Amharic
+        value: am
+      - title: Arabic
+        value: ar
+      - title: Armenian
+        value: hy
+      - title: Asturian
+        value: ast
+      - title: Azerbaijani
+        value: az
+      - title: Bashkir
+        value: ba
+      - title: Belarusian
+        value: be
+      - title: Bengali
+        value: bn
+      - title: Bosnian
+        value: bs
+      - title: Bulgarian
+        value: bg
+      - title: Burmese
+        value: my
+      - title: Catalan
+        value: ca
+      - title: Cebuano
+        value: ceb
+      - title: Central Khmer
+        value: km
+      - title: Chinese
+        value: zh
+      - title: Croatian
+        value: hr
+      - title: Czech
+        value: cs
+      - title: Danish
+        value: da
+      - title: Dutch
+        value: nl
+      - title: English
+        value: en
+      - title: Estonian
+        value: et
+      - title: Finnish
+        value: fi
+      - title: French
+        value: fr
+      - title: Fulah
+        value: ff
+      - title: Galician
+        value: gl
+      - title: Ganda
+        value: lg
+      - title: Georgian
+        value: ka
+      - title: German
+        value: de
+      - title: Greek
+        value: el
+      - title: Gujarati
+        value: gu
+      - title: Haitian Creole
+        value: ht
+      - title: Hausa
+        value: ha
+      - title: Hebrew
+        value: he
+      - title: Hindi
+        value: hi
+      - title: Hungarian
+        value: hu
+      - title: Icelandic
+        value: is
+      - title: Igbo
+        value: ig
+      - title: Iloko
+        value: ilo
+      - title: Indonesian
+        value: id
+      - title: Irish
+        value: ga
+      - title: Italian
+        value: it
+      - title: Japanese
+        value: ja
+      - title: Javanese
+        value: jv
+      - title: Kannada
+        value: kn
+      - title: Kazakh
+        value: kk
+      - title: Korean
+        value: ko
+      - title: Lao
+        value: lo
+      - title: Latvian
+        value: lv
+      - title: Lingala
+        value: ln
+      - title: Lithuanian
+        value: lt
+      - title: Luxembourgish
+        value: lb
+      - title: Macedonian
+        value: mk
+      - title: Malagasy
+        value: mg
+      - title: Malay
+        value: ms
+      - title: Malayalam
+        value: ml
+      - title: Maltese
+        value: mt
+      - title: Marathi
+        value: mr
+      - title: Mongolian
+        value: mn
+      - title: Nepali
+        value: ne
+      - title: Northern Sotho
+        value: nso
+      - title: Norwegian
+        value: 'no'
+      - title: Occitan
+        value: oc
+      - title: Oriya
+        value: or
+      - title: Panjabi
+        value: pa
+      - title: Pashto
+        value: ps
+      - title: Persian
+        value: fa
+      - title: Polish
+        value: pl
+      - title: Romanian
+        value: ro
+      - title: Russian
+        value: ru
+      - title: Scottish Gaelic
+        value: gd
+      - title: Serbian
+        value: sr
+      - title: Sindhi
+        value: sd
+      - title: Sinhala
+        value: si
+      - title: Slovak
+        value: sk
+      - title: Slovenian
+        value: sl
+      - title: Somali
+        value: so
+      - title: Spanish
+        value: es
+      - title: Sundanese
+        value: su
+      - title: Swahili
+        value: sw
+      - title: Swati
+        value: ss
+      - title: Swedish
+        value: sv
+      - title: Tagalog
+        value: tl
+      - title: Tamil
+        value: ta
+      - title: Thai
+        value: th
+      - title: Tswana
+        value: tn
+      - title: Turkish
+        value: tr
+      - title: Ukrainian
+        value: uk
+      - title: Urdu
+        value: ur
+      - title: Uzbek
+        value: uz
+      - title: Vietnamese
+        value: vi
+      - title: Welsh
+        value: cy
+      - title: Western Frisian
+        value: fy
+      - title: Wolof
+        value: wo
+      - title: Xhosa
+        value: xh
+      - title: Yiddish
+        value: yi
+      - title: Yoruba
+        value: yo
+      - title: Zulu
+        value: zu
+    customSocket: text
+  target_lang:
+    title: Target Language
+    default: en
+    choices:
+      - title: Afrikaans
+        value: af
+      - title: Albanian
+        value: sq
+      - title: Amharic
+        value: am
+      - title: Arabic
+        value: ar
+      - title: Armenian
+        value: hy
+      - title: Asturian
+        value: ast
+      - title: Azerbaijani
+        value: az
+      - title: Bashkir
+        value: ba
+      - title: Belarusian
+        value: be
+      - title: Bengali
+        value: bn
+      - title: Bosnian
+        value: bs
+      - title: Bulgarian
+        value: bg
+      - title: Burmese
+        value: my
+      - title: Catalan
+        value: ca
+      - title: Cebuano
+        value: ceb
+      - title: Central Khmer
+        value: km
+      - title: Chinese
+        value: zh
+      - title: Croatian
+        value: hr
+      - title: Czech
+        value: cs
+      - title: Danish
+        value: da
+      - title: Dutch
+        value: nl
+      - title: English
+        value: en
+      - title: Estonian
+        value: et
+      - title: Finnish
+        value: fi
+      - title: French
+        value: fr
+      - title: Fulah
+        value: ff
+      - title: Galician
+        value: gl
+      - title: Ganda
+        value: lg
+      - title: Georgian
+        value: ka
+      - title: German
+        value: de
+      - title: Greek
+        value: el
+      - title: Gujarati
+        value: gu
+      - title: Haitian Creole
+        value: ht
+      - title: Hausa
+        value: ha
+      - title: Hebrew
+        value: he
+      - title: Hindi
+        value: hi
+      - title: Hungarian
+        value: hu
+      - title: Icelandic
+        value: is
+      - title: Igbo
+        value: ig
+      - title: Iloko
+        value: ilo
+      - title: Indonesian
+        value: id
+      - title: Irish
+        value: ga
+      - title: Italian
+        value: it
+      - title: Japanese
+        value: ja
+      - title: Javanese
+        value: jv
+      - title: Kannada
+        value: kn
+      - title: Kazakh
+        value: kk
+      - title: Korean
+        value: ko
+      - title: Lao
+        value: lo
+      - title: Latvian
+        value: lv
+      - title: Lingala
+        value: ln
+      - title: Lithuanian
+        value: lt
+      - title: Luxembourgish
+        value: lb
+      - title: Macedonian
+        value: mk
+      - title: Malagasy
+        value: mg
+      - title: Malay
+        value: ms
+      - title: Malayalam
+        value: ml
+      - title: Maltese
+        value: mt
+      - title: Marathi
+        value: mr
+      - title: Mongolian
+        value: mn
+      - title: Nepali
+        value: ne
+      - title: Northern Sotho
+        value: nso
+      - title: Norwegian
+        value: 'no'
+      - title: Occitan
+        value: oc
+      - title: Oriya
+        value: or
+      - title: Panjabi
+        value: pa
+      - title: Pashto
+        value: ps
+      - title: Persian
+        value: fa
+      - title: Polish
+        value: pl
+      - title: Romanian
+        value: ro
+      - title: Russian
+        value: ru
+      - title: Scottish Gaelic
+        value: gd
+      - title: Serbian
+        value: sr
+      - title: Sindhi
+        value: sd
+      - title: Sinhala
+        value: si
+      - title: Slovak
+        value: sk
+      - title: Slovenian
+        value: sl
+      - title: Somali
+        value: so
+      - title: Spanish
+        value: es
+      - title: Sundanese
+        value: su
+      - title: Swahili
+        value: sw
+      - title: Swati
+        value: ss
+      - title: Swedish
+        value: sv
+      - title: Tagalog
+        value: tl
+      - title: Tamil
+        value: ta
+      - title: Thai
+        value: th
+      - title: Tswana
+        value: tn
+      - title: Turkish
+        value: tr
+      - title: Ukrainian
+        value: uk
+      - title: Urdu
+        value: ur
+      - title: Uzbek
+        value: uz
+      - title: Vietnamese
+        value: vi
+      - title: Welsh
+        value: cy
+      - title: Western Frisian
+        value: fy
+      - title: Wolof
+        value: wo
+      - title: Xhosa
+        value: xh
+      - title: Yiddish
+        value: yi
+      - title: Yoruba
+        value: yo
+      - title: Zulu
+        value: zu
+    customSocket: text
+outputs:
+  text:
+    title: Text
+    description: The translated text.
+    scripts:
+      jsonata: |-
+        $join(translations.text, '
+        ')
+    customSocket: text

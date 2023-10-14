@@ -1,0 +1,188 @@
+category: Image Generation
+description: Create photorealistic images with stable diffusion.
+meta:
+  source:
+    authors:
+      - Automatic1111 and contributors
+      - Stability.ai
+      - runway.ml
+    links:
+      Stable Diffusion XL: https://github.com/Stability-AI/generative-models
+      Stable Diffusion 2.x: https://github.com/Stability-AI/stablediffusion
+      Stable Diffusion 1.x: https://github.com/CompVis/stable-diffusion
+      Automatic111 (API): https://github.com/AUTOMATIC1111/stable-diffusion-webui
+      NextPhoto 1.0 model: https://civitai.com/models/84335/nextphoto
+      EasyNegative Embedding: https://civitai.com/models/7808/easynegative
+      VeryBadImage Embedding: https://civitai.com/models/11772/verybadimagenegative
+title: Create Photorealistic Image
+apiNamespace: automatic1111
+apiOperationId: text2imgapi_sdapi_v1_txt2img_post
+displayNamespace: automatic1111
+displayOperationId: simplePhotography
+scripts:
+  hideExcept:inputs:
+    - steps
+    - checkpoint
+    - mask_blur
+    - cfg_scale
+    - width
+    - height
+    - restore_faces
+    - negative_prompt
+    - prompt
+    - seed
+    - sampler_name
+    - filter_nsfw
+    - x_settings
+  transform:input:
+    - $merge([$,$.x_settings])
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:images
+    opts:
+      readonly: true
+inputs:
+  steps:
+    description: Number of steps to run the diffusion for.
+    default: 30
+    minimum: 1
+    maximum: 200
+  prompt:
+    required: true
+    type: string
+    customSocket: text
+  negative_prompt:
+    required: false
+    default: >-
+      (worst quality:0.8), cartoon, halftone print, (cinematic:1.2),
+      verybadimagenegative_v1.3, easynegative, (surreal:0.8), (modernism:0.8),
+      (art deco:0.8), (art nouveau:0.8)
+    type: string
+    customSocket: text
+  checkpoint:
+    description: The checkpoint to use.
+    default: nextphoto_v20
+    choices:
+      - title: Stable Diffusion 1.5
+        description: >-
+          The standard stable diffusion model, version 1.5. Versatile but not as
+          high quality as the newer models.
+        value: v1-5-pruned-emaonly
+      - title: realisticVision 3.0
+        description: Hyperrealistic Model
+        value: realisticVisionV30_v30VAE
+      - title: I cant believe its not real
+        description: Hyperrealistic Image Model
+        value: icbinpICantBelieveIts_final
+      - title: Realistic Asian Faces
+        description: A model with a focus on realistic asian faces.
+        value: beautifulRealistic_v60
+      - title: Deliberate High Realism
+        description: >-
+          A high quality model with a focus on realism and is better than other
+          models when it comes to anatomically correct humans.
+        value: deliberate_v2
+      - title: NextPhoto Photorealistic model
+        description: >-
+          Photography model for highly realistic people, objects and landscapes.
+          https://civitai.com/models/84335/nextphoto.
+        value: nextphoto_v20
+      - title: Stable Diffusion 2.0
+        description: >-
+          The standard stable diffusion model, version 2.1. Generates higher
+          resolutions better (768px+) but requires signifcantly better prompt
+          engineering.
+        value: v2-1_768-ema-pruned
+      - title: Protogen Photorealism
+        description: >-
+          An model with strong focus on cosplay, people and photorealistic
+          depiction.
+        value: protogenX53Photorealism_10
+      - title: Analog Camera Style
+        description: A model with a focus on analog camera style images.
+        value: analog-diffusion-1.0
+    type: string
+    customSocket: text
+  filter_nsfw:
+    description: Filter NSFW content.
+    default: true
+    type: boolean
+  override_settings:
+    scripts:
+      jsonata: '{ "sd_model_checkpoint": checkpoint  }'
+      delete:
+        - filter_nsfw
+        - checkpoint
+    hidden: true
+    type: object
+  x_settings:
+    title: More Settings
+    scripts:
+      delete:
+        - x_settings
+  tiling:
+    description: Create a seamlessly tiling image.
+  sampler_name:
+    default: DPM++ 2M Karras
+    choices:
+      - Euler a
+      - Euler
+      - LMS
+      - Heun
+      - DPM2
+      - DPM2 a
+      - DPM++ 2S a
+      - DPM++ 2M
+      - DPM++ SDE
+      - DPM fast
+      - DPM adaptive
+      - LMS Karras
+      - DPM2 Karras
+      - DPM2 a Karras
+      - DPM++ 2S a Karras
+      - DPM++ 2M Karras
+      - DPM++ SDE Karras
+      - DDIM
+      - PLMS
+      - UniPC
+  sampler_index:
+    scripts:
+      jsonata: sampler_name
+    hidden: true
+  batch_size:
+    default: 1
+    hidden: true
+  n_iter:
+    default: 1
+    hidden: true
+  cfg_scale:
+    description: >-
+      The CFG scale adjusts how much the image looks closer to the prompt and/
+      or input image. If CFG Scale is greater, the output will be more in line
+      with the input prompt and/or input image, but it will be distorted. On the
+      other hand, the lower the CFG Scale value, the more likely it is to drift
+      away from the prompt or the input image, but the better quality.
+    default: 5.5
+    minimum: 0.25
+    maximum: 25
+    step: 0.25
+  width:
+    default: 704
+    minimum: 512
+    maximum: 1536
+    step: 64
+  height:
+    default: 896
+    minimum: 512
+    maximum: 1536
+    step: 64
+outputs:
+  images:
+    customSocket: image
+    socketOpts:
+      array: true
+  seed:
+    scripts:
+      jsonata: parameters.seed
+    type: integer

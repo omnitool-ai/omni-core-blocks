@@ -1,0 +1,35 @@
+category: Image Manipulation
+description: >-
+  Fixes or restores all faces found on an image.
+title: Restore Face
+apiNamespace: getimg
+apiOperationId: fixFaces
+displayNamespace: getimg
+displayOperationId: fixFaces
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:image
+    opts:
+      readonly: true
+inputs:
+  image:
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+  model:
+    type: string
+    customSocket: text
+    choices:
+      block: getimg.listModels
+      cache: global
+      args: 
+        pipeline: face-fix
+        family: enhancements
+      map:
+        title: name
+        value: id
+outputs:
+  image:
+    customSocket: image

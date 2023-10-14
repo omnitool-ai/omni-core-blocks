@@ -1,0 +1,34 @@
+category: Communication
+title: 'Discord: Send Message'
+apiNamespace: discord
+apiOperationId: Send_a_message
+displayNamespace: discord
+displayOperationId: sendMessage
+inputs:
+  body:
+    scripts:
+      delete:
+        - body
+    hidden: true
+  image:
+    title: Image
+    type: object
+    customSocket: image
+  embeds:
+    default: []
+    scripts:
+      jsonata: '$exists(image)? [{''image'': { ''url'': $.image.url}}] : []'
+      delete:
+        - image
+    hidden: true
+  content:
+    title: Message
+    required: true
+    type: string
+    customSocket: text
+  contentType:
+    default: application/json
+    hidden: true
+  Content-Type:
+    default: application/json
+    hidden: true

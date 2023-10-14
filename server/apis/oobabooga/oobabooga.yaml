@@ -1,0 +1,5 @@
+namespace: oobabooga
+api:
+  spec: ./api/oobabooga.yaml
+  basePath: https://oobabooga.intern.mercenaries.ai
+title: oobabooga

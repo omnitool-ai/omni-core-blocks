@@ -1,0 +1,93 @@
+category: Text Generation
+title: Generate Text
+apiNamespace: textsynth
+apiOperationId: generateCompletion
+displayNamespace: textsynth
+displayOperationId: textCompletion
+inputs:
+  max_tokens:
+    description: >-
+      The maximum number of tokens to generate. Maximum number of tokens to
+      generate. A token represents about 4 characters for English texts. The
+      total number of tokens (prompt + generated text) cannot exceed the model's
+      maximum context length. It is of 2048 for GPT-J and 1024 for the other
+      models. If the prompt length is larger than the model's maximum context
+      length, the beginning of the prompt is discarded.
+    default: 100
+    minimum: 1
+    maximum: 2048
+  temperature:
+    default: 1
+    minimum: 0
+    maximum: 2
+    step: 0.01
+  engine_id:
+    title: Model
+    description: The AI model to use for generating the text.
+    default: mistral_7B
+    choices:
+      - title: Mistral 7B
+        value: mistral_7B
+        description: >
+          7 billion parameter language model with a 4K context length. Outperforms Llama2 13B on many tests.
+      - title: Mistral 7B Instruct
+        value: mistral_7B_instruct
+        description: >
+          Fine-tuned version of Mistral 7B for chat.
+      - title: Falcon 7B
+        value: falcon_7B
+        description: >
+          7 billion parameter language model with a 2K context length trained on 1500G tokens.
+      - title: Falcon 40B
+        value: falcon_40B
+        description: >
+          40 billion parameter language model with a 2K context length trained on 1000G tokens.
+      - title: Falcon 40B-chat
+        value: falcon_40B-chat
+        description: >
+          Fine-tuned version of Falcon 40B for chat.
+      - title: Llama2 7B
+        value: llama2_7B
+        description: >
+          7 billion parameter language model with a 4K context length trained on 2000G tokens. There are specific use restrictions associated with this model.
+      - title: GPT-J 6B (English) by EleutherAI
+        value: gptj_6B
+        description: >
+          6 billion parameter language model with a 2K context length trained on the Pile (825 GB of text data). Mainly in English but also fluent in several other languages. Trained on several computer languages.
+      - title: Flan T5 XXL (English) by Google
+        value: flan_t5_xxl
+        description: >
+          11 billion parameter model fine-tuned to answer questions. It has a 2K encoder context length and 512 decoder context length.
+      - title: M2M100 1.2B (Multilingual) by Facebook
+        value: m2m100_1_2B
+        description: >
+          1.2 billion parameter language model specialized for translation. Supports multilingual translation between 100 languages.
+  stream:
+    hidden: true
+  stop:
+    hidden: true
+  'n':
+    hidden: true
+  logit_bias:
+    hidden: true
+  typical_p:
+    hidden: true
+  presence_penalty:
+    hidden: true
+  frequency_penalty:
+    hidden: true
+  repetition_penalty:
+    hidden: true
+  top_k:
+    hidden: true
+  top_p:
+    hidden: true
+outputs:
+  truncated_prompt:
+    hidden: true
+  reached_end:
+    hidden: true
+  input_tokens:
+    hidden: true
+  output_tokens:
+    hidden: true

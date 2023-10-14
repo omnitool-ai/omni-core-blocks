@@ -1,0 +1,65 @@
+category: Text Generation
+title: Perplexity.ai Chat
+apiNamespace: perplexity
+apiOperationId: chatCompletions
+displayNamespace: perplexity
+displayOperationId: chatCompletion
+scripts:
+  hideExcept:inputs:
+    - temperature
+    - prompt
+    - model
+    - instruction
+    - top_p
+    - max_tokens
+inputs:
+  temperature:
+    minimum: 0
+    maximum: 2
+    step: 0.1
+  top_p:
+    default: 1
+    minimum: 0
+    maximum: 1
+    step: 0.05
+  instruction:
+    default: You are a helpful bot.  You can help people by answering their questions.
+    type: string
+    customSocket: text
+  prompt:
+    required: true
+    type: string
+    customSocket: text
+  messages:
+    scripts:
+      jsonata: >-
+        [{"role":"system", "content": $string(instruction) }, {"role":"user",
+        "content": $string(prompt) }]
+      delete:
+        - prompt
+        - instruction
+  stream:
+    type: boolean
+    default: false
+outputs:
+  model:
+    hidden: true
+  object:
+    hidden: true
+  id:
+    hidden: true
+  usage:
+    type: object
+  choices:
+    hidden: true
+  created:
+    hidden: true
+  answer_text:
+    scripts:
+      jsonata: choices[0].message.content
+    type: string
+    customSocket: text
+  raw_output:
+    type: object
+    scripts:
+      jsonata: choices[0]

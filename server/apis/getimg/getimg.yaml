@@ -1,0 +1,5 @@
+namespace: getimg
+api:
+  spec: ./api/getimg.yaml
+  basePath: https://api.getimg.ai
+title: getimg

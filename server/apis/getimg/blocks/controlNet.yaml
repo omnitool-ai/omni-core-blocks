@@ -1,0 +1,35 @@
+category: Image Generation
+description: >-
+  Generates an image based on a control image and a text prompt using the Stable Diffusion family of models.
+title: ControlNet (Stable Diffusion)
+apiNamespace: getimg
+apiOperationId: controlNet
+displayNamespace: getimg
+displayOperationId: controlNet
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:image
+    opts:
+      readonly: true
+inputs:
+  image:
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+  model:
+    type: string
+    customSocket: text
+    choices:
+      block: getimg.listModels
+      cache: global
+      args: 
+        pipeline: controlnet
+        family: stable-diffusion
+      map:
+        title: name
+        value: id
+outputs:
+  image:
+    customSocket: image

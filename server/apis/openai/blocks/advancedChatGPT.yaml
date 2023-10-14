@@ -1,0 +1,136 @@
+category: Text Generation
+meta:
+  source:
+    title: 'ChatGPT: Conversational LLM'
+    links:
+      Website: https://openai.com/chatgpt
+      Blog: https://openai.com/blog/chatgpt
+      API Docs: https://openai.com/blog/introducing-chatgpt-and-whisper-apis
+      Subscription: https://platform.openai.com/apps
+      Research: https://openai.com/research
+    summary: >-
+      ChatGPT is a Large Language Model (LLM) by OpenAI trained to converse with
+      the user in a conversational way.
+title: ChatGPT (Advanced)
+apiNamespace: openai
+apiOperationId: createChatCompletion
+displayNamespace: openai
+displayOperationId: advancedChatGPT
+scripts:
+  hideExcept:inputs:
+    - temperature
+    - prompt
+    - model
+    - instruction
+    - function
+    - top_p
+inputs:
+  temperature:
+    description: >-
+      The randomness regulator, higher for more creativity, lower for more
+      structured, predictable text.
+    minimum: 0
+    maximum: 2
+    step: 0.1
+  function:
+    type: object
+    customSocket: object
+  functions:
+    type: array≠
+    customSocket: object
+    socketOpts:
+      array: true
+    scripts:
+      jsonata: >-
+        $exists(function) ? [function] : None
+      delete:
+        - function
+  instruction:
+    default: You are a helpful bot.  You can help people by answering their questions.
+    type: string
+    customSocket: text
+  prompt:
+    required: true
+    type: string
+    customSocket: text
+  function_call:
+    type: string
+    scripts:
+      jsonata: >-
+        functions.length > 0 ? "auto" : None
+  messages:
+    scripts:
+      jsonata: >-
+        [{"role":"system", "content": $string(instruction) }, {"role":"user",
+        "content": $string(prompt) }]
+      delete:
+        - prompt
+        - instruction
+  model:
+    title: Model
+    default: gpt-3.5-turbo
+    choices:
+      block: openai.getGPTModels
+      cache: user
+      map:
+        root: models
+  top_p:
+    description: >-
+      An alternative to sampling with temperature, called nucleus sampling,
+      where the model considers the results of the tokens with top_p probability
+      mass. So 0.1 means only the tokens comprising the top 10% probability mass
+      are considered. We generally recommend altering this or temperature but
+      not both
+    default: 1
+    minimum: 0
+    maximum: 1
+    step: 0.05
+outputs:
+  model:
+    hidden: true
+  object:
+    hidden: true
+  id:
+    hidden: true
+  usage:
+    hidden: true
+  choices:
+    hidden: true
+  created:
+    hidden: true
+  answer_text:
+    scripts:
+      jsonata: choices[0].message.content
+    type: string
+    customSocket: text
+  function_call:
+    scripts:
+      jsonata: >-
+        {'name': choices[0].message.function_call.name, 'arguments':'string' ?
+        $eval(choices[0].message.function_call.arguments) :
+        choices[0].message.function_call.arguments}
+    type: object
+    customSocket: object
+  function_arguments_string:
+    description: This is a string representation of the function arguments.
+    scripts:
+      jsonata: $string(choices[0].message.function_call.arguments)
+    type: string
+    customSocket: text
+  function_arguments:
+    description: >-
+      This is an object representation of the function arguments. However, note
+      that this may fail as the output is often not formatted properly.
+    scripts:
+      jsonata: $eval(function_arguments_string)
+    type: object
+    customSocket: object
+  function_name:
+    scripts:
+      jsonata: choices[0].message.function_call.name
+    type: string
+    customSocket: text
+  raw_output:
+    type: object
+    scripts:
+      jsonata: choices[0]

@@ -1,0 +1,149 @@
+category: Image Generation
+description: >-
+  Stable Diffusion is a family of text-to-image generative AI models capable of
+  producing high quality images.
+meta:
+  source:
+    authors:
+      - Automatic1111 and contributors
+      - Stability.ai
+      - runway.ml
+    links:
+      Stable Diffusion XL: https://github.com/Stability-AI/generative-models
+      Stable Diffusion 2.x: https://github.com/Stability-AI/stablediffusion
+      Stable Diffusion 1.x: https://github.com/CompVis/stable-diffusion
+      Automatic111 (API): https://github.com/AUTOMATIC1111/stable-diffusion-webui
+      Guide: https://stable-diffusion-art.com/automatic1111
+title: Text to Image
+apiNamespace: automatic1111
+apiOperationId: text2imgapi_sdapi_v1_txt2img_post
+displayNamespace: automatic1111
+displayOperationId: simpleStableDiffusion
+scripts:
+  hideExcept:inputs:
+    - steps
+    - tiling
+    - checkpoint
+    - cfg_scale
+    - width
+    - height
+    - restore_faces
+    - negative_prompt
+    - prompt
+    - seed
+    - sampler_name
+    - filter_nsfw
+    - x_settings
+  transform:input:
+    - $merge([$,$.x_settings])
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:images
+    opts:
+      readonly: true
+inputs:
+  seed:
+    description: >-
+      A number used to determine the initial noise distribution for the image.
+      Different seed values will create unique image results. The special value,
+      -1, will generate a random seed instead.
+  restore_faces:
+    description: >-
+      Run an additional AI model to improve the quality of faces in the output
+      image.
+  steps:
+    description: Number of steps to run the diffusion process.
+    default: 30
+    minimum: 20
+    maximum: 80
+  prompt:
+    description: A text description that guides the diffusion process.
+    required: true
+  checkpoint:
+    title: Model
+    description: The diffusion model (checkpoint) to use.
+    default: v1-5-pruned-emaonly
+    choices:
+      block: automatic1111.getModels
+      cache: global
+      map:
+        title: model_name
+        value: model_name
+    type: string
+    customSocket: text
+  sampler_name:
+    title: Sampler
+    default: DPM++ 2M
+    choices:
+      block: automatic1111.getSamplers
+      cache: global
+      map:
+        title: name
+        value: name
+  filter_nsfw:
+    title: Filter NSFW
+    description: >-
+      Check generated images for Not-Safe-For-Work (NSFW) content and replace
+      with a placeholder.
+    default: true
+    type: boolean
+  override_settings:
+    scripts:
+      jsonata: '{ "sd_model_checkpoint": checkpoint  }'
+      delete:
+        - filter_nsfw
+        - checkpoint
+    hidden: true
+    type: object
+  x_settings:
+    title: More Settings
+    scripts:
+      delete:
+        - x_settings
+  tiling:
+    description: Create a seamlessly tiling image.
+  sampler_index:
+    scripts:
+      jsonata: sampler_name
+    hidden: true
+  batch_size:
+    default: 1
+    hidden: true
+  n_iter:
+    default: 1
+    hidden: true
+  cfg_scale:
+    title: CFG Scale
+    description: >-
+      The Classifier-Free Guidance Scale (CFG Scale) adjusts how much the output
+      image is influenced by the input prompt. If you set the CFG Scale higher
+      (10+), the output will be more like the input but might be a less pleasing
+      image. If you set it lower (e.g. 3), the image quality will be better, but
+      it will be unlikely to match the input prompt. The best setting is usually
+      around 7 or 8, where the image looks good and is still controllable by the
+      input prompt.
+    default: 7
+    minimum: 2
+    maximum: 20
+    step: 0.25
+  width:
+    default: 512
+    minimum: 512
+    maximum: 1536
+    step: 4
+  height:
+    default: 512
+    minimum: 512
+    maximum: 1536
+    step: 4
+outputs:
+  images:
+    customSocket: image
+    socketOpts:
+      array: true
+  seed:
+    title: Seed
+    scripts:
+      jsonata: parameters.seed
+    type: integer

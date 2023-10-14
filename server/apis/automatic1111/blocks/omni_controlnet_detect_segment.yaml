@@ -1,0 +1,54 @@
+category: Computer Vision
+description: 'ControlNet: Segmentation'
+title: 'ControlNet: Segmentation'
+apiNamespace: automatic1111
+apiOperationId: detect_controlnet_detect_post
+displayNamespace: automatic1111
+displayOperationId: omni_controlnet_detect_segment
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:images
+    opts:
+      readonly: true
+inputs:
+  controlnet_module:
+    title: Module
+    default: oneformer_ade20k
+    choices:
+      - title: Segment
+        value: segmentation
+      - title: 'OneFormer: COCO'
+        description: >-
+          OneFormer: COCO - Detects objects in an image using the OneFormer:
+          COCO model.
+        value: oneformer_coco
+      - title: 'OneFormer: ADE20k'
+        description: >-
+          OneFormer: ADE20k - Detects objects in an image using the OneFormer:
+          ADE20k model.
+        value: oneformer_ade20k
+  controlnet_threshold_a:
+    hidden: true
+  controlnet_threshold_b:
+    hidden: true
+  controlnet_processor_res:
+    title: Processor Resolution
+    default: 512
+    minimum: 64
+    maximum: 2048
+    step: 64
+  controlnet_input_images:
+    title: Input Images
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+      array: true
+outputs:
+  images:
+    title: Images
+    type: object
+    customSocket: image
+    socketOpts:
+      array: true

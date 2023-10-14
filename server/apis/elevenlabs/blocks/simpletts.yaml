@@ -1,0 +1,60 @@
+category: Text-to-Speech
+description: >-
+  Text to Speech Synthesis using the ElevenLabs API, supporting a variety of
+  monolingual (english) and multilingual voices.
+meta:
+  source:
+    title: 'ElevenLabs: Text To Speech'
+    links:
+      Website: https://beta.elevenlabs.io/speech-synthesis
+      Subscription: https://beta.elevenlabs.io/subscription
+      API Reference: https://docs.elevenlabs.io/api-reference/quick-start/introduction
+      Documentation: https://docs.elevenlabs.io/welcome/introduction
+      Voice Lab: https://beta.elevenlabs.io/voice-lab
+    summary: >-
+      Text to Speech Synthesis using the ElevenLabs API, supporting a variety of
+      monolingual (english) and multilingual voices.
+title: Text To Speech
+apiNamespace: elevenlabs
+apiOperationId: Text_to_speech_v1_text_to_speech__voice_id__post
+displayNamespace: elevenlabs
+displayOperationId: simpletts
+inputs:
+  xi-api-key:
+    hidden: true
+  optimize_streaming_latency:
+    hidden: true
+  model_id:
+    default: eleven_monolingual_v1
+    choices:
+      - eleven_monolingual_v1
+      - eleven_multilingual_v1
+      - eleven_multilingual_v2
+    type: string
+    customSocket: text
+  voice_settings:
+    scripts:
+      jsonata: '{"stability": 0, "similarity_boost": 0, "style": $number(style)}'
+      delete:
+        - style
+    hidden: true
+  style:
+    title: Style
+    description: Customizes the Style of the Voice
+    default: 0.5
+    minimum: 0
+    maximum: 1
+    step: 0.1
+  voice_id:
+    default: EXAVITQu4vr4xnSDxMaL
+    choices:
+      block: elevenlabs.getVoices
+      cache: user
+      map:
+        root: voices
+        title: name
+        value: voice_id
+        description: description
+outputs:
+  result:
+    customSocket: audio

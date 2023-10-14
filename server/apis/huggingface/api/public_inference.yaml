@@ -1,0 +1,292 @@
+openapi: 3.1.0
+info: 
+  title: Public Inference Huggingface
+  version: 1.0
+paths: 
+
+  text_to_image: 
+    post: 
+      operationId: text_to_image
+      category: Text To Image
+      title: Text to Image (Huggingface)
+      requestBody: 
+        required: true
+        content: 
+          application/json: 
+            schema: 
+              type: object
+              properties: 
+                
+                model: 
+                  type: string
+                  description: model
+                  default: 'stabilityai/stable-diffusion-2'
+                
+                prompt: 
+                  type: string
+                  description: Prompt
+                  default: award winning high resolution photo of a giant tortoise/((ladybird)) hybrid [trending on artstation]
+                
+                negative_prompt: 
+                  type: string
+                  description: Negative prompt
+                  default: blurry ugly deformed
+              
+      responses: 
+        '200': 
+          description: Successful operation
+          content: 
+            application/json: 
+              schema: 
+                type: object
+                properties: 
+                  image: 
+                    type: object
+                    x-type: imageArray
+                    title: Images
+                    description: Output of the model
+                    customSocket: image
+ 
+  image_to_text: 
+    post: 
+      operationId: image_to_text
+      title: Huggingface Image to text
+      requestBody: 
+        required: true
+        content: 
+          application/json: 
+            schema: 
+              type: object
+              properties: 
+                
+                model: 
+                  type: string
+                  description: model
+                  default: 'nlpconnect/vit-gpt2-image-captioning'
+                
+                image: 
+                  type: object
+                  x-type: imageArray
+                  title: Image
+                  description: Input image to the model
+
+      responses: 
+        '200': 
+          description: Successful operation
+          content: 
+            application/json: 
+              schema: 
+                type: object
+                properties: 
+                  text_output: 
+                    type: string
+                    title: Text Description
+                    x-type: text
+                    description: The description of the image
+
+  summarization_task:
+    post: 
+      operationId: summarization_task
+      title: Summarization Task with Huggingface
+      requestBody: 
+        required: true
+        content: 
+          application/json: 
+            schema: 
+              type: object
+              properties: 
+                
+                model: 
+                  type: string
+                  description: model
+                
+                inputs: 
+                  type: string
+                  description: A string to be summarized
+
+                min_length:
+                  type: number
+                  description: Integer to define the minimum length in tokens of the output summary.
+                
+                max_length:
+                  type: number
+                  description: Integer to define the maximum length in tokens of the output summary.
+
+                top_k:
+                  type: number
+                  description: Integer to define the top tokens considered within the sample operation to create new text.
+
+                top_p:
+                  type: number
+                  description: Float to define the tokens that are within the sample operation of text generation. Add tokens in the sample for more probable to least probable until the sum of the probabilities is greater than top_p.
+
+                temperature:
+                  type: number
+                  description: Float (0.0-100.0). The temperature of the sampling operation. 1 means regular sampling, 0 means always take the highest score, 100.0 is getting closer to uniform probability.
+                  default: 1.0
+
+                repetition_penalty:
+                  type: number
+                  description: Float (0.0-100.0). The more a token is used within generation the more it is penalized to not be picked in successive generation passes.
+
+                max_time:
+                  type: number
+                  description: Float (0-120.0). The amount of time in seconds that the query should take maximum. Network can cause some overhead so it will be a soft limit.
+
+                use_cache:
+                  type: boolean
+                  description: Boolean. There is a cache layer on the inference API to speedup requests we have already seen. Most models can use those results as is as models are deterministic (meaning the results will be the same anyway). However if you use a non deterministic model, you can set this parameter to prevent the caching mechanism from being used resulting in a real new query.
+                  default: true
+
+                wait_for_model:
+                  type: boolean
+                  description: Boolean. If the model is not ready, wait for it instead of receiving 503. It limits the number of requests required to get your inference done. It is advised to only set this flag to true after receiving a 503 error as it will limit hanging in your application to known places.
+                  default: false
+
+      responses: 
+        '200': 
+          description: Successful operation
+          content: 
+            application/json: 
+              schema: 
+                type: object
+                properties: 
+                  summary_text: 
+                    type: string
+                    title: Summary Text
+                    x-type: text
+                    description: 	The string after summarization
+                
+  image_to_image:
+    post: 
+      operationId: image_to_image
+      title: Huggingface Image to Image Transformation 
+      requestBody: 
+        required: true
+        content: 
+           application/json:
+            schema: 
+              type: object
+              properties: 
+
+                model: 
+                  type: string
+                  description: model
+
+                inputs: 
+                  type: object
+                  x-type: imageArray
+                  title: Images
+                  description: Input images to the model
+                  customSocket: image
+                  
+                prompt:
+                  type: string
+                  description: The text prompt to guide the image generation.
+
+                strength:
+                  type: number
+                  description: Conceptually, indicates how much to transform the reference image. Must be between 0 and 1.
+                  default: 0.5
+                
+                negative_prompt:
+                  type: string
+                  description: An optional negative prompt for the image generation
+
+                height:
+                  type: number
+                  description: The height in pixels of the generated image
+                  default: 512
+                  
+                width:
+                  type: number
+                  description: The width in pixels of the generated image
+                  default: 512
+
+                num_inference_steps:
+                  type: number
+                  description: The number of denoising steps. More steps usually lead to higher quality images but slower inference.
+                  default: 20
+
+                guidance_scale:
+                  type: number
+                  description: Higher guidance scale encourages to generate images closely linked to the text prompt, usually at the expense of lower image quality.
+                  default: 3
+
+                guess_mode:
+                  type: boolean
+                  description: Works for ControlNet models, enables the encoder to recognize the content of the input image even without prompts. Recommended guidance_scale between 3.0 and 5.0.
+                  default: false
+
+      responses: 
+        '200': 
+          description: Successful operation
+          content: 
+            application/json:
+              schema: 
+                type: object
+                properties: 
+                  images: 
+                    type: object
+                    x-type: imageArray
+                    title: Images
+                    customSocket: image
+                    description: Output of the model       
+               
+  image_segmentation:
+    post: 
+      operationId: image_segmentation
+      title: Huggingface Image Segmentation
+      requestBody: 
+        required: true
+        content: 
+           application/json:
+            schema: 
+              type: object
+              properties: 
+
+                model: 
+                  type: string
+                  description: model
+
+                data: 
+                  type: object
+                  x-type: imageArray
+                  title: Image
+                  description: Input images to the model
+                  customSocket: image
+
+      responses: 
+        '200': 
+          description: Successful operation
+          content: 
+            application/json:
+              schema: 
+                type: object
+                properties: 
+
+                  labels: 
+                    type: array
+                    items:
+                      type: string
+                    title: Labels
+                    description: The labels for the class (model specific) of the segments.
+
+                  masks:
+                    type: array
+                    x-type: imageB64Array
+                    customSocket: imageB64Array
+                    title: Masks
+                    description: Single channel black-and-white images representing the mask of the segments.
+
+                  scores:
+                    type: array
+                    title: Scores
+                    description: Floats that represent how likely it is that the detected object belongs to the given class.
+                    items:
+                      type: string
+      
+      
+    
+
+

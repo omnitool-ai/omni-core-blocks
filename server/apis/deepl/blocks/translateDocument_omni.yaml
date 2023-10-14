@@ -1,0 +1,6 @@
+category: Translation
+title: Document Translation (WIP)
+apiNamespace: deepl
+apiOperationId: translateDocument
+displayNamespace: deepl
+displayOperationId: translateDocument_omni

@@ -1,0 +1,23 @@
+category: Model Operations
+meta:
+  source:
+    title: Download Model (Civitai)
+    links:
+      Civitai Website: https://civitai.com/
+      API Documentation: https://github.com/civitai/civitai/wiki/REST-API-Reference
+    authors:
+      - Civitai Team
+    summary: >-
+      Civitai Download Model API allows you to download a specific model
+      version.
+title: Download Model (WIP)
+apiNamespace: civitai
+apiOperationId: downloadModel
+displayNamespace: civitai
+displayOperationId: downloadModel_omni
+inputs:
+  modelVersionId:
+    title: Model Version ID
+    description: The unique identifier of the model version to be downloaded.
+    required: true
+    customSocket: text

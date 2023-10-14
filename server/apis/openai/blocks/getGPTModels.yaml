@@ -1,0 +1,29 @@
+category: Model Operations
+meta:
+  source:
+    title: 'ChatGPT: Conversational LLM'
+    links:
+      Website: https://openai.com/chatgpt
+      Blog: https://openai.com/blog/chatgpt
+      API Docs: https://openai.com/blog/introducing-chatgpt-and-whisper-apis
+      Subscription: https://platform.openai.com/apps
+      Research: https://openai.com/research
+    summary: >-
+      ChatGPT is a Large Language Model (LLM) by OpenAI trained to converse with
+      the user in a conversational way.
+title: Get GPT Models
+apiNamespace: openai
+apiOperationId: listModels
+displayNamespace: openai
+displayOperationId: getGPTModels
+outputs:
+  models:
+    scripts:
+      jsonata: >-
+        $map($filter(data, function($v, $i, $a) { $v.id != null and $v.id ~>
+        /^gpt-/ }), function($v, $i, $a) { $v.id })
+    type: list
+  object:
+    hidden: true
+  data:
+    hidden: true

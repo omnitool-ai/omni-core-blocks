@@ -1,0 +1,36 @@
+category: Model Operations
+meta:
+  source:
+    title: Get Model by Hash (Civitai)
+    links:
+      Civitai Website: https://civitai.com/
+      API Documentation: >-
+        https://github.com/civitai/civitai/wiki/REST-API-Reference#get-apiv1modelhash
+    authors:
+      - Civitai Team
+    summary: This component retrieves a model by its hash.
+title: Get Model Info by Hash
+apiNamespace: civitai
+apiOperationId: getModelByHash
+displayNamespace: civitai
+displayOperationId: getModelByHash_omni
+inputs:
+  hash:
+    title: Model Hash
+    required: true
+outputs:
+  id:
+    title: Model Version ID
+    customSocket: text
+  modelId:
+    title: Model ID
+    customSocket: text
+  json:
+    title: JSON
+    description: The full information of the model in JSON format.
+    scripts:
+      jsonata: $eval($string($))
+    type: object
+    customSocket: object
+  trainedWords:
+    title: Trained Words

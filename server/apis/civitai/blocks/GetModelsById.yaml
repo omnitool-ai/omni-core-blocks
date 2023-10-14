@@ -1,0 +1,30 @@
+category: Model Operations
+meta:
+  source:
+    title: Get Models by Model Id (Civitai)
+    links:
+      Civitai Website: https://civitai.com/
+      API Documentation: >-
+        https://github.com/civitai/civitai/wiki/REST-API-Reference#get-apiv1modelsmodelid
+    authors:
+      - Civitai Team
+    summary: This component retrieves detailed information for models by ID.
+title: Get Models by Model Id
+apiNamespace: civitai
+apiOperationId: getModelsById
+displayNamespace: civitai
+displayOperationId: GetModelsById
+inputs:
+  modelId:
+    title: Model ID
+    required: true
+outputs:
+  id:
+    title: Model ID
+    customSocket: text
+  json:
+    title: JSON
+    scripts:
+      jsonata: $eval($string($))
+    type: object
+    customSocket: object

@@ -1,0 +1,58 @@
+category: Image Operations
+meta:
+  source:
+    title: Images Search (Civitai)
+    links:
+      Civitai Website: https://civitai.com/
+      API Documentation: >-
+        https://github.com/civitai/civitai/wiki/REST-API-Reference#get-apiv1images
+    authors:
+      - Civitai Team
+    summary: >-
+      Image Search provided by Civitai. It supports search of images based on
+      different parameters like postId, modelId, versionId, creator..etc.
+title: Search Images
+apiNamespace: civitai
+apiOperationId: searchImages
+displayNamespace: civitai
+displayOperationId: searchImages_omni
+inputs:
+  limit:
+    title: Limit
+    description: Limit the number of returned results.
+    required: true
+    default: 1
+    minimum: 1
+    maximum: 10
+    step: 1
+  sort:
+    title: Sort By
+    default: Most Reactions
+    choices:
+      - Most Reactions
+      - Most Comments
+      - Newest
+  period:
+    title: Period
+    default: AllTime
+    choices:
+      - AllTime
+      - Year
+      - Month
+      - Week
+      - Day
+outputs:
+  images:
+    title: Images URLs
+    description: The search results.
+    scripts:
+      jsonata: $map(items, function($v, $i, $a) {$v.url})
+    customSocket: object
+    socketOpts:
+      array: true
+  json:
+    title: JSON
+    scripts:
+      jsonata: $eval($string($))
+    type: object
+    customSocket: object

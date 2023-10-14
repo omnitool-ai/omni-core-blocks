@@ -1,0 +1,11 @@
+category: Document Processing
+title: Full Text
+apiNamespace: scholarai
+apiOperationId: getFullText
+displayNamespace: scholarai
+displayOperationId: getFullText_omni
+outputs:
+  pdf_url:
+    hidden: true
+  chunk:
+    hidden: true

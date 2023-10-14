@@ -1,0 +1,16 @@
+category: Utilities
+title: 'GitHub: Create Issue'
+apiNamespace: github
+apiOperationId: issues_create
+displayNamespace: github
+displayOperationId: mercs_issues_create
+inputs:
+  title:
+    customSocket: text
+  milestone:
+    scripts:
+      delete:
+        - assignees
+        - assignee
+        - labels
+    customSocket: text

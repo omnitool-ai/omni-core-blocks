@@ -1,0 +1,5 @@
+namespace: wolfram
+api:
+  url: https://openpm.ai/packages/wolframalpha/openapi.yaml
+  basePath: https://www.wolframalpha.com
+title: wolfram

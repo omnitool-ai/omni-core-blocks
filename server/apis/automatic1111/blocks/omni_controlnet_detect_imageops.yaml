@@ -1,0 +1,44 @@
+category: Computer Vision
+description: 'ControlNet: Image Manipulation'
+title: 'ControlNet: Image Manipulation'
+apiNamespace: automatic1111
+apiOperationId: detect_controlnet_detect_post
+displayNamespace: automatic1111
+displayOperationId: omni_controlnet_detect_imageops
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:images
+    opts:
+      readonly: true
+inputs:
+  controlnet_module:
+    title: Module
+    default: invert
+    choices:
+      - title: Invert Mask
+        description: Invert a mask image (black/white).
+        value: invert
+      - title: Shuffle Image
+        description: Shuffles the image elements in an organic way
+        value: shuffle
+  controlnet_threshold_a:
+    hidden: true
+  controlnet_threshold_b:
+    hidden: true
+  controlnet_processor_res:
+    hidden: true
+  controlnet_input_images:
+    title: Input Images
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+      array: true
+outputs:
+  images:
+    title: Images
+    type: object
+    customSocket: image
+    socketOpts:
+      array: true

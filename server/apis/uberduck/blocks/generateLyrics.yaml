@@ -1,0 +1,6 @@
+category: Text-to-Speech
+title: Generate Lyrics
+apiNamespace: uberduck
+apiOperationId: generate_lyrics_tts_lyrics_post
+displayNamespace: uberduck
+displayOperationId: generateLyrics

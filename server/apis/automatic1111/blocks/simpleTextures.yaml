@@ -1,0 +1,176 @@
+category: Image Generation
+description: Create textures and PBR materials.
+meta:
+  source:
+    authors:
+      - Automatic1111 and contributors
+      - Stability.ai
+      - runway.ml
+    links:
+      Stable Diffusion XL: https://github.com/Stability-AI/generative-models
+      Stable Diffusion 2.x: https://github.com/Stability-AI/stablediffusion
+      Stable Diffusion 1.x: https://github.com/CompVis/stable-diffusion
+      Automatic111 (API): https://github.com/AUTOMATIC1111/stable-diffusion-webui
+      Texture Diffusion model: https://civitai.com/models/15873/texture-diffusion
+      Spherical Planet model: >-
+        https://civitai.com/models/19616/planet-sphereworldmaptexture-height-or-colour-v10
+      Diffuse Texture LoRA: https://civitai.com/models/50391/diffuse-texture
+title: Create Textures
+apiNamespace: automatic1111
+apiOperationId: text2imgapi_sdapi_v1_txt2img_post
+displayNamespace: automatic1111
+displayOperationId: simpleTextures
+scripts:
+  hideExcept:inputs:
+    - steps
+    - checkpoint
+    - tiling
+    - mask_blur
+    - cfg_scale
+    - width
+    - height
+    - restore_faces
+    - negative_prompt
+    - prompt
+    - seed
+    - sampler_name
+    - filter_nsfw
+    - x_settings
+  transform:input:
+    - $merge([$,$.x_settings])
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:images
+    opts:
+      readonly: true
+inputs:
+  steps:
+    description: Number of steps to run the diffusion process.
+    default: 20
+    minimum: 1
+    maximum: 200
+  prompt:
+    required: true
+    type: string
+    customSocket: text
+  negative_prompt:
+    required: false
+    default: >-
+      bad quality, error, blurry, blurred, poor quality, vignetting, text,
+      watermark, signature
+    type: string
+    customSocket: text
+  checkpoint:
+    description: The checkpoint to use.
+    default: TextureDiffusion_10
+    choices:
+      - title: Stable Diffusion 1.5
+        description: >-
+          The standard stable diffusion model, version 1.5. Versatile but not as
+          high quality as the newer models.
+        value: v1-5-pruned-emaonly
+      - title: Deliberate V2.0
+        description: >-
+          A high quality model with a focus on realism and is better than other
+          models when it comes to anatomically correct humans.
+        value: deliberate_v2
+      - title: Texture Diffusion 1.0
+        description: >-
+          A model specifically trained to generate textures for PBR Materials.
+          Trigger word 'pbr' should be included in prompt.
+        value: TextureDiffusion_10
+      - title: Stable Diffusion 2.0
+        description: >-
+          The standard stable diffusion model, version 2.1. Generates higher
+          resolutions better (768px+) but requires signifcantly better prompt
+          engineering.
+        value: v2-1_768-ema-pruned
+      - title: Spherical Planet Model
+        description: >-
+          Creates a spherical planet texture ready to be wrapped on a sphere.
+          Supports 3 modes via prompt keywords: SphereWorldMap
+          sphere-height-map-texture sphere-colour-texture
+        value: planet_Sphereworldmaptexture
+    type: string
+    customSocket: text
+  filter_nsfw:
+    description: Filter NSFW content.
+    default: true
+    type: boolean
+  override_settings:
+    scripts:
+      jsonata: '{ "sd_model_checkpoint": checkpoint  }'
+      delete:
+        - filter_nsfw
+        - checkpoint
+    hidden: true
+    type: object
+  x_settings:
+    title: More Settings
+    scripts:
+      delete:
+        - x_settings
+  tiling:
+    description: Create a seamlessly tiling image.
+  sampler_name:
+    default: Euler a
+    choices:
+      - Euler a
+      - Euler
+      - LMS
+      - Heun
+      - DPM2
+      - DPM2 a
+      - DPM++ 2S a
+      - DPM++ 2M
+      - DPM++ SDE
+      - DPM fast
+      - DPM adaptive
+      - LMS Karras
+      - DPM2 Karras
+      - DPM2 a Karras
+      - DPM++ 2S a Karras
+      - DPM++ 2M Karras
+      - DPM++ SDE Karras
+      - DDIM
+      - PLMS
+      - UniPC
+  sampler_index:
+    hidden: true
+  batch_size:
+    default: 1
+    hidden: true
+  n_iter:
+    default: 1
+    hidden: true
+  cfg_scale:
+    description: >-
+      The CFG scale adjusts how much the image looks closer to the prompt and/
+      or input image. If CFG Scale is greater, the output will be more in line
+      with the input prompt and/or input image, but it will be distorted. On the
+      other hand, the lower the CFG Scale value, the more likely it is to drift
+      away from the prompt or the input image, but the better quality.
+    default: 7
+    minimum: 0.25
+    maximum: 25
+    step: 0.25
+  width:
+    default: 768
+    minimum: 512
+    maximum: 1536
+    step: 64
+  height:
+    default: 768
+    minimum: 512
+    maximum: 1536
+    step: 64
+outputs:
+  images:
+    customSocket: image
+    socketOpts:
+      array: true
+  seed:
+    scripts:
+      jsonata: parameters.seed
+    type: integer

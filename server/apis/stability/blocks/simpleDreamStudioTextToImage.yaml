@@ -1,0 +1,90 @@
+category: Image Generation
+title: Text to Image
+apiNamespace: stability
+apiOperationId: textToImage
+displayNamespace: stability
+displayOperationId: simpleDreamStudioTextToImage
+inputs:
+  engine_id:
+    default: stable-diffusion-v1-5
+    hidden: true
+    type: string
+  prompts:
+    title: Prompts
+    description: >-
+      Enter positive text prompt and weight for each line or seperate by commas.
+      The weight is a number between 0 and 1 that determines how much the prompt
+      affects the image. A weight of 0 means the prompt will not affect the
+      image at all. A weight of 1 means the prompt will have the maximum effect
+      on the image while a weight of -1 means negative effect on the image.
+      Default is 1
+    type: string
+    customSocket: text
+  text_prompts:
+    scripts:
+      jsonata: |
+        [
+          $map($split(prompts, /[\n,]/), function($v, $i, $a) {
+            {
+              "text": $split($trim($v), ":")[0],
+              "weight": $number($split($trim($v), ":")[1] != "" ? $trim($split($trim($v), ":")[1]) : "1")
+            }
+          })
+        ]
+      delete:
+        - prompts
+    hidden: true
+    type: array
+  style_preset:
+    title: Style Preset
+    choices:
+      - enhance
+      - anime
+      - photographic
+      - digital-art
+      - comic-book
+      - fantasy-art
+      - line-art
+      - analog-film
+      - neon-punk
+      - isometric
+      - low-poly
+      - origami
+      - modeling-compound
+      - cinematic
+      - 3d-model
+      - pixel-art
+      - tile-texture
+    type: string
+outputs:
+  json:
+    title: JSON
+    scripts:
+      jsonata: artifacts[0]
+    type: object
+    customSocket: object
+    socketOpts:
+      array: true
+  image:
+    title: Image
+    scripts:
+      jsonata: artifacts[0].base64
+    customSocket: image
+    socketOpts:
+      array: true
+  seed:
+    title: Seed
+    scripts:
+      jsonata: artifacts[0].seed
+    type: array
+    customSocket: text
+    socketOpts:
+      array: true
+  finishReason:
+    title: Result
+    scripts:
+      jsonata: artifacts[0].finishReason
+    type: array
+    customSocket: text
+    socketOpts:
+      array: true

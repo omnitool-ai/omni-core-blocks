@@ -1,0 +1,5 @@
+namespace: apimeme
+api:
+  spec: ./api/apimeme.yaml
+  basePath: https://apimeme.com
+title: apimeme

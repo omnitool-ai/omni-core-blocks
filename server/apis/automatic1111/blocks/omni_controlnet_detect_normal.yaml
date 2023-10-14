@@ -1,0 +1,57 @@
+category: Computer Vision
+description: 'ControlNet: Normal Map'
+title: 'ControlNet: Normal Map'
+apiNamespace: automatic1111
+apiOperationId: detect_controlnet_detect_post
+displayNamespace: automatic1111
+displayOperationId: omni_controlnet_detect_normal
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:images
+    opts:
+      readonly: true
+inputs:
+  controlnet_module:
+    title: Module
+    default: normal_map
+    choices:
+      - title: Normal Map (Midas)
+        value: normal_map
+        description: >-
+          Normal Map (Midas) - Detects normal maps in an image using the Midas
+          Depth model.
+      - title: Normal Map (BAE)
+        value: normal_bae
+        description: >-
+          Normal Map (BAE) - Detects normal maps in an image using the BAE
+          model. This model supports Background Thresholding
+  controlnet_threshold_a:
+    title: Normal Background Threshold
+    default: 0.4
+    minimum: 0
+    maximum: 1
+    scripts: {}
+    step: 0.01
+  controlnet_threshold_b:
+    hidden: true
+  controlnet_processor_res:
+    title: Processor Resolution
+    default: 512
+    minimum: 64
+    maximum: 2048
+    step: 64
+  controlnet_input_images:
+    title: Input Images
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+      array: true
+outputs:
+  images:
+    title: Images
+    type: object
+    customSocket: image
+    socketOpts:
+      array: true

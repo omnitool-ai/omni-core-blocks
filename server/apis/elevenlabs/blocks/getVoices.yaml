@@ -1,0 +1,10 @@
+category: Model Operations
+title: Get Voices
+apiNamespace: elevenlabs
+apiOperationId: Get_voices_v1_voices_get
+displayNamespace: elevenlabs
+displayOperationId: getVoices
+inputs:
+  xi-api-key:
+    required: true
+    hidden: true

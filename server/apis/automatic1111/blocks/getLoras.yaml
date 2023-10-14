@@ -1,0 +1,13 @@
+category: Utilities
+title: Get LORAs
+description: Get a list of LoRA (Low-Rank Adaptation) fine tunings available on the server.
+apiNamespace: automatic1111
+apiOperationId: get_loras_sdapi_v1_loras_get
+displayNamespace: automatic1111
+displayOperationId: getLoRAs
+outputs:
+  result:
+    type: object
+    customSocket: object
+    socketOpts:
+      array: true

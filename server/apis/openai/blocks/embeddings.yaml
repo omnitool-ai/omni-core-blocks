@@ -1,0 +1,34 @@
+category: Text Embedding
+meta:
+  source:
+    title: OpenAI Embeddings
+    links:
+      Website: https://platform.openai.com/docs/guides/embeddings/what-are-embeddings
+      Blog: https://openai.com/blog/new-and-improved-embedding-model
+      API Docs: https://platform.openai.com/docs/guides/embeddings/what-are-embeddings
+      Subscription: https://platform.openai.com/apps
+      Research: https://openai.com/research
+    summary: OpenAI’s text embeddings measure the relatedness of text strings.
+title: Create Text Embeddings
+apiNamespace: openai
+apiOperationId: createEmbedding
+displayNamespace: openai
+displayOperationId: embeddings
+scripts:
+  hideExcept:inputs:
+    - input
+inputs:
+  input:
+    required: true
+    default: The text you want to compute the embeddings of.
+    type: string
+    customSocket: text
+  model:
+    default: text-embedding-ada-002
+outputs:
+  embedding:
+    scripts:
+      jsonata: '{''embedding'': data[0].embedding}'
+    hidden: false
+    type: object
+    customSocket: object

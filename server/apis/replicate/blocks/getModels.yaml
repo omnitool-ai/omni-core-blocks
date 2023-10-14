@@ -1,0 +1,5 @@
+category: Model Operations
+apiNamespace: replicate
+apiOperationId: models.get
+displayNamespace: replicate
+displayOperationId: getModels

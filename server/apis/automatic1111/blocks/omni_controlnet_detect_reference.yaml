@@ -1,0 +1,52 @@
+category: Computer Vision
+description: 'ControlNet: Reference'
+title: 'ControlNet: Reference (WIP)'
+apiNamespace: automatic1111
+apiOperationId: detect_controlnet_detect_post
+displayNamespace: automatic1111
+displayOperationId: omni_controlnet_detect_reference
+inputs:
+  controlnet_module:
+    title: Module
+    default: reference_only
+    choices:
+      - title: Reference Only
+        description: >-
+          Reference Only - Link the reference image directly to the attention
+          layers.
+        value: reference_only
+      - title: Reference (ADAIN)
+        description: Style transfer via Adaptive Instance Normalization.
+        value: reference_only
+      - title: Reference (ADAIN+Attention)
+        description: Style transfer via Adaptive Instance Normalization And Attention.
+        value: reference_only
+  controlnet_threshold_a:
+    title: Style Fidelity (only for Balanced mode)
+    default: 0.5
+    minimum: 0
+    maximum: 1
+    step: 0.01
+  controlnet_threshold_b:
+    hidden: true
+  controlnet_processor_res:
+    title: Processor Resolution
+    default: 512
+    minimum: 64
+    maximum: 2048
+    step: 64
+    hidden: true
+  controlnet_input_images:
+    title: Input Images
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+      array: true
+outputs:
+  images:
+    title: Images
+    type: object
+    customSocket: image
+    socketOpts:
+      array: true

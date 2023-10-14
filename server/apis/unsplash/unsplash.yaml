@@ -1,0 +1,5 @@
+namespace: unsplash
+api:
+  spec: ./api/unsplash.yaml
+  basePath: https://api.unsplash.com
+title: unsplash

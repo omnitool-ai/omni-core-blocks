@@ -1,0 +1,5 @@
+namespace: discord
+api:
+  url: https://raw.githubusercontent.com/Shuffle/openapi-apps/master/discord.yaml
+  basePath: https://discordapp.com/api/webhooks
+title: discord

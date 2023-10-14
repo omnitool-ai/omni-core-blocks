@@ -1,0 +1,40 @@
+category: Model Operations
+description: >-
+  Use text-generation-webui to manage the underlying model (load, unload, list,
+  info).
+meta:
+  source:
+    links:
+      Text-Generation-WebUI: https://github.com/oobabooga/text-generation-webui
+      One-click-installer: https://github.com/oobabooga/one-click-installers
+title: Manage Model (Advanced)
+apiNamespace: oobabooga
+apiOperationId: manageModel
+displayNamespace: oobabooga
+displayOperationId: manageModelComponent
+scripts:
+  hideExcept:inputs:
+    - action
+    - model_name
+    - args
+  hideExcept:outputs:
+    - result
+inputs:
+  action:
+    description: >-
+      Specify the desired action for the model. This can be load, unload, list,
+      or info.
+    required: true
+    default: list
+  model_name:
+    description: Name of the model to be loaded. Required for the load action.
+    required: false
+  args:
+    description: Additional arguments for the model.
+    required: false
+    type: object
+outputs:
+  result:
+    scripts:
+      jsonata: result
+    type: array

@@ -1,0 +1,23 @@
+namespace: textsynth
+api:
+  spec: ./api/textsynth.yaml
+  basePath: https://api.textsynth.com/v1
+  patch:
+    meta:
+      summary: >-
+        TextSynth provides access to large language or text-to-image models such
+        as GPT-J, GPT-NeoX, Flan-T5, M2M100, CodeGen, Stable Diffusion through a
+        REST API and a playground. They can be used for example for text
+        completion, question answering, classification, chat, translation, image
+        generation
+      links:
+        Website: https://textsynth.com/
+        Documentation: https://textsynth.com/documentation.html
+        Pricing: https://textsynth.com/pricing.html
+  auth:
+    type: http_bearer
+    requireKeys:
+      - id: Bearer
+        displayName: Bearer
+        type: string
+title: textsynth

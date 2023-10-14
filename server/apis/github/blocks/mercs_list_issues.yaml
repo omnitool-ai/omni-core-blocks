@@ -1,0 +1,6 @@
+category: Utilities
+title: 'GitHub: List Issues'
+apiNamespace: github
+apiOperationId: issues_list_for_repo
+displayNamespace: github
+displayOperationId: mercs_list_issues

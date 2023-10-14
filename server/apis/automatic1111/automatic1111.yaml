@@ -1,0 +1,5 @@
+namespace: automatic1111
+api:
+  url: https://stable.intern.mercenaries.ai/openapi.json
+  basePath: https://stable.intern.mercenaries.ai
+title: automatic1111

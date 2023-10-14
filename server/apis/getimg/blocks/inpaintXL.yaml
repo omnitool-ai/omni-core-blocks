@@ -1,0 +1,40 @@
+category: Image Manipulation
+description: >-
+  Repaints an image based on a text prompt, source image, and a masked area using the Stable Diffusion XL family of models.
+title: Inpaint (Stable Diffusion XL)
+apiNamespace: getimg
+apiOperationId: inpaintXL
+displayNamespace: getimg
+displayOperationId: inpaintXL
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:image
+    opts:
+      readonly: true
+inputs:
+  image:
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+  mask_image:
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+  model:
+    type: string
+    customSocket: text
+    choices:
+      block: getimg.listModels
+      cache: global
+      args: 
+        pipeline: inpaint
+        family: stable-diffusion-xl
+      map:
+        title: name
+        value: id
+outputs:
+  image:
+    customSocket: image

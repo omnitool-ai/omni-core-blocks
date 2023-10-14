@@ -1,0 +1,73 @@
+category: Image Manipulation
+description: Remove background from an image.
+meta:
+  source:
+    title: RemoveBackground for Stable Diffusion
+    summary: >-
+      Automatic background removal provided via the Automatic1111 API using a
+      number of segmentation models and returns the image with the background
+      removed.
+    links:
+      GitHub: https://github.com/AUTOMATIC1111/stable-diffusion-webui-rembg
+      rembg: https://github.com/danielgatis/rembg"
+      U2net*: https://github.com/xuebinqin/U-2-Net
+      U2net Paper: https://arxiv.org/pdf/2005.09007.pdf
+      U2net Cloth Segmentation Source: https://github.com/levindabhi/cloth-segmentation
+      Silueta Source: https://github.com/xuebinqin/U-2-Net/issues/295
+      Isnet Paper: https://arxiv.org/pdf/2203.03041.pdf
+      ISnet Source: https://github.com/xuebinqin/DIS
+      ISnet Anime Source: https://github.com/SkyTNT/anime-segmentation
+      Automatic1111: https://github.com/AUTOMATIC1111/stable-diffusion-webui
+title: Remove Background
+apiNamespace: automatic1111
+apiOperationId: rembg_remove_rembg_post
+displayNamespace: automatic1111
+displayOperationId: rembg
+inputs:
+  input_image:
+    required: true
+    type: string
+    customSocket: image
+    socketOpts:
+      format: base64
+  return_mask:
+    title: Return Mask
+    default: false
+    type: boolean
+  alpha_matting:
+    title: Alpha Matting
+    default: false
+    type: boolean
+  alpha_matting_foreground_threshold:
+    title: alpha matting foreground threshold
+    default: 240
+    type: integer
+  alpha_matting_background_threshold:
+    title: alpha matting background threshold
+    default: 10
+    type: integer
+  alpha_matting_erode_size:
+    title: alpha matting erode size
+    default: 10
+    type: integer
+  model:
+    default: silueta
+    choices:
+      - title: U2net
+        value: u2net
+      - title: U2netp
+        value: u2netp
+      - title: U2net (Human Segmentation)
+        value: u2net_human_seg
+      - title: U2net (Cloth Segmentation)
+        value: u2net_cloth_seg
+      - title: Silueta
+        value: silueta
+      - title: Isnet (General)
+        value: isnet-general-use
+      - title: Isnet (Anime)
+        value: isnet-anime
+outputs:
+  image:
+    type: string
+    customSocket: image

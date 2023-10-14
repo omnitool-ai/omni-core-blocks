@@ -1,0 +1,74 @@
+category: Image Manipulation
+title: Mask Image (WIP)
+apiNamespace: stability
+apiOperationId: masking
+displayNamespace: stability
+displayOperationId: simpleDreamStudioMasking
+inputs:
+  engine_id:
+    default: stable-inpainting-512-v2-0
+    hidden: true
+    type: string
+  init_image:
+    title: Initial Image
+    required: true
+    scripts:
+      jsonata: >-
+        $.[init_image.{  "name": $string($formatNumber($random() * 1000,
+        "img_###")) & "." & "png",  "data": "data:image/png;base64," & $}]
+    customSocket: image
+    socketOpts:
+      format: base64
+      array: true
+  mask_source:
+    title: Mask Source
+    description: Select the source of the mask.
+    default: MASK_IMAGE_WHITE
+    choices:
+      - MASK_IMAGE_WHITE
+      - MASK_IMAGE_BLACK
+      - INIT_IMAGE_ALPHA
+    type: string
+  mask_image:
+    title: Mask Image
+    required: true
+    scripts:
+      jsonata: >-
+        $.[mask_image.{  "name": $string($formatNumber($random() * 1000,
+        "img_###")) & "." & "png",  "data": "data:image/png;base64," & $}]
+    type: string
+    customSocket: image
+    socketOpts:
+      format: base64
+  text_prompts:
+    scripts:
+      jsonata: >
+        [$map($split(prompts, /[\n,]/), function($v, $i, $a) {{"text":
+        $split($trim($v), ":")[0], "weight":$number($split($trim($v), ":")[1] !=
+        "" ? $trim($split($trim($v), ":")[1]) : "1")}})]
+      delete:
+        - prompts
+    hidden: true
+    type: array
+  prompts:
+    title: Text Prompts
+    description: >-
+      Enter a text prompt and weight for each line or seperate by commas. The
+      weight is a number between 0 and 1 that determines how much the prompt
+      affects the image. A weight of 0 means the prompt will not affect the
+      image at all. A weight of 1 means the prompt will have the maximum effect
+      on the image.
+    customSocket: text
+outputs:
+  base64:
+    title: Image
+    scripts: {}
+    type: string
+  seed:
+    title: Seed
+    scripts: {}
+    type: integer
+  finishReason:
+    title: Result
+    scripts: {}
+    type: string

@@ -1,0 +1,957 @@
+openapi: 3.0.2
+info:
+  title: Civitai API
+  version: 1.0.0
+servers:
+  - url: https://civitai.com/api/v1
+paths:
+  /creators:
+    get:
+      summary: Get a list of creators
+      operationId: searchCreators
+      parameters:
+        - name: limit
+          in: query
+          required: true
+          description: The number of results to be returned per page
+          schema:
+            type: integer
+            default: 5
+            minimum: 1
+            maximum: 200
+        - name: page
+          in: query
+          description: The page from which to start fetching creators
+          schema:
+            type: integer
+        - name: query
+          in: query
+          description: Search query to filter creators by username
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Creator'
+                  metadata:
+                    $ref: '#/components/schemas/Metadata'
+  /tags:
+    get:
+      summary: Get a list of model tags
+      operationId: searchTags
+      parameters:
+        - name: limit
+          in: query
+          required: true
+          description: >-
+            The number of results to be returned per page. By default, each page
+            will return 20 results. If set to 0, it'll return all the tags
+          schema:
+            type: integer
+            default: 5
+            minimum: 0
+            maximum: 200
+        - name: page
+          in: query
+          description: The page from which to start fetching tags
+          schema:
+            type: integer
+        - name: query
+          in: query
+          description: Search query to filter tags by name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the tags
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag'
+                  metadata:
+                    $ref: '#/components/schemas/PaginationMetadata'
+  /images:
+    get:
+      summary: Query for a list of images
+      operationId: searchImages
+      parameters:
+        - name: limit
+          in: query
+          description: The number of results to be returned per page
+          schema:
+            type: integer
+            default: 100
+            minimum: 0
+            maximum: 200
+        - name: postId
+          in: query
+          description: The ID of a post to get images from
+          schema:
+            type: integer
+            nullable: true
+        - name: modelId
+          in: query
+          description: The ID of a model to get images from
+          schema:
+            type: integer
+            nullable: true
+        - name: modelVersionId
+          in: query
+          description: The ID of a model version to get images from
+          schema:
+            type: integer
+            nullable: true
+        - name: username
+          in: query
+          description: Filter to images from a specific user
+          schema:
+            type: string
+            nullable: true
+        - name: nsfw
+          in: query
+          description: Filter to images that contain mature content flags or not
+          schema:
+            anyOf:
+              - type: boolean
+              - type: string
+                nullable: true
+                enum:
+                  - None
+                  - Soft
+                  - Mature
+                  - X
+        - name: sort
+          in: query
+          description: The order in which you wish to sort the results
+          schema:
+            type: string
+            nullable: true
+            enum:
+              - Most Reactions
+              - Most Comments
+              - Newest
+        - name: period
+          in: query
+          description: The time frame in which the images will be sorted
+          schema:
+            type: string
+            nullable: true
+            enum:
+              - AllTime
+              - Year
+              - Month
+              - Week
+              - Day
+        - name: page
+          in: query
+          description: The page from which to start fetching creators
+          schema:
+            type: integer
+            nullable: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Image'
+                  metadata:
+                    $ref: '#/components/schemas/Metadata'
+  /models:
+    get:
+      summary: Query for a list of models
+      operationId: searchModels
+      description: >-
+        This endpoint returns a list of models with detailed information. You
+        can provide various query parameters to filter and sort the results.
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: number
+            default: 100
+            minimum: 1
+            maximum: 200
+            nullable: true
+          description: The number of results to be returned per page
+        - in: query
+          name: page
+          schema:
+            type: number
+            nullable: true
+          description: The page from which to start fetching models
+        - in: query
+          name: query
+          schema:
+            type: string
+            nullable: true
+          description: Search query to filter models by name
+        - in: query
+          name: tag
+          schema:
+            type: string
+            nullable: true
+          description: Search query to filter models by tag
+        - in: query
+          name: username
+          schema:
+            type: string
+            nullable: true
+          description: Search query to filter models by user
+        - in: query
+          name: types
+          schema:
+            type: string
+            enum:
+              - Checkpoint
+              - TextualInversion
+              - Hypernetwork
+              - AestheticGradient
+              - LORA
+              - Controlnet
+              - Poses
+            nullable: true
+          description: >-
+            The type of model you want to filter with. If none is specified, it
+            will return all types
+        - in: query
+          name: sort
+          schema:
+            type: string
+            nullable: true
+            enum:
+              - Highest Rated
+              - Most Downloaded
+              - Newest
+          description: The order in which you wish to sort the results
+        - in: query
+          name: period
+          schema:
+            type: string
+            nullable: true
+            enum:
+              - AllTime
+              - Year
+              - Month
+              - Week
+              - Day
+          description: The time frame in which the models will be sorted
+        - in: query
+          name: rating
+          schema:
+            type: number
+            nullable: true
+          description: >-
+            The rating you wish to filter the models with. If none is specified,
+            it will return models with any rating
+        - in: query
+          name: favorites
+          schema:
+            type: boolean
+            nullable: true
+          description: >-
+            Filter to favorites of the authenticated user (this requires an API
+            token or session cookie)
+        - in: query
+          name: hidden
+          schema:
+            type: boolean
+            nullable: true
+          description: >-
+            Filter to hidden models of the authenticated user (this requires an
+            API token or session cookie)
+        - in: query
+          name: primaryFileOnly
+          schema:
+            type: boolean
+            nullable: true
+          description: >-
+            Only include the primary file for each model (This will use your
+            preferred format options if you use an API token or session cookie)
+        - in: query
+          name: allowNoCredit
+          schema:
+            type: boolean
+            nullable: true
+          description: Filter to models that require or don't require crediting the creator
+        - in: query
+          name: allowDerivatives
+          schema:
+            type: boolean
+            nullable: true
+          description: Filter to models that allow or don't allow creating derivatives
+        - in: query
+          name: allowDifferentLicenses
+          schema:
+            type: boolean
+            nullable: true
+          description: >-
+            Filter to models that allow or don't allow derivatives to have a
+            different license
+        - in: query
+          name: allowCommercialUse
+          schema:
+            type: string
+            nullable: true
+            enum:
+              - None
+              - Image
+              - Rent
+              - Sell
+          description: Filter to models based on their commercial permissions
+        - in: query
+          name: nsfw
+          schema:
+            anyOf:
+              - type: boolean
+              - type: string
+                nullable: true
+                enum:
+                  - None
+                  - Soft
+                  - Mature
+                  - X
+            nullable: true
+          description: >-
+            If false, will return safer images and hide models that don't have
+            safe images
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /models/{modelId}:
+    get:
+      summary: Get all versioned models information by their Model ID
+      operationId: getModelsById
+      parameters:
+        - name: modelId
+          in: path
+          description: ID of the model to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A model object
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The identifier for the model
+                  name:
+                    type: string
+                    description: The name of the model
+                  description:
+                    type: string
+                    description: The description of the model (HTML)
+                  type:
+                    type: string
+                    description: The model type
+                    enum:
+                      - Checkpoint
+                      - TextualInversion
+                      - Hypernetwork
+                      - AestheticGradient
+                      - LORA
+                      - Controlnet
+                      - Poses
+                  nsfw:
+                    type: boolean
+                    description: Whether the model is NSFW or not
+                  tags:
+                    type: array
+                    items:
+                      type: string
+                  mode:
+                    type: string
+                    description: >-
+                      The mode in which the model is currently on. If Archived,
+                      files field will be empty. If TakenDown, images field will
+                      be empty
+                    nullable: true
+                    enum:
+                      - Archived
+                      - TakenDown
+                  creator:
+                    type: object
+                    properties:
+                      username:
+                        type: string
+                      image:
+                        type: string
+                        nullable: true
+                  modelVersions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ModelVersion'
+  /model-versions/{id}:
+    get:
+      summary: Retrieve a model information by its version ID
+      operationId: getModelByVersionId
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the model version
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully retrieved the model version
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The identifier for the model version
+                  name:
+                    type: string
+                    description: The name of the model version
+                  description:
+                    type: string
+                    description: The description of the model version (usually a changelog)
+                  model:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      type:
+                        type: string
+                        enum:
+                          - Checkpoint
+                          - TextualInversion
+                          - Hypernetwork
+                          - AestheticGradient
+                          - LORA
+                          - Controlnet
+                          - Poses
+                      nsfw:
+                        type: boolean
+                      poi:
+                        type: boolean
+                      mode:
+                        type: string
+                        enum:
+                          - Archived
+                          - TakenDown
+                        nullable: true
+                  modelId:
+                    type: integer
+                  createdAt:
+                    type: string
+                    format: date-time
+                  downloadUrl:
+                    type: string
+                  trainedWords:
+                    type: array
+                    items:
+                      type: string
+                  files:
+                    type: object
+                    properties:
+                      sizeKb:
+                        type: integer
+                      pickleScanResult:
+                        type: string
+                        enum:
+                          - Pending
+                          - Success
+                          - Danger
+                          - Error
+                      virusScanResult:
+                        type: string
+                        enum:
+                          - Pending
+                          - Success
+                          - Danger
+                          - Error
+                      scannedAt:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      metadata:
+                        type: object
+                        properties:
+                          fp:
+                            type: string
+                            enum:
+                              - fp16
+                              - fp32
+                            nullable: true
+                          size:
+                            type: string
+                            enum:
+                              - full
+                              - pruned
+                            nullable: true
+                          format:
+                            type: string
+                            enum:
+                              - SafeTensor
+                              - PickleTensor
+                              - Other
+                            nullable: true
+                  stats:
+                    type: object
+                    properties:
+                      downloadCount:
+                        type: integer
+                      ratingCount:
+                        type: integer
+                      rating:
+                        type: number
+                  images:
+                    type: object
+                    properties:
+                      url:
+                        type: string
+                      nsfw:
+                        type: string
+                      width:
+                        type: integer
+                      height:
+                        type: integer
+                      hash:
+                        type: string
+                      meta:
+                        type: object
+                        nullable: true
+  /model-versions/by-hash/{hash}:
+    get:
+      summary: Retrieve a model information by its hash
+      operationId: getModelByHash
+      description: >-
+        Fetches model versions by their hash. This endpoint supports the
+        following hash algorithms/: AutoV1, AutoV2, SHA256, CRC32, and Blake3.
+        Note: We are still in the process of hashing older files, so these
+        results are incomplete.
+      parameters:
+        - name: hash
+          in: path
+          description: The hash of the model version
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The identifier for the model version
+                  name:
+                    type: string
+                    description: The name of the model version
+                  description:
+                    type: string
+                    description: The description of the model version (usually a changelog)
+                  model:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      type:
+                        type: string
+                        enum:
+                          - Checkpoint
+                          - TextualInversion
+                          - Hypernetwork
+                          - AestheticGradient
+                          - LORA
+                          - Controlnet
+                          - Poses
+                      nsfw:
+                        type: boolean
+                      poi:
+                        type: boolean
+                      mode:
+                        type: string
+                        enum:
+                          - Archived
+                          - TakenDown
+                        nullable: true
+                  modelId:
+                    type: integer
+                  createdAt:
+                    type: string
+                    format: date-time
+                  downloadUrl:
+                    type: string
+                  trainedWords:
+                    type: array
+                    items:
+                      type: string
+                  files:
+                    type: object
+                    properties:
+                      sizeKb:
+                        type: integer
+                      pickleScanResult:
+                        type: string
+                        enum:
+                          - Pending
+                          - Success
+                          - Danger
+                          - Error
+                      virusScanResult:
+                        type: string
+                        enum:
+                          - Pending
+                          - Success
+                          - Danger
+                          - Error
+                      scannedAt:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      metadata:
+                        type: object
+                        properties:
+                          fp:
+                            type: string
+                            enum:
+                              - fp16
+                              - fp32
+                            nullable: true
+                          size:
+                            type: string
+                            enum:
+                              - full
+                              - pruned
+                            nullable: true
+                          format:
+                            type: string
+                            enum:
+                              - SafeTensor
+                              - PickleTensor
+                              - Other
+                            nullable: true
+                  stats:
+                    type: object
+                    properties:
+                      downloadCount:
+                        type: integer
+                      ratingCount:
+                        type: integer
+                      rating:
+                        type: number
+                  images:
+                    type: object
+                    properties:
+                      url:
+                        type: string
+                      nsfw:
+                        type: string
+                      width:
+                        type: integer
+                      height:
+                        type: integer
+                      hash:
+                        type: string
+                      meta:
+                        type: object
+                        nullable: true
+        '404':
+          description: Model version not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /download/models/{modelVersionId}:
+    get:
+      summary: Download a model
+      operationId: downloadModel
+      parameters:
+        - name: modelVersionId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: The ID of the model version to be downloaded.
+      responses:
+        '200':
+          description: Model downloaded successfully
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Model not found
+components:
+  schemas:
+    Model:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+          enum:
+            - Checkpoint
+            - TextualInversion
+            - Hypernetwork
+            - AestheticGradient
+            - LORA
+            - Controlnet
+            - Poses
+        nsfw:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+        mode:
+          type: string
+          enum:
+            - Archived
+            - TakenDown
+          nullable: true
+        creator:
+          type: object
+          properties:
+            username:
+              type: string
+            image:
+              type: string
+              nullable: true
+        stats:
+          type: object
+          properties:
+            downloadCount:
+              type: number
+            favoriteCount:
+              type: number
+            commentCount:
+              type: number
+            ratingCount:
+              type: number
+            rating:
+              type: number
+        modelVersions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ModelVersion'
+    ModelStats:
+      type: object
+      properties:
+        downloadCount:
+          type: integer
+        favoriteCount:
+          type: integer
+        commentCount:
+          type: integer
+        ratingCount:
+          type: integer
+        rating:
+          type: number
+    ModelImage:
+      type: object
+      properties:
+        url:
+          type: string
+        nsfw:
+          type: boolean
+        width:
+          type: integer
+        height:
+          type: integer
+        hash:
+          type: string
+        meta:
+          type: object
+          nullable: true
+    ModelVersion:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+        downloadUrl:
+          type: string
+        trainedWords:
+          type: array
+          items:
+            type: string
+        files:
+          type: array
+          items:
+            $ref: '#/components/schemas/File'
+        stats:
+          $ref: '#/components/schemas/ModelStats'
+        images:
+          type: array
+          items:
+            $ref: '#/components/schemas/Image'
+        model:
+          $ref: '#/components/schemas/Model'
+        modelId:
+          type: string
+    File:
+      type: object
+      properties:
+        sizeKb:
+          type: number
+        pickleScanResult:
+          type: string
+        virusScanResult:
+          type: string
+        scannedAt:
+          type: string
+          format: date-time
+          nullable: true
+        metadata:
+          type: object
+          properties:
+            fp:
+              type: string
+              enum:
+                - fp16
+                - fp32
+              nullable: true
+            size:
+              type: string
+              enum:
+                - full
+                - pruned
+              nullable: true
+            format:
+              type: string
+              enum:
+                - SafeTensor
+                - PickleTensor
+                - Other
+              nullable: true
+    Tag:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the tag
+        modelCount:
+          type: integer
+          description: The amount of models linked to this tag
+        link:
+          type: string
+          description: Url to get all models from this tag
+    PaginationMetadata:
+      type: object
+      properties:
+        totalItems:
+          type: integer
+          description: The total number of items available
+        currentPage:
+          type: integer
+          description: The current page you are at
+        pageSize:
+          type: integer
+          description: The size of the batch
+        totalPages:
+          type: integer
+          description: The total number of pages
+        nextPage:
+          type: string
+          description: The url to get the next batch of items
+        prevPage:
+          type: string
+          description: The url to get the previous batch of items
+    Metadata:
+      type: object
+      properties:
+        totalItems:
+          type: integer
+        currentPage:
+          type: integer
+        pageSize:
+          type: integer
+        totalPages:
+          type: integer
+        nextPage:
+          type: string
+        prevPage:
+          type: string
+    Creator:
+      type: object
+      properties:
+        username:
+          type: string
+        image:
+          type: string
+        modelCount:
+          type: integer
+        link:
+          type: string
+    Image:
+      type: object
+      properties:
+        url:
+          type: string
+        nsfw:
+          type: boolean
+        width:
+          type: number
+        height:
+          type: number
+        hash:
+          type: string
+        meta:
+          type: object
+          nullable: true
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string

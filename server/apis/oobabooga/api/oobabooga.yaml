@@ -1,0 +1,210 @@
+openapi: 3.1.0
+info:
+  title: Text Generation API
+  version: '1.0'
+paths:
+  /api/v1/generate:
+    post:
+      operationId: generateText
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt:
+                  type: string
+                  required: true
+                  default: |-
+                    In order to make homemade bread, follow these steps:
+                    1)
+                max_new_tokens:
+                  type: integer
+                  default: 250
+                auto_max_new_tokens:
+                  type: boolean
+                  default: false
+                preset:
+                  type: string
+                  default: None
+                do_sample:
+                  type: boolean
+                  default: true
+                temperature:
+                  type: number
+                  default: 0.7
+                top_p:
+                  type: number
+                  default: 0.1
+                typical_p:
+                  type: number
+                  default: 1
+                epsilon_cutoff:
+                  type: number
+                  default: 0
+                eta_cutoff:
+                  type: number
+                  default: 0
+                tfs:
+                  type: integer
+                  default: 1
+                top_a:
+                  type: integer
+                  default: 0
+                repetition_penalty:
+                  type: number
+                  default: 1.18
+                repetition_penalty_range:
+                  type: integer
+                  default: 0
+                top_k:
+                  type: integer
+                  default: 40
+                min_length:
+                  type: integer
+                  default: 0
+                no_repeat_ngram_size:
+                  type: integer
+                  default: 0
+                num_beams:
+                  type: integer
+                  default: 1
+                penalty_alpha:
+                  type: number
+                  default: 0
+                length_penalty:
+                  type: number
+                  default: 1
+                early_stopping:
+                  type: boolean
+                  default: false
+                mirostat_mode:
+                  type: integer
+                  default: 0
+                mirostat_tau:
+                  type: integer
+                  default: 5
+                mirostat_eta:
+                  type: number
+                  default: 0.1
+                guidance_scale:
+                  type: number
+                  default: 1
+                negative_prompt:
+                  type: string
+                  default: ''
+                seed:
+                  type: integer
+                  default: -1
+                add_bos_token:
+                  type: boolean
+                  default: true
+                truncation_length:
+                  type: integer
+                  default: 2048
+                ban_eos_token:
+                  type: boolean
+                  default: false
+                skip_special_tokens:
+                  type: boolean
+                  default: true
+                stopping_strings:
+                  type: array
+                  items:
+                    type: string
+                  default: []
+                n-gpu-layers:
+                  type: integer
+                  default: 0
+                  minimum: 0
+                  maximum: 128
+                  definition: >-
+                    Number of layers to run on GPU. 0 means all layers on CPU.
+                    Set to 1 or more to get some GPU acceleration.
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        text:
+                          type: string
+  /api/v1/model:
+    post:
+      operationId: manageModel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action:
+                  type: string
+                  enum:
+                    - load
+                    - unload
+                    - list
+                    - info
+                  required: true
+                model_name:
+                  type: string
+                  description: Name of the model to be loaded
+                args:
+                  type: object
+                  description: Additional arguments for the model
+                  additionalProperties:
+                    type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    oneOf:
+                      - type: object
+                        properties:
+                          model_name:
+                            type: string
+                          lora_names:
+                            type: array
+                            items:
+                              type: string
+                          shared.settings:
+                            type: object
+                            additionalProperties: true
+                          shared.args:
+                            type: object
+                            additionalProperties: true
+                      - type: string
+                      - type: array
+                        items:
+                          type: string
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+    get:
+      operationId: getModelName
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string

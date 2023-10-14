@@ -1,0 +1,56 @@
+category: Text Embedding
+description: Generate text embeddings using Google's Generative Language models.
+meta:
+  source:
+    title: 'Google: Generative Language'
+    links:
+      Website: https://developers.generativeai.google/
+      Subscription: https://cloud.google.com/pricing
+      API Reference: >-
+        https://cloud.google.com/vertex-ai/docs/generative-ai/model-reference/text-embeddings
+      Documentation: https://developers.generativeai.google/api/
+    summary: Generate text embeddings using Google's Generative Language models.
+title: Create Text Embeddings
+apiNamespace: google-llm
+apiOperationId: textEmbeddings
+displayNamespace: google-llm
+displayOperationId: textEmbeddings_omni
+inputs:
+  PROJECT_ID:
+    required: true
+    default: causal-rite-386205
+  content:
+    title: Content
+    required: true
+    type: string
+    customSocket: text
+  instances:
+    required: true
+    scripts:
+      jsonata: |
+        [{
+              "content": $.content
+        }]
+      delete:
+        - content
+    hidden: true
+    type: array
+    customSocket: object
+    socketOpts:
+      array: true
+outputs:
+  predictions:
+    hidden: true
+  embeddings:
+    title: Embeddings
+    scripts:
+      jsonata: predictions[0].embeddings.values
+    type: string
+  truncated:
+    title: Truncated
+    scripts: {}
+    type: boolean
+  tokenCount:
+    title: Token Count
+    scripts: {}
+    type: integer

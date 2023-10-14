@@ -1,0 +1,49 @@
+category: Computer Vision
+description: 'ControlNet: Face Detection'
+title: 'ControlNet: Face Detection (WIP)'
+apiNamespace: automatic1111
+apiOperationId: detect_controlnet_detect_post
+displayNamespace: automatic1111
+displayOperationId: omni_controlnet_detect_mediapipe_face
+inputs:
+  controlnet_module:
+    title: Module
+    default: mediapipe_face
+    choices:
+      - title: MediaPipe Face
+        description: >-
+          MediaPipe Face - Detects faces in an image using the MediaPipe Face
+          model.
+        value: mediapipe_face
+  controlnet_threshold_a:
+    title: Max Faces
+    default: 1
+    minimum: 1
+    maximum: 10
+    step: 1
+  controlnet_threshold_b:
+    title: Min Face Confidence
+    default: 1
+    minimum: 1
+    maximum: 10
+    step: 1
+  controlnet_processor_res:
+    title: Processor Resolution
+    default: 512
+    minimum: 64
+    maximum: 2048
+    step: 64
+  controlnet_input_images:
+    title: Input Images
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+      array: true
+outputs:
+  images:
+    title: Images
+    type: object
+    customSocket: image
+    socketOpts:
+      array: true

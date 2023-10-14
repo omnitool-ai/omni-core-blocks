@@ -1,0 +1,453 @@
+openapi: 3.0.0
+info:
+  title: Generative Language API (Vertex AI - PaLM)
+  version: v1beta2
+  description: API for interacting with Google's Generative Language models.
+servers:
+  - url: https://us-central1-aiplatform.googleapis.com
+security:
+  - Oauth2: []
+  - Oauth2c: []
+paths:
+  /v1/projects/{PROJECT_ID}/locations/us-central1/publishers/google/models/chat-bison:predict:
+    post:
+      operationId: generateChat
+      summary: Generates a response from the chat-bison model given an input prompt.
+      parameters:
+        - name: PROJECT_ID
+          in: path
+          required: true
+          description: The project ID.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                instances:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      context:
+                        type: string
+                        description: >-
+                          Context that shapes how the model responds throughout
+                          the conversation.
+                      examples:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            input:
+                              type: object
+                              properties:
+                                content:
+                                  type: string
+                                  description: Content of the example input message.
+                            output:
+                              type: object
+                              properties:
+                                content:
+                                  type: string
+                                  description: Content of the example output message.
+                      messages:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            author:
+                              type: string
+                              description: Author tag for the message.
+                            content:
+                              type: string
+                              description: Content of the message.
+                parameters:
+                  type: object
+                  properties:
+                    temperature:
+                      type: number
+                      default: 0
+                      minimum: 0
+                      maximum: 1
+                      description: >
+                        The temperature controls the degree of randomness in
+                        token selection during response generation.
+                    maxOutputTokens:
+                      type: integer
+                      default: 0
+                      minimum: 1
+                      maximum: 1024
+                      description: >
+                        Maximum number of tokens that can be generated in the
+                        response.
+                    topK:
+                      type: integer
+                      default: 40
+                      minimum: 1
+                      maximum: 40
+                      description: |
+                        Top-k changes how the model selects tokens for output.
+                    topP:
+                      type: number
+                      default: 0.95
+                      minimum: 0
+                      maximum: 1
+                      description: |
+                        Top-p changes how the model selects tokens for output.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  predictions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        content:
+                          type: string
+                        citationMetadata:
+                          type: object
+                          properties:
+                            citations:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  startIndex:
+                                    type: integer
+                                  endIndex:
+                                    type: integer
+                                  url:
+                                    type: string
+                                  title:
+                                    type: string
+                                  license:
+                                    type: string
+                                  publicationDate:
+                                    type: string
+                        safetyAttributes:
+                          type: object
+                          properties:
+                            categories:
+                              type: array
+                              items:
+                                type: string
+                            blocked:
+                              type: boolean
+                            scores:
+                              type: array
+                              items:
+                                type: number
+  /v1/projects/{PROJECT_ID}/locations/us-central1/publishers/google/models/text-bison:predict:
+    post:
+      operationId: generateText
+      summary: Generates a response from the text-bison model given an input prompt.
+      parameters:
+        - name: PROJECT_ID
+          in: path
+          required: true
+          description: The project ID.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                instances:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      prompt:
+                        type: string
+                        description: >
+                          Text input to generate model response. Prompts can
+                          include preamble, questions,  suggestions,
+                          instructions, or examples.
+                parameters:
+                  type: object
+                  properties:
+                    temperature:
+                      type: number
+                      description: >
+                        The temperature is used for sampling during the response
+                        generation, which occurs when topP and topK are applied.
+                        Temperature controls the degree of randomness in token
+                        selection. Lower temperatures are good for prompts that 
+                        require a more deterministic and less open-ended or
+                        creative response, while higher temperatures can lead to
+                        more  diverse or creative results. A temperature of 0 is
+                        deterministic: the highest probability response is
+                        always selected. For most use cases, try starting with a
+                        temperature of 0.2.
+                      default: 0
+                      minimum: 0
+                      maximum: 1
+                    maxOutputTokens:
+                      type: integer
+                      description: >
+                        Maximum number of tokens that can be generated in the
+                        response. Specify a lower value for shorter responses
+                        and a  higher value for longer responses. A token may be
+                        smaller than a word. A token is approximately four
+                        characters.  100 tokens correspond to roughly 60-80
+                        words.
+                      default: 0
+                      minimum: 1
+                      maximum: 1024
+                    topK:
+                      type: integer
+                      description: >
+                        Top-k changes how the model selects tokens for output. A
+                        top-k of 1 means the selected token is the most
+                        probable  among all tokens in the model's vocabulary
+                        (also called greedy decoding), while a top-k of 3 means
+                        that the next token  is selected from among the 3 most
+                        probable tokens (using temperature). For each token
+                        selection step, the top K tokens  with the highest
+                        probabilities are sampled. Then tokens are further
+                        filtered based on topP with the final token selected 
+                        using temperature sampling.
+                      default: 40
+                      minimum: 1
+                      maximum: 40
+                    topP:
+                      type: number
+                      description: >
+                        Top-p changes how the model selects tokens for output.
+                        Tokens are selected from most K (see topK parameter)
+                        probable  to least until the sum of their probabilities
+                        equals the top-p value. For example, if tokens A, B, and
+                        C have a  probability of 0.3, 0.2, and 0.1 and the top-p
+                        value is 0.5, then the model will select either A or B
+                        as the next token  (using temperature) and doesn't
+                        consider C. The default top-p value is 0.95.
+                      default: 0.95
+                      minimum: 0
+                      maximum: 1
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  predictions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        content:
+                          type: string
+                        citationMetadata:
+                          type: object
+                          properties:
+                            citations:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  startIndex:
+                                    type: integer
+                                  endIndex:
+                                    type: integer
+                                  url:
+                                    type: string
+                                  title:
+                                    type: string
+                                  license:
+                                    type: string
+                                  publicationDate:
+                                    type: string
+                        safetyAttributes:
+                          type: object
+                          properties:
+                            categories:
+                              type: array
+                              items:
+                                type: string
+                            blocked:
+                              type: boolean
+                            scores:
+                              type: array
+                              items:
+                                type: number
+  /v1/projects/{PROJECT_ID}/locations/us-central1/publishers/google/models/textembedding-gecko:predict:
+    post:
+      operationId: textEmbeddings
+      summary: Text Embeddings
+      parameters:
+        - name: PROJECT_ID
+          in: path
+          required: true
+          description: Your project ID
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                instances:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  predictions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        embeddings:
+                          type: object
+                          properties:
+                            statistics:
+                              type: object
+                              properties:
+                                truncated:
+                                  type: boolean
+                                tokenCount:
+                                  type: integer
+                            values:
+                              type: array
+                              items:
+                                type: number
+  /v1/projects/{PROJECT_ID}/locations/us-central1/publishers/google/models/code-bison:predict:
+    post:
+      operationId: generateCode
+      summary: Code Generation
+      parameters:
+        - name: PROJECT_ID
+          in: path
+          required: true
+          description: Your project ID
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                instances:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      prefix:
+                        type: string
+                      suffix:
+                        type: string
+                parameters:
+                  type: object
+                  properties:
+                    temperature:
+                      type: number
+                    maxOutputTokens:
+                      type: integer
+                    candidateCount:
+                      type: integer
+                    stopSequences:
+                      type: array
+                      items:
+                        type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  predictions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        content:
+                          type: string
+                        score:
+                          type: number
+                        citationMetadata:
+                          type: object
+                          properties:
+                            citations:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  startIndex:
+                                    type: integer
+                                  endIndex:
+                                    type: integer
+                                  url:
+                                    type: string
+                                  title:
+                                    type: string
+                                  license:
+                                    type: string
+                                  publicationDate:
+                                    type: string
+                        safetyAttributes:
+                          type: object
+                          properties:
+                            categories:
+                              type: array
+                              items:
+                                type: string
+                            blocked:
+                              type: boolean
+                            scores:
+                              type: array
+                              items:
+                                type: number
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+components:
+  securitySchemes:
+    Oauth2:
+      type: oauth2
+      description: Oauth 2.0 implicit authentication
+      flows:
+        implicit:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: >-
+              See, edit, configure, and delete your Google Cloud data and see
+              the email address for your Google Account.
+    Oauth2c:
+      type: oauth2
+      description: Oauth 2.0 authorization code authentication
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://accounts.google.com/o/oauth2/token
+          scopes:
+            https://www.googleapis.com/auth/cloud-platform: >-
+              See, edit, configure, and delete your Google Cloud data and see
+              the email address for your Google Account.

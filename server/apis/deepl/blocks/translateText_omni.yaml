@@ -1,0 +1,14 @@
+category: Translation
+title: Text Translation (WIP)
+apiNamespace: deepl
+apiOperationId: translateText
+displayNamespace: deepl
+displayOperationId: translateText_omni
+inputs:
+  text:
+    required: true
+    scripts:
+      jsonata:
+        - $.text
+    type: string
+    customSocket: text

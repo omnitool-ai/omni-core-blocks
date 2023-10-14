@@ -1,0 +1,5 @@
+namespace: scholarai
+api:
+  url: https://scholar-ai.net/openapi.yaml
+  basePath: https://scholar-ai.net
+title: scholarai

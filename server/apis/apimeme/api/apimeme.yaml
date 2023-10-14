@@ -1,0 +1,38 @@
+openapi: 3.0.0
+info:
+  title: API Meme
+  description: An API to generate memes via apimeme.com
+  version: 1.0.0
+servers:
+  - url: https://apimeme.com
+paths:
+  /meme:
+    get:
+      summary: Generate a meme
+      description: Generate a meme JPG from a GET request.
+      operationId: generateMeme
+      parameters:
+        - name: meme
+          in: query
+          description: The type of meme to generate.
+          required: true
+          schema:
+            type: string
+        - name: top
+          in: query
+          description: The text to display at the top of the meme.
+          schema:
+            type: string
+        - name: bottom
+          in: query
+          description: The text to display at the bottom of the meme.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A meme image.
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary

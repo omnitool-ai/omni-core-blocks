@@ -1,0 +1,13 @@
+category: Utilities
+title: Get Models
+description: Get a list of stable diffusion models available on the server.
+apiNamespace: automatic1111
+apiOperationId: get_sd_models_sdapi_v1_sd_models_get
+displayNamespace: automatic1111
+displayOperationId: getModels
+outputs:
+  result:
+    type: object
+    customSocket: object
+    socketOpts:
+      array: true

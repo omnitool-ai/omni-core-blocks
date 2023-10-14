@@ -1,0 +1,43 @@
+category: Image Manipulation
+description: >-
+  Upscales an image by a specified scale factor.
+title: Upscale Image (WIP)
+apiNamespace: getimg
+apiOperationId: upscaleImage
+displayNamespace: getimg
+displayOperationId: upscaleImage
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:image
+    opts:
+      readonly: true
+inputs:
+  image:
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+  model:  
+    choices:
+      block: getimg.listModels
+      args: 
+        family: enhancements
+        pipeline: upscale
+      cache: global
+      map:
+        title: name
+        value: id
+  # scale:
+  #   type: number
+  #   customSocket: number
+  #   default: 2
+  #   minimum: 1 
+  #   maximum: 10 
+  #   step: 0.1
+  #   control:
+  #     type: AlpineNumWithSliderComponent
+
+outputs:
+  image:
+    customSocket: image

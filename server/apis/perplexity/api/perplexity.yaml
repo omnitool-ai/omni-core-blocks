@@ -1,0 +1,135 @@
+openapi: 3.0.3
+info:
+  title: Perplexity.ai Chat API
+  version: 1.0.0
+  description: API for generating chat completions using various models.
+servers:
+  - url: https://api.perplexity.ai
+paths:
+  /chat/completions:
+    post:
+      operationId: chatCompletions
+      summary: Generate chat completions based on the provided messages and model.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  description: The AI model to use for generating the chat completion.
+                  enum: [llama-2-70b-chat, llama-2-13b-chat, codellama-34b-instruct, mistral-7b-instruct]
+                  default: mistral-7b-instruct
+                messages:
+                  type: array
+                  description: Array of message objects representing the chat history.
+                  items:
+                    $ref: '#/components/schemas/Message'
+                max_tokens:
+                  type: integer
+                  description: Maximum number of tokens to generate for the completion.
+                temperature:
+                  type: number
+                  description: Controls the randomness of the model's output.
+                  default: 1
+                  minimum: 0
+                  maximum: 2
+                top_p:
+                  type: number
+                  description: Controls the diversity of the model's output by limiting the token selection to a subset.
+                  default: 1
+                  minimum: 0
+                  maximum: 1
+                stream:
+                  type: boolean
+                  description: Indicates if the response should be streamed.
+                  default: false
+                presence_penalty:
+                  type: number
+                  description: Adjusts the likelihood of tokens being present in the output.
+                  default: 0
+                  minimum: -2.0
+                  maximum: 2.0
+                frequency_penalty:
+                  type: number
+                  description: Adjusts the frequency of tokens in the output.
+                  default: 1.0
+                  minimum: 0
+                  maximum: 2.0
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Unique identifier for the completion request.
+                  created:
+                    type: string
+                    description: Timestamp of when the completion was generated.
+                  model:
+                    type: string
+                    description: The model used for generating the completion.
+                  usage:
+                    type: object
+                    description: Information about token usage for the completion.
+                    properties:
+                      total_tokens:
+                        type: integer
+                        description: Total tokens used for the completion.
+                      prompt_tokens:
+                        type: integer
+                        description: Tokens used for the prompt.
+                      completions_tokens:
+                        type: integer
+                        description: Tokens used for the generated completion.
+                  choices:
+                    type: array
+                    description: Array of generated completion choices.
+                    items:
+                      type: object
+                      properties:
+                        text:
+                          type: string
+                          description: The generated completion text.
+                        index:
+                          type: integer
+                          description: Index of the choice.
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Detailed error message.
+      security:
+        - BearerToken: []
+components:
+  schemas:
+    Message:
+      type: object
+      required:
+        - content
+        - role
+      properties:
+        content:
+          type: string
+          description: Content of the message.
+        role:
+          type: string
+          description: Role of the entity sending the message.
+          enum: [system, user, assistant]
+  securitySchemes:
+    BearerToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Bearer token authentication using JWT.

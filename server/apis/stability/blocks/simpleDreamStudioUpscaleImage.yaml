@@ -1,0 +1,25 @@
+category: Image Manipulation
+title: Upscale Image (WIP)
+apiNamespace: stability
+apiOperationId: upscaleImage
+displayNamespace: stability
+displayOperationId: simpleDreamStudioUpscaleImage
+inputs:
+  engine_id:
+    default: esrgan-v1-x2plus
+    hidden: true
+    type: string
+  image:
+    title: Image
+    required: true
+    type: string
+    customSocket: image
+    socketOpts:
+      format: base64
+outputs:
+  image:
+    title: Image
+    type: string
+    customSocket: image
+    socketOpts:
+      format: base64

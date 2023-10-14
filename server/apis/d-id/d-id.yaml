@@ -1,0 +1,14 @@
+namespace: d-id
+api:
+  spec: ./api/d-id.yaml
+  basePath: https://api.d-id.com
+  auth:
+    type: http_basic
+    requireKeys:
+      - id: username
+        displayName: username
+        type: string
+      - id: password
+        displayName: password
+        type: string
+title: d-id

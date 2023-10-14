@@ -1,0 +1,26 @@
+category: Document Processing
+title: Search Abstracts
+apiNamespace: scholarai
+apiOperationId: searchAbstracts
+displayNamespace: scholarai
+displayOperationId: searchAbstracts_omni
+inputs:
+  keywords:
+    required: true
+  sort:
+    required: true
+    default: cited_by_count
+    choices:
+      - cited_by_count
+      - publication_date
+  peer_reviewed_only:
+    required: true
+    default: 'true'
+outputs:
+  result:
+    title: Abstracts
+    customSocket: object
+    socketOpts:
+      array: true
+  abstracts:
+    hidden: true

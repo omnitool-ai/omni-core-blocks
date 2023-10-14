@@ -1,0 +1,42 @@
+category: Computer Vision
+description: 'ControlNet: ClipVision'
+title: 'ControlNet: ClipVision (WIP)'
+apiNamespace: automatic1111
+apiOperationId: detect_controlnet_detect_post
+displayNamespace: automatic1111
+displayOperationId: omni_controlnet_detect_clipvision
+inputs:
+  controlnet_module:
+    title: Module
+    default: clip_vision
+    choices:
+      - title: Clip Vision
+        description: >-
+          Uses the CLIP Vision Encoder to convert the incoming imnages into
+          embeddings
+        value: clip_vision
+  controlnet_threshold_a:
+    hidden: true
+  controlnet_threshold_b:
+    hidden: true
+  controlnet_processor_res:
+    title: Processor Resolution
+    default: 512
+    minimum: 64
+    maximum: 2048
+    step: 64
+    hidden: true
+  controlnet_input_images:
+    title: Input Images
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+      array: true
+outputs:
+  images:
+    title: Images
+    type: object
+    customSocket: image
+    socketOpts:
+      array: true

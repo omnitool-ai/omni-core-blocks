@@ -1,0 +1,242 @@
+category: Speech-to-Text
+title: 'Whisper: Speech to Text'
+apiNamespace: openai
+apiOperationId: createTranscription
+displayNamespace: openai
+displayOperationId: simpleTranscription
+inputs:
+  file:
+    customSocket: audio
+  model:
+    default: whisper-1
+    choices:
+      - title: whisper-1
+        value: whisper-1
+    customSocket: text
+  temperature:
+    default: 0
+    minimum: 0
+    maximum: 1
+    step: 0.01
+  response_format:
+    default: json
+    choices:
+      - json
+      - text
+      - srt
+      - verbose_json
+      - vtt
+    customSocket: text
+  language:
+    default: en
+    choices:
+      - title: Afrikaans
+        value: af
+      - title: Albanian
+        value: sq
+      - title: Amharic
+        value: am
+      - title: Arabic
+        value: ar
+      - title: Armenian
+        value: hy
+      - title: Asturian
+        value: ast
+      - title: Azerbaijani
+        value: az
+      - title: Bashkir
+        value: ba
+      - title: Belarusian
+        value: be
+      - title: Bengali
+        value: bn
+      - title: Bosnian
+        value: bs
+      - title: Bulgarian
+        value: bg
+      - title: Burmese
+        value: my
+      - title: Catalan
+        value: ca
+      - title: Cebuano
+        value: ceb
+      - title: Central Khmer
+        value: km
+      - title: Chinese
+        value: zh
+      - title: Croatian
+        value: hr
+      - title: Czech
+        value: cs
+      - title: Danish
+        value: da
+      - title: Dutch
+        value: nl
+      - title: English
+        value: en
+      - title: Estonian
+        value: et
+      - title: Finnish
+        value: fi
+      - title: French
+        value: fr
+      - title: Fulah
+        value: ff
+      - title: Galician
+        value: gl
+      - title: Ganda
+        value: lg
+      - title: Georgian
+        value: ka
+      - title: German
+        value: de
+      - title: Greek
+        value: el
+      - title: Gujarati
+        value: gu
+      - title: Haitian Creole
+        value: ht
+      - title: Hausa
+        value: ha
+      - title: Hebrew
+        value: he
+      - title: Hindi
+        value: hi
+      - title: Hungarian
+        value: hu
+      - title: Icelandic
+        value: is
+      - title: Igbo
+        value: ig
+      - title: Iloko
+        value: ilo
+      - title: Indonesian
+        value: id
+      - title: Irish
+        value: ga
+      - title: Italian
+        value: it
+      - title: Japanese
+        value: ja
+      - title: Javanese
+        value: jv
+      - title: Kannada
+        value: kn
+      - title: Kazakh
+        value: kk
+      - title: Korean
+        value: ko
+      - title: Lao
+        value: lo
+      - title: Latvian
+        value: lv
+      - title: Lingala
+        value: ln
+      - title: Lithuanian
+        value: lt
+      - title: Luxembourgish
+        value: lb
+      - title: Macedonian
+        value: mk
+      - title: Malagasy
+        value: mg
+      - title: Malay
+        value: ms
+      - title: Malayalam
+        value: ml
+      - title: Maltese
+        value: mt
+      - title: Marathi
+        value: mr
+      - title: Mongolian
+        value: mn
+      - title: Nepali
+        value: ne
+      - title: Northern Sotho
+        value: nso
+      - title: Norwegian
+        value: 'no'
+      - title: Occitan
+        value: oc
+      - title: Oriya
+        value: or
+      - title: Panjabi
+        value: pa
+      - title: Pashto
+        value: ps
+      - title: Persian
+        value: fa
+      - title: Polish
+        value: pl
+      - title: Romanian
+        value: ro
+      - title: Russian
+        value: ru
+      - title: Scottish Gaelic
+        value: gd
+      - title: Serbian
+        value: sr
+      - title: Sindhi
+        value: sd
+      - title: Sinhala
+        value: si
+      - title: Slovak
+        value: sk
+      - title: Slovenian
+        value: sl
+      - title: Somali
+        value: so
+      - title: Spanish
+        value: es
+      - title: Sundanese
+        value: su
+      - title: Swahili
+        value: sw
+      - title: Swati
+        value: ss
+      - title: Swedish
+        value: sv
+      - title: Tagalog
+        value: tl
+      - title: Tamil
+        value: ta
+      - title: Thai
+        value: th
+      - title: Tswana
+        value: tn
+      - title: Turkish
+        value: tr
+      - title: Ukrainian
+        value: uk
+      - title: Urdu
+        value: ur
+      - title: Uzbek
+        value: uz
+      - title: Vietnamese
+        value: vi
+      - title: Welsh
+        value: cy
+      - title: Western Frisian
+        value: fy
+      - title: Wolof
+        value: wo
+      - title: Xhosa
+        value: xh
+      - title: Yiddish
+        value: yi
+      - title: Yoruba
+        value: yo
+      - title: Zulu
+        value: zu
+    customSocket: text
+outputs:
+  json:
+    scripts:
+      jsonata: $eval($string($))
+    type: object
+  text:
+    scripts:
+      jsonata: >-
+        $exists(text) ? text : $exists(json.text) ? json.text :
+        $exists(json.result) ? $string(json.result) : ""
+    customSocket: text

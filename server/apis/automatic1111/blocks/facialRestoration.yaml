@@ -1,0 +1,59 @@
+category: Image Manipulation
+description: Facial restoration using GFP-GAN and/or CodeFormer.
+title: Restore Face
+apiNamespace: automatic1111
+apiOperationId: extras_batch_images_api_sdapi_v1_extra_batch_images_post
+displayNamespace: automatic1111
+displayOperationId: facialRestoration
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:images
+    opts:
+      readonly: true
+inputs:
+  imageList:
+    required: true
+    scripts:
+      jsonata: >-
+        $.[imageList.{  "name": $string($formatNumber($random() * 1000,
+        "img_###")) & "." & "png",  "data": "data:image/png;base64," & $}]
+    customSocket: image
+    socketOpts:
+      format: base64
+      array: true
+  resize_mode:
+    hidden: true
+  gfpgan_visibility:
+    title: GFPGAN
+    description: Visibility (blend) for the GFPGAN facial restoration model. (0=off)
+  codeformer_visibility:
+    title: CodeFormer
+    description: Visibility for CodeFormer facial restoration model. (0=off)
+  codeformer_weight:
+    title: CodeFormer Weight
+    description: Weight for Codeformer facial restoration model. (0=max, 1=min)
+  upscaling_resize:
+    hidden: true
+  upscaling_resize_w:
+    hidden: true
+  upscaling_resize_h:
+    hidden: true
+  upscaling_crop:
+    hidden: true
+  extras_upscaler_2_visibility:
+    hidden: true
+  upscale_first:
+    default: true
+    hidden: true
+  show_extras_results:
+    hidden: true
+  upscaler_1:
+    default: None
+    hidden: true
+  upscaler_2:
+    default: None
+    hidden: true
+outputs:
+  images:
+    type: imageArray

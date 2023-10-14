@@ -1,0 +1,31 @@
+category: Image Generation
+description: >-
+  Generates an image based on a given text prompt using the Stable Diffusion XL family of models.
+title: Text to Image (Stable Diffusion XL)
+apiNamespace: getimg
+apiOperationId: textToImageXL
+displayNamespace: getimg
+displayOperationId: textToImageXL
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:image
+    opts:
+      readonly: true
+inputs:
+  model:  
+    type: string
+    customSocket: text
+    default: stable-diffusion-xl-v1-0
+    choices:
+      block: getimg.listModels
+      args: 
+        pipeline: text-to-image
+        family: stable-diffusion-xl
+      cache: global
+      map:
+        title: name
+        value: id
+outputs:
+  image:
+    customSocket: image

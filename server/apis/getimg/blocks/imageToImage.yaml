@@ -1,0 +1,35 @@
+category: Image Generation
+description: >-
+  Geneate an image based on a given text prompt and a source image using the Stable Diffusion family of models.
+title: Image to Image (Stable Diffusion)
+apiNamespace: getimg
+apiOperationId: imageToImage
+displayNamespace: getimg
+displayOperationId: imageToImage
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:image
+    opts:
+      readonly: true
+inputs:
+  image:
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+  model:
+    type: string
+    customSocket: text
+    choices:
+      block: getimg.listModels
+      cache: global
+      args: 
+        pipeline: image-to-image
+        family: stable-diffusion
+      map:
+        title: name
+        value: id
+outputs:
+  image:
+    customSocket: image

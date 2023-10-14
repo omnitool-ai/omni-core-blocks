@@ -1,0 +1,16 @@
+category: Text Analysis
+title: Moderation (Simple)
+apiNamespace: openai
+apiOperationId: createModeration
+displayNamespace: openai
+displayOperationId: simpleModeration
+inputs:
+  input:
+    required: true
+  model:
+    hidden: true
+outputs:
+  flagged:
+    scripts:
+      jsonata: results[0].flagged
+    type: boolean

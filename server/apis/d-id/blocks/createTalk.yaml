@@ -1,0 +1,62 @@
+category: Video Generation
+title: 'D-ID: Create Talk (WIP)'
+apiNamespace: d-id
+apiOperationId: createTalk
+displayNamespace: d-id
+displayOperationId: createTalk
+# scripts:
+#   hideExcept:inputs:
+#     - source_url
+#     - driver_url
+#     - script
+#     - config
+inputs:
+  type:
+    type: string
+    required: true
+    enum:
+      - text
+      - audio
+  subtitles:
+    type: boolean
+  provider_type:
+    type: string
+    enum:
+      - MICROSOFT_TTS_PROVIDER
+      - ELEVENLABS_TTS_PROVIDER
+      - AMAZON_TTS_PROVIDER
+      - AFFLORITHMICS_TTS_PROVIDER
+
+  voice_id:
+    type: string
+  ssml:
+    type: boolean
+  input:
+    type: string
+    required: true
+  script:
+    scripts:
+      jsonata: >-
+        {
+          "type": $string(type),
+          "subtitles": subtitles,
+          "provider": {
+            "type": $string(provider_type),
+            "voice_id": $string(voice_id)
+          },
+          "ssml": ssml,
+          "input": $string(input)
+        }
+      delete:
+        - type
+        - subtitles
+        - provider_type
+        - voice_id
+        - input
+        - ssml
+outputs:
+  result_url:
+    type: string
+    customSocket: text
+  raw_output:
+    type: object

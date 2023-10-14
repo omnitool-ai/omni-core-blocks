@@ -1,0 +1,22 @@
+namespace: civitai
+api:
+  spec: ./api/civitai.yaml
+  basePath: https://api.civitai.com/v1
+  patch:
+    meta:
+      summary: >-
+        Civitai is an online platform that makes it easy for people to share and
+        discover resources for creating AI art. Users can upload and share
+        models that have been trained to generate art in a particular style, or
+        browse and download models created by other users.
+      links:
+        Website: https://civitai.com/
+        Documentation: https://github.com/civitai/civitai/wiki/REST-API-Reference
+        Pricing: N/A
+  auth:
+    type: http_bearer
+    requireKeys:
+      - id: Bearer
+        displayName: Bearer
+        type: string
+title: civitai

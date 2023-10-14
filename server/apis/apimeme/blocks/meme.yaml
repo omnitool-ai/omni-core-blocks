@@ -1,0 +1,939 @@
+category: Image Generation
+title: Generate Meme
+apiNamespace: apimeme
+apiOperationId: generateMeme
+displayNamespace: apimeme
+displayOperationId: meme
+inputs:
+  meme:
+    title: Meme
+    default: Albert Einstein 1
+    choices:
+      - 10 Guy
+      - 1950s Middle Finger
+      - 1990s First World Problems
+      - 1st World Canadian Problems
+      - 2nd Term Obama
+      - Aaaaand Its Gone
+      - Ace Primo
+      - Actual Advice Mallard
+      - Adalia Rose
+      - Admiral Ackbar Relationship Expert
+      - Advice Dog
+      - Advice Doge
+      - Advice God
+      - Advice Peeta
+      - Advice Tam
+      - Advice Yoda
+      - Afraid To Ask Andy
+      - Afraid To Ask Andy Closeup
+      - Aint Nobody Got Time For That
+      - Alan Greenspan
+      - Alarm Clock
+      - Albert Cagestein
+      - Albert Einstein 1
+      - Alien Meeting Suggestion
+      - Alright Gentlemen We Need A New Idea
+      - Always Has Been
+      - Alyssa Silent Hill
+      - Am I The Only One Around Here
+      - American Chopper Argument
+      - Ancient Aliens
+      - And everybody loses their minds
+      - And then I said Obama
+      - Angry Asian
+      - Angry Baby
+      - Angry Birds Pig
+      - Angry Bride
+      - Angry Chef Gordon Ramsay
+      - Angry Chicken Boss
+      - Angry Dumbledore
+      - Angry Koala
+      - Angry Rant Randy
+      - Angry Toddler
+      - Annoying Childhood Friend
+      - Annoying Facebook Girl
+      - Anri Stares
+      - Anti Joke Chicken
+      - Apathetic Xbox Laser
+      - Archer
+      - Are Your Parents Brother And Sister
+      - Are you a Wizard
+      - Arrogant Rich Man
+      - Art Attack
+      - Art Student Owl
+      - Arthur Fist
+      - Asshole Ref
+      - Aunt Carol
+      - Austin Powers Honestly
+      - Aw Yeah Rage Face
+      - Awkward Moment Sealion
+      - Awkward Olympics
+      - BANE AND BRUCE
+      - BM Employees
+      - Babushkas On Facebook
+      - Baby Cry
+      - Baby Godfather
+      - Baby Insanity Wolf
+      - Back In My Day
+      - Bad Advice Cat
+      - Bad Joke Eel
+      - Bad Luck Bear
+      - Bad Luck Brian
+      - Bad Luck Hannah
+      - Bad Pun Anna Kendrick
+      - Bad Pun Dog
+      - Bad Wife Worse Mom
+      - Bah Humbug
+      - Bane
+      - Bane Permission
+      - Barack And Kumar 2013
+      - Barba
+      - Barbosa And Sparrow
+      - Barney Stinson Win
+      - Baromney
+      - Baron Creater
+      - Bart Simpson Peeking
+      - Batman And Superman
+      - Batman Slapping Robin
+      - Batman Smiles
+      - Batmobile
+      - Bazooka Squirrel
+      - Be Like Bill
+      - Bear Grylls
+      - Beard Baby
+      - Bebo
+      - Because Race Car
+      - Ben Barba Pointing
+      - Bender
+      - Benito
+      - Bernie I Am Once Again Asking For Your Support
+      - Beyonce Knowles Superbowl
+      - Beyonce Knowles Superbowl Face
+      - Beyonce Superbowl Yell
+      - Big Bird
+      - Big Bird And Mitt Romney
+      - Big Bird And Snuffy
+      - Big Ego Man
+      - Big Family Comeback
+      - Bike Fall
+      - Bill Murray Golf
+      - Bill Nye The Science Guy
+      - Bill OReilly
+      - Billy Graham Mitt Romney
+      - Bitch Please
+      - Black Girl Wat
+      - Blank Blue Background
+      - Blank Colored Background
+      - Blank Comic Panel 1x2
+      - Blank Comic Panel 2x1
+      - Blank Comic Panel 2x2
+      - Blank Nut Button
+      - Blank Starter Pack
+      - Blank Transparent Square
+      - Blank Yellow Sign
+      - Blob
+      - Blue Futurama Fry
+      - Boardroom Meeting Suggestion
+      - Bonobo Lyfe
+      - Booty Warrior
+      - Bothered Bond
+      - Brace Yourselves X is Coming
+      - Brian Burke On The Phone
+      - Brian Griffin
+      - Brian Williams Was There
+      - Brian Williams Was There 2
+      - Brian Williams Was There 3
+      - Brian Wilson Vs ZZ Top
+      - Britney Spears
+      - Bubba And Barack
+      - Buddy Christ
+      - Buddy The Elf
+      - Buff Doge vs Cheems
+      - Bullets
+      - Burn Kitty
+      - Business Cat
+      - But Thats None Of My Business
+      - But Thats None Of My Business Neutral
+      - Butthurt Dweller
+      - CASHWAG Crew
+      - CURLEY
+      - Captain Hindsight
+      - Captain Phillips Im The Captain Now
+      - Captain Picard Facepalm
+      - Car Salesman Slaps Hood
+      - Casper
+      - Castaway Fire
+      - Ceiling Cat
+      - Cel Jesuno
+      - Chainsaw Bear
+      - Challenge Accepted Rage Face
+      - Change My Mind
+      - Charlie Sheen Derp
+      - Chavez
+      - Chef Gordon Ramsay
+      - Chemistry Cat
+      - Chester The Cat
+      - Chicken Bob
+      - Chief Keef
+      - Chihuahua dog
+      - Chill Out Lemur
+      - Chinese Cat
+      - Chocolate Spongebob
+      - Chubby Bubbles Girl
+      - Chuck Norris
+      - Chuck Norris Approves
+      - Chuck Norris Finger
+      - Chuck Norris Flex
+      - Chuck Norris Guns
+      - Chuck Norris Laughing
+      - Chuck Norris Phone
+      - Chuck Norris With Guns
+      - Chuckchuckchuck
+      - City Bear
+      - Cleavage Girl
+      - Clefable
+      - Close Enough
+      - Clown Applying Makeup
+      - College Freshman
+      - College Liberal
+      - Comic Book Guy
+      - Computer Guy
+      - Computer Guy Facepalm
+      - Computer Horse
+      - Confused Cam
+      - Confused Gandalf
+      - Confused Granddad
+      - Confused Lebowski
+      - Confused Mel Gibson
+      - Conspiracy Keanu
+      - Consuela
+      - Contradictory Chris
+      - Cool Cat Stroll
+      - Cool Obama
+      - Cool Story Bro
+      - Corona
+      - Costanza
+      - Coulson
+      - Courage Wolf
+      - Crazy Dawg
+      - Crazy Girlfriend Praying Mantis
+      - Crazy Hispanic Man
+      - Creeper Dog
+      - Creepy Condescending Wonka
+      - Criana
+      - Crosseyed Goku
+      - Crying Because Of Cute
+      - Cute Cat
+      - Cute Dog
+      - Cute Puppies
+      - DJ Pauly D
+      - Dad Joke Dog
+      - Dafuq Did I Just Read
+      - Dallas Cowboys
+      - Dancing Trollmom
+      - Darth Maul
+      - Darti Boy
+      - Dat Ass
+      - DatBoi
+      - Dating Site Murderer
+      - Dave Chappelle
+      - Dave Chappelle - Y'all Got Any More Of
+      - David After Dentist
+      - Dead Space
+      - Deadpool Pick Up Lines
+      - Deadpool Surprised
+      - Deal With It
+      - Dear Leader Kim Jong Un
+      - Degenatron
+      - Depressed Cat
+      - Depressed Dog
+      - Depression Dog
+      - Derp
+      - Derpina
+      - Desmond The Moon Bear
+      - Detrimental Rob
+      - Dexter
+      - Dick Cheney
+      - Disappointed Tyson
+      - Disaster Girl
+      - Disturbed Dingo
+      - Do I Care Doe
+      - Do You Want Ants
+      - Doge
+      - Doge 2
+      - Dolan Duck
+      - Donald Trump
+      - Dont You Squidward
+      - Dory
+      - Doug
+      - Down Syndrome
+      - Downcast Dark Souls
+      - Downvoting Roman
+      - Drake Bad Good
+      - Drake Hotline Bling
+      - Drake Hotline approves
+      - Dramatic Chipmunk
+      - Drunk Baby
+      - Ducreux
+      - Dumb Blonde
+      - Dwight Schrute
+      - Dwight Schrute 2
+      - Dylan McKay
+      - Dysfunctional Family Dinner
+      - ERMAGHERD TWINKIES
+      - ERMAHGERD TWERLERT
+      - Evil Cows
+      - Evil Kermit
+      - Evil Otter
+      - Evil Plotting Raccoon
+      - Evil Toddler
+      - Excited Cat
+      - Expanding Brain
+      - Explain Like I'm 5
+      - Extra Fabulous Comics
+      - Extreme Makeover Home Edition
+      - Extremely Pissed Off Obama
+      - Eye Of Sauron
+      - FACEPALM
+      - FRANGO
+      - Fabulous Frank And His Snake
+      - Face You Make Robert Downey Jr
+      - Facepalm Bear
+      - Fake Hurricane Guy
+      - Family Guy Brian
+      - Family Guy Peter
+      - Family Tech Support Guy
+      - Fast Furious Johnny Tran
+      - Fat Cat
+      - Fat Val Kilmer
+      - Fear And Loathing Cat
+      - Feels Bad Frog - Feels Bad Man
+      - Feels Good
+      - Feels Good Octopus
+      - Fencing
+      - Fernando Litre
+      - Fidel Castro
+      - Finding Neverland
+      - First Day On The Internet Kid
+      - First World Frat Guy
+      - First World Problems
+      - First World Problems Cat
+      - First World Stoner Problems
+      - Fk Yeah
+      - Flappy Bird
+      - Forever Alone
+      - Forever Alone Christmas
+      - Forever Alone Happy
+      - Foul Bachelor Frog
+      - Foul Bachelorette Frog
+      - Friend Zone Fiona
+      - Frowning Nun
+      - Frustrated Boromir
+      - Frustrating Mom
+      - Fuck Yeah
+      - Fwp
+      - GMan
+      - GabeN
+      - Gandalf Epic Sax Guy
+      - Gangnam Style
+      - Gangnam Style2
+      - Gangnam Style PSY
+      - Gasp Rage Face
+      - George Bush
+      - George Washington
+      - Ghetto Jesus
+      - Ghost Nappa
+      - Giant Toblerone
+      - Giggity Glenn
+      - Godfather Baby
+      - Good Fellas Hilarious
+      - Good Guy Greg
+      - Good Guy Pizza Rolls
+      - Good Guy Socially Awkward Penguin
+      - Google Chrome
+      - Grandma Finds The Internet
+      - Grandpa Finds The Internet
+      - Green Day
+      - Grumpy Cat
+      - Grumpy Cat Bed
+      - Grumpy Cat Birthday
+      - Grumpy Cat Christmas
+      - Grumpy Cat Does Not Believe
+      - Grumpy Cat Halloween
+      - Grumpy Cat Happy
+      - Grumpy Cat Mistletoe
+      - Grumpy Cat Not Amused
+      - Grumpy Cat Reverse
+      - Grumpy Cat Sky
+      - Grumpy Cat Star Wars
+      - Grumpy Cat Table
+      - Grumpy Cat Top Hat
+      - Grumpy Cats Father
+      - Grumpy Toad
+      - Gucci Mane
+      - Guillermo Ochoa
+      - Guy Fawkes
+      - Guy Holding Cardboard Sign
+      - HAL 9000
+      - Hagrid
+      - Halo Reach
+      - Handy Kong
+      - Hangover
+      - Happy Minaj
+      - Happy Star Congratulations
+      - Hard To Swallow Pills
+      - Harold Hiding Pain
+      - Harper WE
+      - Harry Potter Ok
+      - Haters Gonna Hate
+      - Haunting Face
+      - Hawkward
+      - He Needs The Vaccine
+      - He Will Never Get A Girlfriend
+      - Headbanzer
+      - Headless Rider DRRR
+      - Heavy Breathing Cat
+      - Hello Kassem
+      - Hello Kitty
+      - Helpful Tyler Durden
+      - Henry David Thoreau
+      - Heres Johnny
+      - Herm Edwards
+      - Hey Internet
+      - Hide the Pain Harold
+      - Hide yo kids hide yo wife
+      - High Dog
+      - High Expectations Asian Father
+      - Hillary Clinton Cellphone
+      - Hipster Ariel
+      - Hipster Barista
+      - Hipster Kitty
+      - Hoody Cat
+      - Horny Harry
+      - Hot Caleb
+      - Hot Scale
+      - House Bunny
+      - How About No Bear
+      - How Tough Are You
+      - Hypnotoad
+      - Hypocritical Islam Terrorist
+      - Hypocrite Hippo
+      - I Bet He's Thinking About Other Women
+      - I Forsee
+      - I Guarantee It
+      - I Have No Idea What I Am Doing
+      - I Have No Idea What I Am Doing Dog
+      - I Know Fuck Me Right
+      - I Know That Feel Bro
+      - I Lied 2
+      - I See Dead People
+      - I Should Buy A Boat Cat
+      - I Too Like To Live Dangerously
+      - I Was Told There Would Be
+      - I Will Find You And Kill You
+      - I dont believe you
+      - I see what you did there
+      - Idiot Nerd Girl
+      - Idiotaco
+      - If You Know What I Mean Bean
+      - Ill Have You Know Spongebob
+      - Im Curious Nappa
+      - Im Fabulous Adam
+      - Imagination Spongebob
+      - Imgflip Pro
+      - Inception
+      - Inhaling Seagull
+      - Insanity Puppy
+      - Insanity Wolf
+      - Intense Typing Cat
+      - Internet Explorer
+      - Internet Guide
+      - Interupting Kanye
+      - Invalid Argument Vader
+      - Is This A Pigeon
+      - It's Finally Over
+      - It's Not Going To Happen
+      - Its Not I Miss You Its I Miss You
+      - Jack Nicholson The Shining Snow
+      - Jack Sparrow Being Chased
+      - Jackie Chan WTF
+      - Jammin Baby
+      - Jay Knows Facts
+      - Jealous Girl
+      - Jeff Goldblum
+      - Jellyfish
+      - Jerkoff Javert
+      - Jessica Nigri Cosplay
+      - Jesus Talking To Cool Dude
+      - Jim Lehrer The Man
+      - Joe Biden
+      - John Riley Condescension
+      - Joker Mind Loss
+      - Joker Rainbow Hands
+      - Jon Stewart Skeptical
+      - Joo Espontneo
+      - Joseph Ducreux
+      - Justin Bieber Suit
+      - Karate Kyle
+      - Katt Williams Shocked
+      - Keep Calm And Carry On Aqua
+      - Keep Calm And Carry On Black
+      - Keep Calm And Carry On Purple
+      - Keep Calm And Carry On Red
+      - Kevin Hart
+      - Kevin Hart The Hell
+      - Kill Yourself Guy
+      - Kill You Cat
+      - Kim Jong Un Sad
+      - Kool Kid Klan
+      - Kowalski Analysis
+      - Kurt Cobain
+      - LIGAF
+      - LOL Guy
+      - Lady Gaga
+      - Lame Pun Coon
+      - Lame Pun Raccoon
+      - Lana Del Rey
+      - Larry The Cable Guy
+      - Laughing Men In Suits
+      - Laurel Or Yanny
+      - Lazy College Senior
+      - Left Exit 12 Off Ramp
+      - Legal Bill Murray
+      - Leonardo Dicaprio Cheers
+      - Leonardo DiCaprio Wolf Of Wall Street
+      - Liam Neeson Taken
+      - Liam Neeson Taken 2
+      - Life Sucks
+      - Lil Wayne
+      - Lion King
+      - Little Romney
+      - Look At All These
+      - Look At Me
+      - Look Son
+      - Lord Of The Rings
+      - Loser
+      - Lost Romney
+      - Love My Job
+      - Mad Money Jim Cramer
+      - Mad Moxxi
+      - Malicious Advice Mallard
+      - Mammoth WVH
+      - Manning Broncos
+      - Mario Hammer Smash
+      - Marked Safe From
+      - Matrix Morpheus
+      - Maury Lie Detector
+      - Mayu Watanabe
+      - McKayla Maroney Not Impressed
+      - McMelch
+      - Mean Girls
+      - Men In Black
+      - Men Laughing
+      - Merida Brave
+      - Metal Jesus
+      - Michael Jackson Popcorn
+      - Michael Phelps Death Stare
+      - Michelle Obama
+      - Mike Wazowski Explaining Things
+      - Minor Mistake Marvin
+      - Misunderstood Mitch
+      - Mocking Spongebob
+      - Modern Warfare 3
+      - Money Man
+      - Money Money
+      - Monkey Business
+      - Monkey OOH
+      - Monkey Puppet
+      - Monkey Pushing Things Off Table
+      - Monopoly Man
+      - Morgan Freeman Good Luck
+      - Morpheus
+      - Most Interesting Cat In The World
+      - Most Interesting Justin Bieber
+      - Most Interesting Man In The World
+      - Mother Of God
+      - Movie Dude
+      - Mr Black Knows Everything
+      - Mr Mackey
+      - Mr T
+      - Mr T Pity The Fool
+      - Mr. Black
+      - Mr. Incredible
+      - Musically Oblivious 8th Grader
+      - NBA
+      - Nabilah Jkt48
+      - Nancy Pelosi
+      - Nappa
+      - Neil deGrasse Tyson
+      - Nerd
+      - Net Noob
+      - Nice Guy Loki
+      - Nicest Guy Loki
+      - Nicolas Cage - You don't say
+      - Nilo
+      - No I Cant Obama
+      - No Patrick
+      - Not Bad Obama
+      - Not Okay Rage Face
+      - Not a Meme, Just Boobs
+      - Nothing To Do Here
+      - Now Kiss
+      - Nuka Cola Bottle
+      - OMG Cat
+      - Obama
+      - Obama Cowboy Hat
+      - Obama No Listen
+      - Obama Romney Pointing
+      - Obi Wan Kenobi
+      - Offensive Forrest Gump
+      - Oh No
+      - Oh No It's Retarded
+      - Oh Stop it, You
+      - Ohh We Got A Badass Over Here
+      - Okay Guy Rage Face
+      - Okay Guy Rage Face2
+      - Old Money Dog
+      - Oprah You Get A
+      - Ordinary Muslim Man
+      - Original Bad Luck Brian
+      - Original I Lied
+      - Original Stoner Dog
+      - Osama
+      - Overly Attached Father
+      - Overly Attached Girlfriend
+      - Overly Attached Nicolas Cage
+      - Overly Manly Man
+      - Pacha Edits
+      - Paranoid Parrot
+      - Pat Quinn
+      - Pathetic Spidey
+      - Patrick Henry
+      - Patrick Says
+      - Patrick Wtf
+      - Paul Ryan
+      - Pawn Stars
+      - Pedobear
+      - Pedophile Orochimaru
+      - Pensive Emo Guy
+      - Pepperidge Farm Remembers
+      - Perfection Michael Fassbender
+      - Perry Filkin
+      - Perspicacious And Pensive Professional
+      - Peter Griffin News
+      - Philosoraptor
+      - Phone Guys
+      - Picard Facepalm
+      - Pikachu
+      - Pissed Off Obama
+      - Police Officer Testifying
+      - Pompous Albert
+      - Pope Francis
+      - Porta Potty
+      - Predator
+      - Priority Peter
+      - Professor Oak
+      - Programmer Humor
+      - Psychotic Tom Cruise
+      - Putin
+      - Question Rage Face
+      - Questionable Strategy Kobe
+      - R Lee Ermey
+      - RKO Outta Nowhere
+      - RPG Fan
+      - Raimi Spider-Man
+      - Ralph Wiggum
+      - Rasta Science Teacher
+      - Really Evil College Teacher
+      - Rejected Mega Man Villain
+      - Relaxed Office Guy
+      - Religion Pigeon
+      - Remember The Day
+      - Rent Is Too Damn High
+      - Report It Guy
+      - Respect My Authoritah
+      - Rick and Carl
+      - Rick and Carl 3
+      - Rick and Carl Long
+      - Rick and Carl Longer
+      - Ricky Bobby
+      - Ridiculously Photogenic Guy
+      - Ridiculously Photogenic Metal Head
+      - Right In The Childhood
+      - Ritsu Tainaka
+      - Robert Downey Jr
+      - Robin
+      - Rocket Raccoon
+      - Roddy Piper Hot Rod
+      - Romney
+      - Romney And Ryan
+      - Romney Bong
+      - Ron Burgundy
+      - Ron Swanson
+      - Ronaldo
+      - Room Full Of People Running
+      - Sad Baby
+      - Sad Cat
+      - Sad Keanu
+      - Sad Owl
+      - Sad Spiderman
+      - Sad X All The Y
+      - Sadly I Am Only An E  - Samuel Jackson Glance
+      - San Juan Cholo
+      - Santa Claus Troll
+      - Sarcastic Anthony
+      - Sarcastic Bear
+      - Sassy Iguana
+      - Scared Cat
+      - Scary Harry
+      - Scene Wolf
+      - Schapelle Corby
+      - Science Cat
+      - Scrooge McDuck
+      - Scrooge McDuck 2
+      - Scumbag Advice God
+      - Scumbag Alcohol
+      - Scumbag American
+      - Scumbag Android
+      - Scumbag Animal Crossing
+      - Scumbag Anonymous
+      - Scumbag Apple
+      - Scumbag Aquafresh
+      - Scumbag Baby
+      - Scumbag Brain
+      - Scumbag Christian
+      - Scumbag Daylight Savings Time
+      - Scumbag DNS Server
+      - Scumbag Girl
+      - Scumbag God
+      - Scumbag Google
+      - Scumbag GTA
+      - Scumbag Hat
+      - Scumbag iTunes
+      - Scumbag Jesus
+      - Scumbag Meme
+      - Scumbag Microsoft Word
+      - Scumbag Minecraft
+      - Scumbag Minor
+      - Scumbag Muslim
+      - Scumbag Parents
+      - Scumbag Redditor
+      - Scumbag Router
+      - Scumbag Steve
+      - Scumbag Steve Christmas
+      - Scumbag Sun
+      - Scumbag Teacher
+      - Scumbag Vegan
+      - Scumbag Windows
+      - Sealed Fate
+      - Sean Bean
+      - Self Loathing Otter
+      - Selfish Ozzy
+      - Serious Xzibit
+      - Seriously Face
+      - Sexual Deviant Walrus
+      - Sexy Railroad Spiderman
+      - ShObi
+      - Shaq And Cat
+      - Shark
+      - Shawn Oakman
+      - Sheltering Suburban Mom
+      - Sheltie Shaming
+      - Shouter
+      - Shrek Cat
+      - Shut Up And Take My Money Fry
+      - Sidious Error
+      - Simpsons Grandpa
+      - Skeptical Baby
+      - Skeptical Swardson
+      - Skinhead John Travolta
+      - Skrilllex
+      - Skull Trumpet
+      - Slenderman
+      - Slick Fry
+      - Slowpoke
+      - Small Fact Frog
+      - Smilin Biden
+      - Smiling Cat
+      - Smiling Jesus
+      - Smirk Rage Face
+      - Smug Bear
+      - Snobbery
+      - So God Made A Farmer
+      - So I Guess You Can Say Things Are Getting Pretty Serious
+      - So Many Shirts
+      - Socially Awesome Awkward Penguin
+      - Socially Awesome Penguin
+      - Socially Awkward Awesome Penguin
+      - Socially Awkward Couple
+      - Socially Awkward Penguin
+      - Solemn Lumberjack
+      - Somewhat Menacing Josh Romney
+      - Sophisticated Cat
+      - South Park Craig
+      - Spacey Casey
+      - Spangles
+      - Sparrow Face
+      - Special Kind Of Stupid
+      - Speechless Colbert Face
+      - Spiderman Camera
+      - Spiderman Computer Desk
+      - Spiderman Hospital
+      - Spiderman Laugh
+      - Spiderman Peter Parker
+      - Sponegebob Money
+      - Spongebob Ight Imma Head Out
+      - Squidward
+      - Star Wars Yoda
+      - Stephen Harper Podium
+      - Steve Harvey
+      - Stoned Buzzed Busted Waldo - Stoner PhD
+      - Stop Cop
+      - Storytelling Grandpa
+      - Subtle Pickup Liner
+      - Sudden Clarity Clarence
+      - Sudden Disgust Danny
+      - Super Birthday Squirrel
+      - Super Cool Ski Instructor
+      - Super Kami Guru Allows This
+      - Surpised Frodo
+      - Surprised Coala
+      - Surprised Koala
+      - Surprised Pikachu
+      - Suspicious Cat
+      - Sweaty Concentrated Rage Face
+      - Sweet Brown
+      - T-Dawg The Walking Dead
+      - TED
+      - TLDR Eggs
+      - TOODAMNHIGH
+      - TRUMP
+      - Table Flip Guy
+      - Take A Seat Cat
+      - Takeshi Kitano
+      - Tamou
+      - Tampon Boy
+      - Technologically Impaired Duck
+      - Ted
+      - Teenage Mutant Ninja Turtles
+      - Tentaquil
+      - Terry Davis
+      - That Would Be Great
+      - Thats Just Something X Say
+      - The Bobs
+      - The Critic
+      - The Dude
+      - The Most Interesting Cat In The World
+      - The Most Interesting Justin Bieber
+      - The Most Interesting Man In The World
+      - The Probelm Is
+      - The Rent Is Too High
+      - The Rock Driving
+      - The Rock It Doesnt Matter
+      - The Scroll Of Truth
+      - The Simpsons Come At Me Bro
+      - These Arent The Droids You Were Looking For
+      - They Said
+      - Third World Skeptical Kid
+      - Third World Success Kid
+      - This Could Be Us But You Playing
+      - This Is Fine
+      - This Is Where I'd Put My Trophy If I Had One
+      - Thumbs Up Emoji
+      - Tiger King
+      - Time To Fap
+      - Timon And Pumba
+      - Tired Spongebob
+      - To Be Continued
+      - Too Damn High
+      - Too Drunk At Party Tina
+      - Too Kool Kyle
+      - Top Gear Jeremy Clarkson
+      - Torgo
+      - Tourettes Guy
+      - Traitor
+      - Travis Scott McDonalds
+      - Troll Face
+      - Troll Face Colored
+      - True Story
+      - Trump Bill Signing
+      - Trump Dopey Face
+      - Trump Nope
+      - Trump Pepe
+      - Trump serious face
+      - Trump Wont Leave
+      - Tucker Carlson
+      - Tuxedo Winnie The Pooh
+      - Two Buttons
+      - UNCLE
+      - Ugly Twins
+      - Uncomfortable Situation Seal
+      - Unhappy Baby
+      - Unhelpful High School Teacher
+      - Unpopular Opinion Puffin
+      - Unsettled Tom
+      - Unwanted House Guest
+      - V For Vendetta
+      - Valentine's Day Poem
+      - Vengeance Dad
+      - Veterans Day
+      - Vic Rattlehead
+      - Vince McMahon
+      - Vladimir Putin
+      - Voldemort
+      - Wacken Baby
+      - Waitress
+      - Waldo
+      - Wasted
+      - We Will Rebuild
+      - Weasel
+      - Well That Escalated Quickly
+      - What Do We Want
+      - What Do We Want 3
+      - What Year Is It
+      - Wheres Waldo
+      - Who Killed Hannibal
+      - Why Can't I Hold All These Limes
+      - Why Is The Rum Gone
+      - Why Not Both
+      - Willy Wonka
+      - Wink
+      - Winter is coming
+      - Woke MS Paint Guy
+      - Wolverine Remember
+      - Woman Yelling At Cat
+      - Wrong Number Rita
+      - Wrong Neighboorhood Cats
+      - X All The Y
+      - X, X Everywhere
+      - Y U No
+      - Yakuza
+      - Yao Ming
+      - Yelling Video Game Guy
+      - Yes This Is Dog
+      - Yo Dawg Heard You
+      - Yo Mamas So Fat
+      - You Can't Explain That
+      - You Don't Say
+      - You Get An X And You Get An X
+      - You Go Glenn Coco
+      - You Have No Power Here
+      - You Know What Really Grinds My Gears
+      - You Should Feel Bad Zoidberg
+      - You Underestimate My Power
+      - You Were The Chosen One (Star Wars)
+      - You're Gonna Have A Bad Time
+      - You're Too Slow Sonic
+      - Young And Reckless
+      - Young Cardi B
+      - Your Country Needs You
+      - ZNMD
+      - Zoidberg Jesus
+      - Zuckerberg
+      - Zura Janai Katsura Da
+outputs:
+  meme:
+    scripts:
+      jsonata: result
+    customSocket: image

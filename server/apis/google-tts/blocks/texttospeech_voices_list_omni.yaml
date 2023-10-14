@@ -1,0 +1,142 @@
+category: Model Operations
+description: Fetch the list of available voices from Google Text To Speech API.
+meta:
+  source:
+    title: 'Google: Text To Speech'
+    links:
+      Website: https://cloud.google.com/text-to-speech
+      Subscription: https://cloud.google.com/pricing
+      API Reference: >-
+        https://cloud.google.com/text-to-speech/docs/reference/rest/v1/voices/list
+      Documentation: https://cloud.google.com/text-to-speech/docs
+    summary: Fetch the list of available voices from Google Text To Speech API.
+title: Get Voices
+apiNamespace: google-tts
+apiOperationId: texttospeech_voices_list
+displayNamespace: google-tts
+displayOperationId: texttospeech_voices_list_omni
+inputs:
+  languageCode:
+    required: true
+    default: en-gb
+    choices:
+      - title: Amharic
+        value: am
+      - title: Arabic
+        value: ar
+      - title: Basque
+        value: eu
+      - title: Bengali
+        value: bn
+      - title: English (UK)
+        value: en-GB
+      - title: Portuguese (Brazil)
+        value: pt-BR
+      - title: Bulgarian
+        value: bg
+      - title: Catalan
+        value: ca
+      - title: Cherokee
+        value: chr
+      - title: Croatian
+        value: hr
+      - title: Czech
+        value: cs
+      - title: Danish
+        value: da
+      - title: Dutch
+        value: nl
+      - title: English (US)
+        value: en
+      - title: Estonian
+        value: et
+      - title: Filipino
+        value: fil
+      - title: Finnish
+        value: fi
+      - title: French
+        value: fr
+      - title: German
+        value: de
+      - title: Greek
+        value: el
+      - title: Gujarati
+        value: gu
+      - title: Hebrew
+        value: iw
+      - title: Hindi
+        value: hi
+      - title: Hungarian
+        value: hu
+      - title: Icelandic
+        value: is
+      - title: Indonesian
+        value: id
+      - title: Italian
+        value: it
+      - title: Japanese
+        value: ja
+      - title: Kannada
+        value: kn
+      - title: Korean
+        value: ko
+      - title: Latvian
+        value: lv
+      - title: Lithuanian
+        value: lt
+      - title: Malay
+        value: ms
+      - title: Malayalam
+        value: ml
+      - title: Marathi
+        value: mr
+      - title: Norwegian
+        value: 'no'
+      - title: Polish
+        value: pl
+      - title: Portuguese (Portugal)
+        value: pt-PT
+      - title: Romanian
+        value: ro
+      - title: Russian
+        value: ru
+      - title: Serbian
+        value: sr
+      - title: Chinese (PRC)
+        value: zh-CN
+      - title: Slovak
+        value: sk
+      - title: Slovenian
+        value: sl
+      - title: Spanish
+        value: es
+      - title: Swahili
+        value: sw
+      - title: Swedish
+        value: sv
+      - title: Tamil
+        value: ta
+      - title: Telugu
+        value: te
+      - title: Thai
+        value: th
+      - title: Chinese (Taiwan)
+        value: zh-TW
+      - title: Turkish
+        value: tr
+      - title: Urdu
+        value: ur
+      - title: Ukrainian
+        value: uk
+      - title: Vietnamese
+        value: vi
+      - title: Welsh
+        value: cy
+    type: string
+    customSocket: text
+outputs:
+  voices:
+    type: object
+    customSocket: object
+    socketOpts:
+      array: true

@@ -1,0 +1,23 @@
+category: Model Operations
+description: >-
+  Provides a list of available models on getimg.ai. You can list all the available models, or list the models for a specific family or pipeline.
+title: Get Models
+apiNamespace: getimg
+apiOperationId: listModels
+displayNamespace: getimg
+displayOperationId: listModels
+inputs:
+  family:
+    description: Filter the list to include only models with a matching family property.
+    type: string
+  pipeline:
+    description: Filter the list to include only models with a matching pipeline property.
+    type: string
+
+outputs:
+  models:
+    type: object
+    customSocket: object
+    socketOpts:
+      array: true
+    

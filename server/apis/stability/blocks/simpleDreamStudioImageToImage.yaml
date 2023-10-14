@@ -1,0 +1,60 @@
+category: Image Generation
+title: Image to Image (WIP)
+apiNamespace: stability
+apiOperationId: imageToImage
+displayNamespace: stability
+displayOperationId: simpleDreamStudioImageToImage
+inputs:
+  engine_id:
+    default: stable-diffusion-v1-5
+    hidden: true
+    type: string
+  init_image:
+    title: Initial Image
+    description: >-
+      Enter a base64 encoded image to use as the initial image. If left blank, a
+      random image will be used.
+    required: true
+    scripts:
+      jsonata: >-
+        $.[init_image.{  "name": $string($formatNumber($random() * 1000,
+        "img_###")) & "." & "png",  "data": "data:image/png;base64," & $}]
+    type: string
+    customSocket: image
+    socketOpts:
+      format: base64
+  text_prompts:
+    scripts:
+      jsonata: >
+        [$map($split(prompts, /[\n,]/), function($v, $i, $a) {{"text":
+        $split($trim($v), ":")[0], "weight":$number($split($trim($v), ":")[1] !=
+        "" ? $trim($split($trim($v), ":")[1]) : "1")}})]
+      delete:
+        - prompts
+    hidden: true
+    type: array
+  prompts:
+    title: Text Prompts
+    description: >-
+      Enter a text prompt and weight for each line or seperate by commas. The
+      weight is a number between 0 and 1 that determines how much the prompt
+      affects the image. A weight of 0 means the prompt will not affect the
+      image at all. A weight of 1 means the prompt will have the maximum effect
+      on the image.
+    customSocket: text
+outputs:
+  base64:
+    title: Image
+    scripts: {}
+    type: string
+    customSocket: image
+    socketOpts:
+      format: base64
+  seed:
+    title: Seed
+    scripts: {}
+    type: integer
+  finishReason:
+    title: Result
+    scripts: {}
+    type: string

@@ -1,0 +1,103 @@
+category: Model Operations
+meta:
+  source:
+    title: Models Search (Civitai)
+    links:
+      Civitai Website: https://civitai.com/
+      API Documentation: >-
+        https://github.com/civitai/civitai/wiki/REST-API-Reference#get-apiv1models
+    authors:
+      - Civitai Team
+    summary: >-
+      Civitai Models API allows searching for specific models based on certain
+      query.
+title: Search Models
+apiNamespace: civitai
+apiOperationId: searchModels
+displayNamespace: civitai
+displayOperationId: searchModels_omni
+inputs:
+  limit:
+    title: Limit
+    description: Limit the number of returned results.
+    required: true
+    default: 1
+    minimum: 1
+    maximum: 10
+    step: 1
+  sort:
+    title: Sort By
+    default: Most Reactions
+    choices:
+      - Most Reactions
+      - Most Comments
+      - Newest
+  period:
+    title: Period
+    default: AllTime
+    choices:
+      - AllTime
+      - Year
+      - Month
+      - Week
+      - Day
+  type:
+    title: Model Type
+    description: Select the model type
+    default: Checkpoint
+    choices:
+      - Checkpoint
+      - TextualInversion
+      - Hypernetwork
+      - AestheticGradient
+      - LORA
+      - Controlnet
+      - Poses
+    customSocket: text
+  rating:
+    title: Rating
+    description: Search for models with this specific rating.
+    default: 4
+    minimum: 1
+    maximum: 5
+    step: 0.1
+  nsfw:
+    title: Include NSFW
+    description: Whether to include Not Safe for Work (NSFW) models in the results.
+    default: false
+  allowCommercialUse:
+    title: Commercial Use Permissions
+    description: Filter to models based on their commercial permissions.
+    default: None
+    choices:
+      - None
+      - Image
+      - Rent
+      - Sell
+  postId:
+    title: Post ID
+    type: string
+    customSocket: text
+  modelId:
+    title: Model ID
+    type: string
+    customSocket: text
+  modelVersionId:
+    title: Model Version ID
+    type: string
+    customSocket: text
+outputs:
+  modelVersionIds:
+    title: Model Version IDs
+    description: The version IDs of the returned models.
+    scripts:
+      jsonata: $map($string($)).items.modelVersions, function($v, $i, $a) {$v.id})
+    customSocket: object
+    socketOpts:
+      array: true
+  json:
+    title: JSON
+    scripts:
+      jsonata: $eval($string($))
+    type: object
+    customSocket: object

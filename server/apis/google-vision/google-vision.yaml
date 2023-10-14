@@ -1,0 +1,9 @@
+namespace: google-vision
+api:
+  spec: ./api/google-vision.yaml
+  basePath: https://vision.googleapis.com
+componentType: OAIComponent31
+filter:
+  operationIds:
+    - vision_images_annotate
+title: google-vision

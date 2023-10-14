@@ -1,0 +1,21 @@
+category: Model Operations
+title: Get Voices
+apiNamespace: uberduck
+apiOperationId: list_voices_voices_get
+displayNamespace: uberduck
+displayOperationId: getvoices
+inputs:
+  mode:
+    default: tts-basic
+    choices:
+      - tts-basic
+      - tts-reference
+      - tts-all
+      - v2v
+    type: string
+outputs:
+  result:
+    type: array
+    customSocket: object
+    socketOpts:
+      array: true

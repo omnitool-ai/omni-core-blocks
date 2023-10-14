@@ -1,0 +1,32 @@
+category: Image Operations
+description: >-
+  Get a single page of photo results based on a search query with optional parameters.
+title: Search Photos
+apiNamespace: unsplash
+apiOperationId: searchPhotos
+displayNamespace: unsplash
+displayOperationId: searchPhotos
+scripts:
+  hideExcept:outputs:
+    - images
+    - urls
+    - results
+inputs:
+  per_page:
+    type: integer
+    default: 1
+outputs:
+  urls:
+    type: object
+    customSocket: string
+    socketOpts:
+      array: true
+    scripts:  
+      jsonata: $map(results, function($v, $i, $a) { $v.urls.regular })
+  images:
+    type: object
+    customSocket: image
+    socketOpts:
+      array: true
+    scripts:  
+      jsonata: urls

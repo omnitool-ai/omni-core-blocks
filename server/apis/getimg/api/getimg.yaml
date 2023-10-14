@@ -1,0 +1,674 @@
+openapi: 3.0.1
+info:
+  title: getimg.ai API
+  version: 1.0.0
+  description: getimg.ai image generation and editing API.
+security:
+  - BearerAuth: []
+servers:
+  - url: 'https://api.getimg.ai'
+paths:
+  /v1/stable-diffusion/text-to-image:
+    post:
+      summary: Generates an image based on given text prompt.
+      description: Supports different models each capable of producing unique style.
+      operationId: textToImage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextToImageRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Too Many Requests
+  /v1/stable-diffusion/image-to-image:
+    post:
+      summary: Generates an image based on a given text prompt and a source image.
+      description: Supports different models each capable of producing unique style.
+      operationId: imageToImage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageToImageRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Too Many Requests
+  /v1/stable-diffusion/controlnet:
+    post:
+      summary: Generates an image based on a given text prompt and a control image.
+      description: Generation follows the structure of the control image and fills the details based on text prompt.
+      operationId: controlNet
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ControlNetRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Too Many Requests
+
+  /v1/stable-diffusion/inpaint:
+    post:
+      summary: Generates repainted image based on a text prompt, source image and a masked area.
+      operationId: inpaint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InpaintRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Too Many Requests
+
+  /v1/stable-diffusion/instruct:
+    post:
+      summary: Generates an edited image based on a human-like instruction prompt and a source image.
+      operationId: instruct
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - prompt
+                - image
+              properties:
+                model:
+                  type: string
+                  default: instruct-pix2pix
+                prompt:
+                  type: string
+                  default: "Make him or her wear sunglasses."
+                negative_prompt:
+                  type: string
+                image:
+                  type: string
+                image_guidance:
+                  type: number
+                  default: 1.5
+                steps:
+                  type: integer
+                  default: 25
+                guidance:
+                  type: number
+                  default: 7.5
+                seed:
+                  type: integer
+                scheduler:
+                  $ref: '#/components/schemas/SchedulerEnum'
+                  default: euler_a
+                output_format:
+                  type: string
+                  default: jpeg
+                  enum:
+                    - jpeg
+                    - png
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Too Many Requests
+
+  /v1/stable-diffusion-xl/text-to-image:
+    post:
+      summary: Generates an image based on a given text prompt.
+      operationId: textToImageXL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextToImageRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Too Many Requests
+
+  /v1/stable-diffusion-xl/image-to-image:
+    post:
+      summary: Generates an image based on a given text prompt and a source image.
+      operationId: imageToImageXL
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageToImageRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Too Many Requests
+
+  /v1/stable-diffusion-xl/inpaint:
+    post:
+      operationId: inpaintXL
+      summary: Generates repainted image based on a text prompt, source image, and a masked area.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InpaintRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Too Many Requests
+
+  /v1/enhancements/upscale:
+    post:
+      operationId: upscaleImage
+      summary: Upscales an image by specified scale factor.
+      description: Currently only supports real-esrgan-4x model.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - image
+              properties:
+                model:
+                  type: string
+                  description: Model ID supported by this pipeline and family.
+                  default: real-esrgan-4x
+                image:
+                  type: string
+                  description: Base64 encoded image that will be upscaled. Maximum size in each dimension is 1024px.
+                scale:
+                  type: number
+                  description: Scaling factor to apply. Image will be enlarged in all dimensions by the provided scale factor.
+                  default: 4
+                output_format:
+                  type: string
+                  description: File format of the output image.
+                  default: jpeg
+                  enum:
+                    - jpeg
+                    - png
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  image:
+                    type: string
+                    description: Base64 encoded generated image.
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Too Many Requests
+
+  /v1/enhancements/face-fix:
+    post:
+      operationId: fixFaces
+      summary: Fixes or restores all faces found on an image.
+      description: Currently only supports gfpgan-v1-3 model.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - image
+              properties:
+                model:
+                  type: string
+                  description: Model ID supported by this pipeline and family.
+                  default: gfpgan-v1-3
+                image:
+                  type: string
+                  description: Base64 encoded image on which faces will be restored/fixed. Maximum size in each dimension is 1024px.
+                output_format:
+                  type: string
+                  description: File format of the output image.
+                  default: jpeg
+                  enum:
+                    - jpeg
+                    - png
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  image:
+                    type: string
+                    description: Base64 encoded generated image.
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Too Many Requests
+
+  /v1/models:
+    get:
+      operationId: listModels
+      summary: Returns a list of available models.
+      description: You can list all the available models, or list the models for a specific family or pipeline.
+      parameters:
+        - name: family
+          in: query
+          description: The list will be filtered to include only models with a matching family property.
+          schema:
+            type: string
+            enum:
+              - ""
+              - stable-diffusion-xl
+              - stable-diffusion
+              - upscale
+              - face-fix
+        - name: pipeline
+          in: query
+          description: The list will be filtered to include only models with a matching pipeline property.
+          schema:
+            type: string
+            enum:
+              - ""
+              - text-to-image
+              - image-to-image
+              - controlnet
+              - inpainting
+              - instruct
+              - enhancement
+      responses:
+        "200":
+          description: "Successful Response"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/ModelItem"
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Too Many Requests
+
+  /v1/models/{id}:
+    get:
+      operationId: retrieveModel
+      summary: Retrieves the details of a model.
+      description: Supply the unique model ID that was returned from the list, and getimg.ai will return the corresponding model information.
+      parameters:
+        - name: id
+          in: path
+          description: Unique model ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ModelItem"
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Too Many Requests
+
+  /v1/account/balance:
+    get:
+      operationId: retrieveBalance
+      summary: Retrieves the current account balance.
+      description: Retrieves the current account balance, based on the authentication that was used to make the request.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  amount:
+                    type: number
+                    description: Balance amount returned in USD.
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Too Many Requests
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: "key-"
+  schemas:
+    ImageResponse:
+      type: object
+      properties:
+        image:
+          type: string
+          description: Base64 encoded generated image.
+        seed:
+          type: integer
+          description: The seed associated with this image.
+    TextToImageRequest:
+      type: object
+      required:
+        - prompt
+      properties:
+        model:
+          type: string
+          description: Model ID supported by this pipeline and family.
+        prompt:
+          type: string
+          description: Text input required to guide the image generation.
+          default: "a photo of an astronaut riding a horse on mars"
+        negative_prompt:
+          type: string
+          description: Text input that will not guide the image generation.
+        width:
+          type: integer
+          description: The width of the generated image in pixels. Width needs to be multiple of 64.
+          default: 512
+        height:
+          type: integer
+          description: The height of the generated image in pixels. Height needs to be multiple of 64.
+          default: 512
+        steps:
+          type: integer
+          description: The number of denoising steps.
+          default: 25
+        guidance:
+          type: number
+          description: Guidance scale as defined in Classifier-Free Diffusion Guidance.
+          default: 7.5
+        seed:
+          type: integer
+          description: Makes generation deterministic.
+        scheduler:
+          $ref: '#/components/schemas/SchedulerEnum'
+          default: euler
+        output_format:
+          type: string
+          description: File format of the output image.
+          default: jpeg
+          enum:
+            - jpeg
+            - png
+    ImageToImageRequest:
+      type: object
+      required:
+        - prompt
+        - image
+      properties:
+        model:
+          type: string
+          description: Model ID supported by this pipeline and family.
+        prompt:
+          type: string
+          description: Text input required to guide the image generation.
+          default: "a photo of an astronaut riding a horse on mars"
+        negative_prompt:
+          type: string
+          description: Text input that will not guide the image generation.
+        image:
+          type: string
+          description: Base64 encoded image used as the starting point for generation. Maximum size in each dimension is 1024px.
+        strength:
+          type: number
+          description: Indicates how much to transform the reference image.
+          default: 0.5
+        steps:
+          type: integer
+          description: The number of denoising steps.
+          default: 50
+        guidance:
+          type: number
+          description: Guidance scale as defined in Classifier-Free Diffusion Guidance.
+          default: 7.5
+        seed:
+          type: integer
+          description: Makes generation deterministic.
+        scheduler:
+          $ref: '#/components/schemas/SchedulerEnum'
+          default: dpmsolver++
+        output_format:
+          type: string
+          description: File format of the output image.
+          default: jpeg
+          enum:
+            - jpeg
+            - png
+    ModelItem:
+      type: "object"
+      properties:
+        author_url:
+          type: "string"
+          format: "uri"
+        base_resolution:
+          type: "object"
+          properties:
+            height:
+              type: "integer"
+            width:
+              type: "integer"
+        created:
+          type: "string"
+          format: "date-time"
+        family:
+          type: "string"
+        id:
+          type: "string"
+        license_url:
+          type: "string"
+          format: "uri"
+        name:
+          type: "string"
+        pipelines:
+          type: "array"
+          items:
+            type: "string"
+        price:
+          type: "number"
+    ControlNetRequest:
+      type: object
+      required:
+        - controlnet
+        - prompt
+        - image
+      properties:
+        model:
+          type: string
+        controlnet:
+          type: string
+          description: Type of ControlNet conditioning.
+          default: canny-1.1
+          enum:
+            - canny-1.1
+            - softedge-1.1
+            - mlsd-1.1
+            - normal-1.1
+            - depth-1.1
+            - openpose-1.1
+            - openpose-full-1.1
+            - scribble-1.1
+            - lineart-1.1
+            - lineart-anime-1.1
+            - mediapipeface
+        prompt:
+          type: string
+          default: "a photo of an astronaut riding a horse on mars"
+        negative_prompt:
+          type: string
+        image:
+          type: string
+        width:
+          type: integer
+          default: 512
+        height:
+          type: integer
+          default: 512
+        steps:
+          type: integer
+          default: 25
+        guidance:
+          type: number
+          default: 7.5
+        seed:
+          type: integer
+        scheduler:
+          $ref: '#/components/schemas/SchedulerEnum'
+          default: dpmsolver++
+        output_format:
+          type: string
+          description: File format of the output image.
+          default: jpeg
+          enum:
+            - jpeg
+            - png
+    InpaintRequest:
+      type: object
+      required:
+        - prompt
+        - image
+        - mask_image
+      properties:
+        model:
+          type: string
+        prompt:
+          type: string
+          default: "a photo of an astronaut riding a horse on mars"
+        negative_prompt:
+          type: string
+        image:
+          type: string
+        mask_image:
+          type: string
+        width:
+          type: integer
+          default: 512
+        height:
+          type: integer
+          default: 512
+        steps:
+          type: integer
+          default: 25
+        guidance:
+          type: number
+          default: 7.5
+        seed:
+          type: integer
+        scheduler:
+          $ref: '#/components/schemas/SchedulerEnum'
+          default: ddim
+        output_format:
+          type: string
+          description: File format of the output image.
+          default: jpeg
+          enum:
+            - jpeg
+            - png
+    SchedulerEnum:
+      type: string
+      enum:
+        - euler_a
+        - euler
+        - lms
+        - ddim
+        - dpmsolver++
+        - pndm
+      description: Scheduler used to denoise the encoded image latents.
+
+
+
+

@@ -1,0 +1,29 @@
+category: Image Manipulation
+title: 'Dall·E: Edit Image'
+apiNamespace: openai
+apiOperationId: createImageEdit
+displayNamespace: openai
+displayOperationId: simpleImageEdit
+inputs:
+  image:
+    description: >-
+      The image to edit. Must be a valid PNG file, less than 4MB, and square. If
+      mask is not provided, image must have transparency, which will be used as
+      the mask.
+    type: object
+  mask:
+    description: >-
+      An additional image whose fully transparent areas (e.g. where alpha is
+      zero) indicate where `image` should be edited. Must be a valid PNG file,
+      less than 4MB, and have the same dimensions as `image`.
+    type: object
+  response_format:
+    default: url
+    hidden: true
+  'n':
+    default: 1
+    hidden: true
+  prompt: {}
+outputs:
+  data:
+    title: Images

@@ -1,0 +1,70 @@
+category: Text Generation
+description: >-
+  Use text-generation-webui to generate text from a prompt, using whatever model
+  is currently loaded by the program.
+meta:
+  source:
+    links:
+      Text-Generation-WebUI: https://github.com/oobabooga/text-generation-webui
+      One-click-installer: https://github.com/oobabooga/one-click-installers
+title: Generate Text (Basic)
+apiNamespace: oobabooga
+apiOperationId: generateText
+displayNamespace: oobabooga
+displayOperationId: simpleGenerateText
+scripts:
+  hideExcept:inputs:
+    - model
+    - prompt
+    - negative_prompt
+    - temperature
+    - max_new_tokens
+    - seed
+  hideExcept:outputs:
+    - text
+inputs:
+  model:
+    title: Model
+    description: The model to use for text generation.
+    choices:
+      block: oobabooga.manageModelComponent
+      args:
+        action: list
+      cache: user
+      map:
+        root: result
+    type: string
+    customSocket: text
+  prompt:
+    description: A text description that guides the text generation process.
+    required: true
+    customSocket: text
+  negative_prompt:
+    description: >-
+      A text description that guides the text generation process, but with a
+      negative connotation.
+    required: false
+    customSocket: text
+  seed:
+    description: >-
+      A number used to determine the initial noise distribution for the text
+      generation process. Different seed values will create unique text results.
+      The special value, -1, will generate a random seed instead.
+    default: -1
+  max_new_tokens:
+    description: The maximum number of tokens to generate.
+    default: 2000
+  temperature:
+    description: >-
+      The randomness regulator, higher for more creativity, lower for more
+      structured, predictable text.
+    default: 0.7
+    minimum: 0
+    maximum: 2
+    step: 0.01
+outputs:
+  text:
+    scripts:
+      jsonata: results[0].text
+    type: string
+    customSocket: text

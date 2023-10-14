@@ -1,0 +1,13 @@
+namespace: uberduck
+info:
+  description: Uberduck AI (uperduck.ai)
+api:
+  url: https://api.uberduck.ai/openapi.json
+  basePath: https://api.uberduck.ai
+  auth:
+    type: http_bearer
+    requireKeys:
+      - id: token
+        displayName: Token
+        type: string
+title: uberduck

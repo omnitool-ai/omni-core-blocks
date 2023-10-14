@@ -1,0 +1,199 @@
+category: Text-to-Speech
+description: >-
+  Text to Speech Synthesis using the Google Text To Speech API, supporting a
+  variety of languages and voices.
+meta:
+  source:
+    title: 'Google: Text To Speech'
+    links:
+      Website: https://cloud.google.com/text-to-speech
+      Subscription: https://cloud.google.com/pricing
+      API Reference: https://cloud.google.com/text-to-speech/docs/reference/rest
+      Documentation: https://cloud.google.com/text-to-speech/docs
+    summary: >-
+      Text to Speech Synthesis using the Google Text To Speech API, supporting a
+      variety of languages and voices.
+title: Text To Speech
+apiNamespace: google-tts
+apiOperationId: texttospeech_text_synthesize
+displayNamespace: google-tts
+displayOperationId: texttospeech_text_synthesize_omni
+inputs:
+  text:
+    required: true
+    default: Omnitool is your AI Lab in a box.
+    type: string
+    customSocket: text
+  languageCode:
+    required: true
+    default: en-GB
+    choices:
+      - title: Amharic
+        value: am
+      - title: Arabic
+        value: ar
+      - title: Basque
+        value: eu
+      - title: Bengali
+        value: bn
+      - title: English (UK)
+        value: en-GB
+      - title: Portuguese (Brazil)
+        value: pt-BR
+      - title: Bulgarian
+        value: bg
+      - title: Catalan
+        value: ca
+      - title: Cherokee
+        value: chr
+      - title: Croatian
+        value: hr
+      - title: Czech
+        value: cs
+      - title: Danish
+        value: da
+      - title: Dutch
+        value: nl
+      - title: English (US)
+        value: en
+      - title: Estonian
+        value: et
+      - title: Filipino
+        value: fil
+      - title: Finnish
+        value: fi
+      - title: French
+        value: fr
+      - title: German
+        value: de
+      - title: Greek
+        value: el
+      - title: Gujarati
+        value: gu
+      - title: Hebrew
+        value: iw
+      - title: Hindi
+        value: hi
+      - title: Hungarian
+        value: hu
+      - title: Icelandic
+        value: is
+      - title: Indonesian
+        value: id
+      - title: Italian
+        value: it
+      - title: Japanese
+        value: ja
+      - title: Kannada
+        value: kn
+      - title: Korean
+        value: ko
+      - title: Latvian
+        value: lv
+      - title: Lithuanian
+        value: lt
+      - title: Malay
+        value: ms
+      - title: Malayalam
+        value: ml
+      - title: Marathi
+        value: mr
+      - title: Norwegian
+        value: 'no'
+      - title: Polish
+        value: pl
+      - title: Portuguese (Portugal)
+        value: pt-PT
+      - title: Romanian
+        value: ro
+      - title: Russian
+        value: ru
+      - title: Serbian
+        value: sr
+      - title: Chinese (PRC)
+        value: zh-CN
+      - title: Slovak
+        value: sk
+      - title: Slovenian
+        value: sl
+      - title: Spanish
+        value: es
+      - title: Swahili
+        value: sw
+      - title: Swedish
+        value: sv
+      - title: Tamil
+        value: ta
+      - title: Telugu
+        value: te
+      - title: Thai
+        value: th
+      - title: Chinese (Taiwan)
+        value: zh-TW
+      - title: Turkish
+        value: tr
+      - title: Urdu
+        value: ur
+      - title: Ukrainian
+        value: uk
+      - title: Vietnamese
+        value: vi
+      - title: Welsh
+        value: cy
+    type: string
+    customSocket: text
+  ssmlGender:
+    default: SSML_VOICE_GENDER_UNSPECIFIED
+    choices:
+      - title: Female
+        value: FEMALE
+      - title: Male
+        value: MALE
+      - title: Unspecified
+        value: SSML_VOICE_GENDER_UNSPECIFIED
+      - title: Neutral
+        value: NEUTRAL
+    type: string
+    customSocket: text
+  audioEncoding:
+    required: true
+    default: MP3
+    choices:
+      - LINEAR16
+      - MP3
+      - OGG_OPUS
+      - MULAW
+      - ALAW
+    type: string
+    customSocket: text
+  voice_name:
+    type: string
+    customSocket: text
+  input:
+    scripts:
+      jsonata: '{"text": text}'
+      delete:
+        - text
+    hidden: true
+  voice:
+    scripts:
+      jsonata: >-
+        {"languageCode": languageCode, "name": voice_name, "ssmlGender":
+        ssmlGender}
+      delete:
+        - languageCode
+        - voice_name
+        - ssmlGender
+    hidden: true
+  audioConfig:
+    scripts:
+      jsonata: '{"audioEncoding": audioEncoding}'
+      delete:
+        - audioEncoding
+    hidden: true
+outputs:
+  audioContent:
+    type: object
+    customSocket: audio
+    socketOpts:
+      array: true

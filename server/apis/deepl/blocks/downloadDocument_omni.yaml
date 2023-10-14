@@ -1,0 +1,6 @@
+category: Translation
+title: Download Translated Document (WIP)
+apiNamespace: deepl
+apiOperationId: downloadDocument
+displayNamespace: deepl
+displayOperationId: downloadDocument_omni

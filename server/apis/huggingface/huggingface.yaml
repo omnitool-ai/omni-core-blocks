@@ -1,0 +1,11 @@
+namespace: huggingface
+api:
+  spec: ./api/public_inference.yaml
+  basePath: https://api-inference.huggingface.co/models/
+  auth:
+    type: http_bearer
+    isOptional: true
+    requireKeys:
+      - id: Bearer
+        displayName: Bearer
+        type: string 

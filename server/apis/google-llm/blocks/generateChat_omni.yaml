@@ -1,0 +1,137 @@
+category: Text Generation
+description: >-
+  Generate a response from the model given an input message using Google's
+  Generative Language models.
+meta:
+  source:
+    title: 'Google PaLM: Generative Language'
+    links:
+      Website: https://developers.generativeai.google/
+      API Reference: >-
+        https://developers.generativeai.google/api/rest/generativelanguage/models/generateText
+      Documentation: https://developers.generativeai.google/api/
+    summary: >-
+      Generate a response from the model given an input message using Google's
+      Generative Language models.
+title: PaLM 2 Chat
+apiNamespace: google-llm
+apiOperationId: generateChat
+displayNamespace: google-llm
+displayOperationId: generateChat_omni
+inputs:
+  PROJECT_ID:
+    required: true
+    default: causal-rite-386205
+  context:
+    title: Context
+    type: string
+    customSocket: text
+  content:
+    title: Prompts
+    required: true
+    type: string
+    customSocket: text
+  temperature:
+    required: true
+    default: 0.2
+    minimum: 0
+    maximum: 1
+    step: 0.1
+    type: number
+    customSocket: number
+  maxOutputTokens:
+    required: true
+    default: 1024
+    minimum: 1
+    maximum: 1024
+    step: 32
+    type: integer
+    customSocket: number
+  topK:
+    required: true
+    default: 40
+    minimum: 1
+    maximum: 40
+    step: 1
+    type: integer
+    customSocket: number
+  topP:
+    required: true
+    default: 0.95
+    minimum: 0
+    maximum: 1
+    step: 0.05
+    type: number
+    customSocket: number
+  example_input:
+    title: Example Input
+    default: ''
+    type: string
+  example_output:
+    title: Example Output
+    default: ''
+    type: string
+  instances:
+    scripts:
+      jsonata: |
+        [{
+          "context": $.context,
+          "examples": $$.example_input != "" and $v.example_output != "" ? [
+            {
+              "input": {"content": $$.example_input},
+              "output": {"content": $$.example_output}
+            }
+          ] : [],
+          "messages": [
+            {
+              "author": "user",
+              "content": $.content
+            }
+          ]
+        }]
+      delete:
+        - context
+        - content
+        - example_input
+        - example_output
+    hidden: true
+    type: array
+    customSocket: object
+    socketOpts:
+      array: true
+  parameters:
+    required: true
+    scripts:
+      jsonata: |
+        {
+          "temperature": $.temperature,
+          "maxOutputTokens": $.maxOutputTokens,
+          "topP": $.topP,
+          "topK": $.topK
+        }
+      delete:
+        - temperature
+        - maxOutputTokens
+        - topP
+        - topK
+    hidden: true
+    type: object
+outputs:
+  content:
+    title: Response Content
+    scripts:
+      jsonata: predictions[0].candidates[0].content
+    type: string
+    customSocket: text
+  citationMetadata:
+    title: Citation Metadata
+    scripts:
+      jsonata: predictions[0].citationMetadata
+    type: object
+  safetyAttributes:
+    title: Safety Attributes
+    scripts:
+      jsonata: predictions[0].safetyAttributes
+    type: object
+  predictions:
+    hidden: true

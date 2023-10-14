@@ -1,0 +1,138 @@
+openapi: 3.0.3
+info:
+  title: D-ID Talk API
+  version: 4.2.0
+  description: API to create a talk by animating a photo using text or audio.
+servers:
+  - url: https://api.d-id.com
+paths:
+  /talks:
+    post:
+      operationId: createTalk
+      summary: Create a talk by animating a photo.
+      description: Animate a photo using a driver video and provided text or audio to produce a talk video.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                source_url:
+                  type: string
+                  description: The URL of the source image to be animated or a selection from the list of provided studio actors.
+                driver_url:
+                  type: string
+                  description: The URL of the driver video or a selection from the list of provided drivers. If not provided, a driver video will be selected from the predefined drivers bank.
+                script:
+                  $ref: '#/components/schemas/Script'
+                config:
+                  $ref: '#/components/schemas/Config'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result_url:
+                    type: string
+                    description: The URL of the talk video.
+        '400':
+          description: Bad Request
+        '401':
+          description: Authorization Error
+        '402':
+          description: Insufficient Credits Error
+        '403':
+          description: Permission Error
+        '451':
+          description: Moderation Error (Image, Celebrity, Text, or Audio)
+
+components:
+  schemas:
+    Script:
+      type: object
+      required:
+        - type
+        - input
+      properties:
+        type:
+          type: string
+          enum: [text, audio]
+          description: The type of the script.
+        subtitles:
+          type: boolean
+          description: Should subtitles be generated for this script.
+        provider:
+          type: string
+          enum: [MICROSOFT_TTS_PROVIDER, ELEVENLABS_TTS_PROVIDER, AMAZON_TTS_PROVIDER, AFFLORITHMICS_TTS_PROVIDER]
+          description: Text-to-speech provider from the list of supported providers. Default is Microsoft TTS.
+        input:
+          type: string
+          description: The input text that will be synthesized to an audio file.
+        ssml:
+          type: boolean
+          description: Is the text provided in SSML form.
+    Config:
+      type: object
+      properties:
+        logo:
+          type: string
+          description: Logo option.
+        align_driver:
+          type: boolean
+          description: Auto crops the driver face, ignored if using drivers bank.
+        align_expand_factor:
+          type: number
+          description: The amount of expansion % used for face cropping.
+        auto_match:
+          type: boolean
+          description: Finds the best anchor match for the source in driver video.
+        motion_factor:
+          type: number
+          description: Amplifies or damps the animation movements.
+        normalization_factor:
+          type: number
+          description: Normalizes the expression of the source image.
+        sharpen:
+          type: boolean
+          description: Sharpen results.
+        stitch:
+          type: boolean
+          description: Stitch back the animated result to the original image.
+        result_format:
+          type: string
+          description: File format of the animated result.
+        fluent:
+          type: boolean
+          description: Interpolate between the last & first frames of the driver video.
+        pad_audio:
+          type: number
+          description: Pad the audio with silence at the end.
+        driver_expressions:
+          type: object
+          description: Timed expressions for animation.
+        user_data:
+          type: string
+          description: Non-sensitive custom data added to the talk response and webhook.
+        name:
+          type: string
+          description: The name of the talk video.
+        webhook:
+          type: string
+          description: A webhook URL for sending the payload including animate details.
+        result_url:
+          type: string
+          description: The URL of the talk video. If not provided, use the default destination.
+        face:
+          type: object
+          properties:
+            persist:
+              type: boolean
+              description: Whether the video should remain in storage without TTL.
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic

@@ -1,0 +1,8 @@
+title: Get User Information
+apiNamespace: elevenlabs
+apiOperationId: Get_user_subscription_info_v1_user_subscription_get
+displayNamespace: elevenlabs
+displayOperationId: getuserinfo
+controls:
+  xi-api-key:
+    hidden: true

@@ -1,0 +1,41 @@
+category: Model Operations
+meta:
+  source:
+    title: Get Model Version by ID (Civitai)
+    links:
+      Civitai Website: https://civitai.com/
+      API Documentation: >-
+        https://github.com/civitai/civitai/wiki/REST-API-Reference#get-apiv1modelversionsid
+    authors:
+      - Civitai Team
+    summary: >-
+      This component retrieves detailed information for a specific model version
+      by ID.
+title: Get Model Info by Version ID
+apiNamespace: civitai
+apiOperationId: getModelByVersionId
+displayNamespace: civitai
+displayOperationId: getModelByVersionId_omni
+inputs:
+  id:
+    title: Model Version ID
+    description: The ID of the model version to retrieve.
+    required: true
+    customSocket: text
+outputs:
+  json:
+    title: JSON
+    description: The full information of the model in JSON format.
+    scripts:
+      jsonata: $eval($string($))
+    type: object
+    customSocket: object
+  id:
+    title: Model Version ID
+    description: The ID of the model version to retrieve.
+    customSocket: text
+  modelId:
+    title: Model ID
+    customSocket: text
+  trainedWords:
+    title: Trained Words

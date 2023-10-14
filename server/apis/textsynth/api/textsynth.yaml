@@ -1,0 +1,197 @@
+openapi: 3.0.2
+info:
+  title: TextSynth API
+  description: TextSynth API for generating text using different language models.
+  version: 1.0.0
+servers:
+  - url: https://api.textsynth.com/v1
+paths:
+  /engines/{engine_id}/completions:
+    post:
+      summary: Generate text completions
+      operationId: generateCompletion
+      parameters:
+        - name: engine_id
+          description: The selected engine.
+          required: true
+          in: path
+          schema:
+            title: Model
+            type: string
+            description: The selected engine.
+            default: gptj_6B
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt:
+                  type: string
+                max_tokens:
+                  type: integer
+                  default: 100
+                stream:
+                  type: boolean
+                  default: false
+                stop:
+                  type: array
+                  items:
+                    type: string
+                'n':
+                  type: integer
+                  default: 1
+                temperature:
+                  type: number
+                  default: 1
+                top_k:
+                  type: integer
+                  default: 40
+                top_p:
+                  type: number
+                  default: 0.9
+                logit_bias:
+                  type: object
+                presence_penalty:
+                  type: number
+                  default: 0
+                frequency_penalty:
+                  type: number
+                  default: 0
+                repetition_penalty:
+                  type: number
+                  default: 1
+                typical_p:
+                  type: number
+                  default: 1
+      responses:
+        '200':
+          description: Successful text completion
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  text:
+                    type: string
+                  reached_end:
+                    type: boolean
+                  truncated_prompt:
+                    type: boolean
+                  input_tokens:
+                    type: integer
+                  output_tokens:
+                    type: integer
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Too Many Requests
+        '500':
+          description: Internal Server Error
+  /engines/{engine_id}/translate:
+    post:
+      summary: Translate text
+      operationId: translate
+      description: This endpoint translates one or several texts to a target language.
+      parameters:
+        - name: engine_id
+          description: The selected engine. Currently only m2m100_1_2B is supported.
+          required: true
+          in: path
+          schema:
+            title: Model
+            type: string
+            description: The selected engine. Currently only m2m100_1_2B is supported.
+            default: m2m100_1_2B
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: array
+                  items:
+                    type: string
+                  description: >-
+                    Each string is an independent text to translate. Batches of
+                    at most 64 texts can be provided.
+                  maxItems: 64
+                source_lang:
+                  type: string
+                  description: >-
+                    Two or three character ISO language code for the source
+                    language. The special value "auto" indicates to auto-detect
+                    the source language. The language auto-detection does not
+                    support all languages and is based on heuristics. Hence if
+                    you know the source language you should explicitly indicate
+                    it.
+                target_lang:
+                  type: string
+                  description: >-
+                    Two or three character ISO language code for the target
+                    language.
+                num_beams:
+                  type: integer
+                  description: >-
+                    Number of beams used to generate the translated text. The
+                    translation is usually better with a larger number of beams.
+                    Each beam requires generating a separate translated text,
+                    hence the number of generated tokens is multiplied by the
+                    number of beams.
+                  default: 4
+                  minimum: 1
+                  maximum: 5
+                split_sentences:
+                  type: boolean
+                  description: >-
+                    The translation model only translates one sentence at a
+                    time. Hence the input must be split into sentences. When
+                    split_sentences = true (default), each input text is
+                    automatically split into sentences using source language
+                    specific heuristics. If you are sure that each input text
+                    contains only one sentence, it is better to disable the
+                    automatic sentence splitting.
+                  default: true
+      responses:
+        '200':
+          description: Successful translation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  translations:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        text:
+                          type: string
+                          description: Translated text
+                        detected_source_lang:
+                          type: string
+                          description: >-
+                            ISO language code corresponding to the detected lang
+                            (identical to source_lang if language auto-detection
+                            is not enabled)
+                        input_tokens:
+                          type: integer
+                          description: >-
+                            Indicate the total number of input tokens. It is
+                            useful to estimate the number of compute resources
+                            used by the request.
+                        output_tokens:
+                          type: integer
+                          description: >-
+                            Indicate the total number of generated tokens. It is
+                            useful to estimate the number of compute resources
+                            used by the request.
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error

@@ -1,0 +1,35 @@
+category: Image Generation
+description: >-
+  Transforms an image based on a given text prompt and a source image using the Stable Diffusion XL family of models.
+title: Image to Image (Stable Diffusion XL)
+apiNamespace: getimg
+apiOperationId: imageToImageXL
+displayNamespace: getimg
+displayOperationId: imageToImageXL
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:image
+    opts:
+      readonly: true
+inputs:
+  image:
+    required: true
+    customSocket: image
+    socketOpts:
+      format: base64
+  model:
+    type: string
+    customSocket: text
+    choices:
+      block: getimg.listModels
+      cache: global
+      args: 
+        pipeline: image-to-image
+        family: stable-diffusion-xl
+      map:
+        title: name
+        value: id
+outputs:
+  image:
+    customSocket: image

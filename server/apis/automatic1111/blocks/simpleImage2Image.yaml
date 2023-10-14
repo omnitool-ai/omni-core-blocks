@@ -1,0 +1,154 @@
+category: Image Generation
+description: Stable Diffusion Image2Image powered by automatic1111.
+meta:
+  source:
+    authors:
+      - Automatic1111 and contributors
+      - Stability.ai
+      - runway.ml
+    links:
+      Stable Diffusion XL: https://github.com/Stability-AI/generative-models
+      Stable Diffusion 2.x: https://github.com/Stability-AI/stablediffusion
+      Stable Diffusion 1.x: https://github.com/CompVis/stable-diffusion
+      Automatic111 (API): https://github.com/AUTOMATIC1111/stable-diffusion-webui
+      Guide: https://stable-diffusion-art.com/automatic1111
+title: Image To Image
+apiNamespace: automatic1111
+apiOperationId: img2imgapi_sdapi_v1_img2img_post
+displayNamespace: automatic1111
+displayOperationId: simpleImage2Image
+scripts:
+  hideExcept:inputs:
+    - prompt
+    - n_iter
+    - checkpoint
+    - seed
+    - negative_prompt
+    - steps
+    - cfg_scale
+    - width
+    - height
+    - init_images
+    - mask
+    - denoising_strength
+    - sampler_name
+    - cfg_scale
+    - x_settings
+  transform:input:
+    - $merge([$,$.x_settings])
+controls:
+  preview:
+    type: AlpineImageGalleryComponent
+    displays: output:images
+    opts:
+      readonly: true
+inputs:
+  denoising_strength:
+    minimum: 0
+    maximum: 1
+    step: 0.01
+  filter_nsfw:
+    description: Filter NSFW content.
+    default: true
+    type: boolean
+  override_settings:
+    scripts:
+      jsonata: '{ "sd_model_checkpoint": checkpoint }'
+      delete:
+        - filter_nsfw
+        - checkpoint
+    hidden: true
+    type: object
+  init_images:
+    customSocket: image
+    socketOpts:
+      format: base64
+      array: true
+  mask:
+    type: string
+    customSocket: image
+    socketOpts:
+      format: base64
+  seed:
+    description: >-
+      A number (or -1 for random) determining the initial noise distribution for
+      the image. Different seeds create different image results 
+    default: -1
+    type: number
+  n_iter:
+    title: null
+    default: 1
+    minimum: 1
+    maximum: 10
+    step: 1
+    type: number
+  steps:
+    default: 30
+    minimum: 1
+    maximum: 200
+    step: 1
+  checkpoint:
+    description: The checkpoint to use.
+    default: v1-5-pruned-emaonly
+    choices:
+      block: automatic1111.getModels
+      map:
+        root: result
+        cache: global
+        title: model_name
+        value: model_name
+        filter:
+          value: /[^inpaint]/gi
+    type: string
+    customSocket: text
+  sampler_name:
+    default: DPM++ 2M
+    choices:
+      block: automatic1111.getSamplers
+      map:
+        root: result
+        cache: global
+        title: name
+        value: name
+        filter: null
+  sampler_index:
+    hidden: true
+  batch_size:
+    default: 1
+    hidden: true
+  cfg_scale:
+    description: >-
+      The CFG scale adjusts how much the image looks closer to the prompt and/
+      or input image. If CFG Scale is greater, the output will be more in line
+      with the input prompt and/or input image, but it will be distorted. On the
+      other hand, the lower the CFG Scale value, the more likely it is to drift
+      away from the prompt or the input image, but the better quality.
+    default: 7
+    minimum: 0.25
+    maximum: 25
+    step: 0.25
+  width:
+    default: 512
+    minimum: 512
+    maximum: 1536
+    scripts:
+      jsonata: $round(width / 64) * 64
+    step: 64
+  height:
+    default: 512
+    minimum: 512
+    maximum: 1536
+    scripts:
+      jsonata: $round(height / 64) * 64
+    step: 64
+  x_settings:
+    title: More Settings
+    scripts:
+      delete:
+        - x_settings
+outputs:
+  images:
+    title: Images
+    customSocket: image
+    socketOpts:
+      array: true

@@ -1,0 +1,14 @@
+namespace: elevenlabs
+api:
+  url: https://api.elevenlabs.io/openapi.json
+  basePath: https://api.elevenlabs.io
+  auth:
+    type: apiKey
+    requireKeys:
+      - id: xi-api-key
+        displayName: xi-api-key
+        type: string
+        in: header
+title: elevenlabs
+
+

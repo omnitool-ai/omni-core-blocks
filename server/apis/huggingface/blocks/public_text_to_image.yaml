@@ -1,0 +1,13 @@
+category: Image Generation
+description: Generate image with Huggingface public inference
+title: Text To Image (Huggingface)
+apiNamespace: huggingface
+apiOperationId: text_to_image
+displayNamespace: huggingface
+displayOperationId: public_text_to_image
+outputs:
+  image:
+    type: object
+    customSocket: image
+    socketOpts:
+      array: true

@@ -1,0 +1,68 @@
+category: Image Manipulation
+description: Upscale an image using AI.
+title: Upscale
+apiNamespace: automatic1111
+apiOperationId: extras_batch_images_api_sdapi_v1_extra_batch_images_post
+displayNamespace: automatic1111
+displayOperationId: simpleUpscale
+inputs:
+  imageList:
+    required: true
+    scripts:
+      jsonata: >-
+        $.[imageList.{  "name": $string($formatNumber($random() * 1000,
+        "img_###")) & "." & "png",  "data": "data:image/png;base64," & $}]
+    customSocket: image
+    socketOpts:
+      format: base64
+      array: true
+  resize_mode:
+    choices:
+      - title: Scale By Factor
+        value: 0
+      - title: Scale To Dimensions
+        value: 1
+    hidden: true
+  gfpgan_visibility:
+    default: 0
+    hidden: true
+  codeformer_visibility:
+    default: 0
+    hidden: true
+  codeformer_weight:
+    hidden: true
+  show_extras_results:
+    hidden: true
+  upscaling_crop:
+    hidden: true
+  extras_upscaler_2_visibility:
+    hidden: true
+  upscaling_resize_w:
+    default: 512
+    minimum: 64
+    maximum: 4096
+    hidden: true
+  upscaling_resize_h:
+    default: 512
+    minimum: 64
+    maximum: 4096
+    hidden: true
+  upscaler_1:
+    title: Upscaler Model
+    choices:
+      block: automatic1111.get_upscalers_sdapi_v1_upscalers_get
+      cache: global
+      map:
+        title: name
+        value: name
+  upscaler_2:
+    default: None
+    hidden: true
+  upscale_first:
+    default: true
+    hidden: true
+outputs:
+  images:
+    customSocket: image
+    socketOpts:
+      array: true

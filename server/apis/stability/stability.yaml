@@ -1,0 +1,12 @@
+namespace: stability
+api:
+  url: >-
+    https://raw.githubusercontent.com/Stability-AI/rest-api-support/main/generated/spec/merged.json
+  basePath: https://api.stability.ai
+  auth:
+    type: http_bearer
+    requireKeys:
+      - id: Bearer
+        displayName: Bearer
+        type: string
+title: stability

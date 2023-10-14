@@ -1,0 +1,76 @@
+category: Image Manipulation
+description: Upscale and restore an image using AI.
+title: Restore and Upscale
+apiNamespace: automatic1111
+apiOperationId: extras_batch_images_api_sdapi_v1_extra_batch_images_post
+displayNamespace: automatic1111
+displayOperationId: advancedUpscale
+inputs:
+  imageList:
+    required: true
+    scripts:
+      jsonata: >-
+        $.[imageList.{  "name": $string($formatNumber($random() * 1000,
+        "img_###")) & "." & "png",  "data": "data:image/png;base64," & $}]
+    customSocket: image
+    socketOpts:
+      format: base64
+      array: true
+  resize_mode:
+    choices:
+      - title: Scale By Factor
+        value: 0
+      - title: Scale To Dimensions
+        value: 1
+  extras_upscaler_2_visibility:
+    title: Secondary Upscaler Visibility
+    description: >-
+      Sets the visibility blend of secondary upscaler, values should be between
+      0 (invisible) and 1 (fully visible).
+    minimum: 0
+    maximum: 100
+    step: 1
+  upscaling_resize:
+    default: 2
+    minimum: 1
+    maximum: 4
+    step: 0.5
+    type: number
+  upscaling_resize_w:
+    default: 512
+    minimum: 64
+    maximum: 4096
+  upscaling_resize_h:
+    default: 512
+    minimum: 64
+    maximum: 4096
+  gfpgan_visibility:
+    title: GFPGAN
+    description: Visibility (blend) for the GFPGAN facial restoration model. (0=off)
+  codeformer_weight:
+    title: CodeFormer Weight
+    description: Weight for Codeformer facial restoration model. (0=max, 1=min)
+  codeformer_visibility:
+    title: CodeFormer
+    description: Visibility for CodeFormer facial restoration model. (0=off)
+  show_extras_results:
+    hidden: true
+  upscaler_1:
+    choices:
+      block: automatic1111.get_upscalers_sdapi_v1_upscalers_get
+      cache: global
+      map:
+        title: name
+        value: name
+  upscaler_2:
+    choices:
+      block: automatic1111.get_upscalers_sdapi_v1_upscalers_get
+      cache: global
+      map:
+        title: name
+        value: name
+outputs:
+  images:
+    customSocket: image
+    socketOpts:
+      array: true
