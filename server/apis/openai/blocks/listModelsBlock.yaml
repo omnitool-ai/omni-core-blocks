@@ -1,4 +1,6 @@
 category: Model Operations
+description: >-
+  Get a list of all available models.
 title: List Models
 apiNamespace: openai
 apiOperationId: listModels

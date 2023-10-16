@@ -1,4 +1,6 @@
 category: Model Operations
+description: >-
+  Gets a list of all available voices for a user.
 title: Get Voices
 apiNamespace: elevenlabs
 apiOperationId: Get_voices_v1_voices_get

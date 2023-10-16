@@ -1,4 +1,6 @@
 category: Text Embedding
+description: >-
+  OpenAI’s text embeddings measure the relatedness of text strings.
 meta:
   source:
     title: OpenAI Embeddings

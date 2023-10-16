@@ -1,4 +1,6 @@
 category: Image Generation
+description: >-
+  Generate images from a given image and text prompt.
 title: Image to Image (WIP)
 apiNamespace: stability
 apiOperationId: imageToImage

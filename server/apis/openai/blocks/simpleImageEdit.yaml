@@ -1,5 +1,7 @@
 category: Image Manipulation
 title: 'Dall·E: Edit Image'
+description: >-
+  Edit an image based on a text prompt.
 apiNamespace: openai
 apiOperationId: createImageEdit
 displayNamespace: openai

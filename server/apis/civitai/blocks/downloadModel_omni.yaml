@@ -1,4 +1,6 @@
 category: Model Operations
+description: >-
+  Download a specific model version.
 meta:
   source:
     title: Download Model (Civitai)

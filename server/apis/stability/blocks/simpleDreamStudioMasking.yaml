@@ -1,4 +1,6 @@
 category: Image Manipulation
+description: >-
+  Mask an image based on a text prompt.
 title: Mask Image (WIP)
 apiNamespace: stability
 apiOperationId: masking

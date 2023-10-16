@@ -1,4 +1,6 @@
 category: Utilities
+description: >-
+  List issues for a repository.
 title: 'GitHub: List Issues'
 apiNamespace: github
 apiOperationId: issues_list_for_repo

@@ -1,4 +1,6 @@
 category: Text Analysis
+description: >-
+  Detects whether text could be perceived as toxic to others.
 title: Moderation (Simple)
 apiNamespace: openai
 apiOperationId: createModeration

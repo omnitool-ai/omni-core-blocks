@@ -1,4 +1,6 @@
 category: Text Generation
+description: >-
+  Generate text from a prompt.
 title: Perplexity.ai Chat
 apiNamespace: perplexity
 apiOperationId: chatCompletions

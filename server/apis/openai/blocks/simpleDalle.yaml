@@ -1,4 +1,6 @@
 category: Image Generation
+description: >-
+  Generate images from text prompts.
 title: 'DALL·E 2: Text to Image'
 apiNamespace: openai
 apiOperationId: createImage

@@ -1,4 +1,6 @@
 category: Video Generation
+description: >-
+  Generate a video from a script.
 title: 'D-ID: Create Talk (WIP)'
 apiNamespace: d-id
 apiOperationId: createTalk

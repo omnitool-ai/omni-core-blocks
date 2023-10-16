@@ -1,4 +1,6 @@
 category: Document Processing
+description: >-
+  Search for abstracts.
 title: Search Abstracts
 apiNamespace: scholarai
 apiOperationId: searchAbstracts

@@ -1,7 +1,10 @@
 category: Model Operations
+description: >-
+  Retrieve detailed information for a specific model by
+  version ID.
 meta:
   source:
-    title: Get Model Version by ID (Civitai)
+    title: Get Model by version ID (Civitai)
     links:
       Civitai Website: https://civitai.com/
       API Documentation: >-
