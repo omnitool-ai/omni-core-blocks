@@ -1,6 +1,6 @@
 category: Text Generation
 description: >-
-  Generate text from a prompt.
+  Generate text from a prompt using Perplexity Lab's API for open-source LLMs
 title: Perplexity.ai Chat
 apiNamespace: perplexity
 apiOperationId: chatCompletions

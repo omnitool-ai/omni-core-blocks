@@ -1,7 +1,6 @@
 category: Text Generation
 description: >-
-  ChatGPT is a Large Language Model (LLM) by OpenAI trained to converse with
-  the user in a conversational way.
+  Generate text using OpenAI's GPT models
 meta:
   source:
     title: 'ChatGPT: Conversational LLM'
