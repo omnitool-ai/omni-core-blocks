@@ -1,4 +1,6 @@
 category: Image Manipulation
+description: >-
+  Upscale an image based on a text prompt.
 title: Upscale Image (WIP)
 apiNamespace: stability
 apiOperationId: upscaleImage

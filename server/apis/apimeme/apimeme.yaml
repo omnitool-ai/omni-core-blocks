@@ -1,4 +1,5 @@
 namespace: apimeme
+description: Generate a meme JPG
 api:
   spec: ./api/apimeme.yaml
   basePath: https://apimeme.com

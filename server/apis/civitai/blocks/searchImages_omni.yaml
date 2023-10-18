@@ -1,4 +1,6 @@
 category: Image Operations
+description: >-
+  Search images based on different parameters like postId, modelId, versionId, creator..etc.
 meta:
   source:
     title: Images Search (Civitai)

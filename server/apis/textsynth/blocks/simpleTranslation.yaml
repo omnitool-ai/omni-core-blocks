@@ -1,4 +1,6 @@
 category: Translation
+description: >-
+  Translate text from one language to another.
 meta:
   source:
     title: Text Translation

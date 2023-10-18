@@ -1,4 +1,6 @@
 category: Model Operations
+description: >-
+  Retrieve a model by its hash.
 meta:
   source:
     title: Get Model by Hash (Civitai)

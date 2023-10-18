@@ -1,4 +1,6 @@
 category: Text Generation
+description: >-
+  Generate text from prompts using the TextSynth API, which supports models such as Llama2, Falcon, GPT-J, GPT-NeoX, Flan-T5, M2M100, and CodeGen.
 title: Generate Text
 apiNamespace: textsynth
 apiOperationId: generateCompletion

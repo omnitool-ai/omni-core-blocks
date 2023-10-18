@@ -1,4 +1,7 @@
 category: Text Manipulation
+description: >-
+  Parse a user input and outputs a JSON object with the correct
+  format for Stable Diffusion prompt.
 title: Stable Diffusion Prompt Parser
 apiNamespace: openai
 apiOperationId: createChatCompletion

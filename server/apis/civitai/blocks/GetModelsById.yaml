@@ -1,4 +1,6 @@
 category: Model Operations
+description: >-
+  Retrieve detailed information for models by ID.
 meta:
   source:
     title: Get Models by Model Id (Civitai)

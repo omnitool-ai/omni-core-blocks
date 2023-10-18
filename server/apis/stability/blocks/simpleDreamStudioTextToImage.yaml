@@ -1,4 +1,6 @@
 category: Image Generation
+description: >-
+  Generate images from text prompts.
 title: Text to Image
 apiNamespace: stability
 apiOperationId: textToImage

@@ -1,4 +1,6 @@
 category: Text-to-Speech
+description: >-
+  Generate rap lyrics.
 title: Generate Lyrics
 apiNamespace: uberduck
 apiOperationId: generate_lyrics_tts_lyrics_post

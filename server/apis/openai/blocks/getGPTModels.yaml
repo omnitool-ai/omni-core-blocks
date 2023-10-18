@@ -1,4 +1,6 @@
 category: Model Operations
+description: >-
+  Get a list of all available GPT models.
 meta:
   source:
     title: 'ChatGPT: Conversational LLM'

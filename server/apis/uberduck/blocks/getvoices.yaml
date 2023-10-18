@@ -1,4 +1,6 @@
 category: Model Operations
+description: >-
+  Get a list of available voice.
 title: Get Voices
 apiNamespace: uberduck
 apiOperationId: list_voices_voices_get

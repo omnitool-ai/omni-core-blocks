@@ -1,4 +1,6 @@
 category: Utilities
+description: >-
+  Create a new github issue.
 title: 'GitHub: Create Issue'
 apiNamespace: github
 apiOperationId: issues_create

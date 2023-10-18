@@ -1,4 +1,6 @@
 category: Model Operations
+description: >-
+  Search for models based on certain query.
 meta:
   source:
     title: Models Search (Civitai)

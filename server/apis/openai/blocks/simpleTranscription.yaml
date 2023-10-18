@@ -1,4 +1,6 @@
 category: Speech-to-Text
+description: >-
+  Transcribe audio to text.
 title: 'Whisper: Speech to Text'
 apiNamespace: openai
 apiOperationId: createTranscription
