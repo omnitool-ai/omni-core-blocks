@@ -1,5 +1,6 @@
 category: Image Generation
 title: Generate Meme
+description: Add text to the top and bottom sections of classic meme pictures.
 apiNamespace: apimeme
 apiOperationId: generateMeme
 displayNamespace: apimeme

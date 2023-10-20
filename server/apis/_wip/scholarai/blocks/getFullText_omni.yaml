@@ -1,7 +1,7 @@
 category: Document Processing
 description: >-
   Get the full text of a document.
-title: Full Text
+title: Get Full Text
 apiNamespace: scholarai
 apiOperationId: getFullText
 displayNamespace: scholarai
