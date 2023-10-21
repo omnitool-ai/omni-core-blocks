@@ -5,10 +5,11 @@ title: 'DALL·E 2: Text to Image'
 apiNamespace: openai
 apiOperationId: createImage
 displayNamespace: openai
-displayOperationId: simpleDalle
+displayOperationId: simpleDalle2
 inputs:
   'n':
     title: '# of Images'
+    hidden: true
   response_format:
     default: url
     hidden: true
