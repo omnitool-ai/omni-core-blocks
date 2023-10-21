@@ -1,6 +1,6 @@
 category: Text Analysis
 description: >-
-  Detects whether text could be perceived as toxic to others.
+  Inspects and evaluates text for moderation violations, including signs of harassment, violence, hate speech and other potential issues.
 title: Moderation (Simple)
 apiNamespace: openai
 apiOperationId: createModeration
