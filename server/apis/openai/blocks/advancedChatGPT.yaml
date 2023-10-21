@@ -1,6 +1,6 @@
 category: Text Generation
 description: >-
-  Generate text using OpenAI's GPT models
+  Generate text using OpenAI's GPT models.
 meta:
   source:
     title: 'ChatGPT: Conversational LLM'
@@ -26,19 +26,26 @@ scripts:
     - instruction
     - function
     - top_p
+  hideExcept:outputs:
+    - answer_text
+    - function_call
+    - function_arguments_string
+    - function_arguments
+    - function_name
+    - raw_output
 inputs:
   temperature:
     description: >-
       The randomness regulator, higher for more creativity, lower for more
       structured, predictable text.
     minimum: 0
-    maximum: 2
+    maximum: 1
     step: 0.1
   function:
     type: object
     customSocket: object
   functions:
-    type: array≠
+    type: array
     customSocket: object
     socketOpts:
       array: true
@@ -55,6 +62,7 @@ inputs:
     required: true
     type: string
     customSocket: text
+    default: Create a novel AI koan.
   function_call:
     type: string
     scripts:
@@ -78,28 +86,13 @@ inputs:
         root: models
   top_p:
     description: >-
-      An alternative to sampling with temperature, called nucleus sampling,
-      where the model considers the results of the tokens with top_p probability
-      mass. So 0.1 means only the tokens comprising the top 10% probability mass
-      are considered. We generally recommend altering this or temperature but
-      not both
+      Implements nucleus sampling, where the model considers only tokens whose cumulative probability exceeds the specified `top_p` threshold.
+      Like `temperature`, this controls the diversity of the model's output.
     default: 1
     minimum: 0
     maximum: 1
     step: 0.05
 outputs:
-  model:
-    hidden: true
-  object:
-    hidden: true
-  id:
-    hidden: true
-  usage:
-    hidden: true
-  choices:
-    hidden: true
-  created:
-    hidden: true
   answer_text:
     scripts:
       jsonata: choices[0].message.content
