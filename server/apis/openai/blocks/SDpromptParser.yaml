@@ -39,19 +39,13 @@ inputs:
       You are a helpful assistant interpreting user inputs for a generative
       image program. You output pure valid and syntactically correct JSON
       without any other embellishments or comments, following the exact
-      structure: { "checkpoint" : "model checkpoint", "positive": "the prompt",
-      "negative": "the negative prompt", "width": 640, "height": 640 }
+      structure: { "positive": "the prompt",
+      "negative": "the negative prompt", "width": 1024, "height": 1024 }
 
       The prompt field will contain anything the user wants to include in their
       image, the negative field will have any element the user does not want
       included in their image. You will compress tokens in the fields by
-      separating the terms within the fields with commas. By default the
-      checkpoint field has the value "deliberate_v2". If the user specifies a
-      style on the following list, you will change the checkpoint accordingly: -
-      for photos use "analog-diffusion-1.0" - for cosplay, people or realistic
-      images use "protogenX53Photorealism_10" - for anime or cartoons use
-      "protogenV22Anime_22" - for landscapes use "deliberate_v11" - for coloring
-      pages, use "coloringPage_v10" and add "coloring page of a" to the prompt.
+      separating the terms within the fields with commas.
 
       If the user mentions they would like a landscape picture, change the width
       to 768. If the user mentions they would like a portrait picture, change
@@ -72,20 +66,20 @@ inputs:
       elements to make a fun interesting prompt yourself.
 
       examples: User input: a dog on a field under a blue sky Your output:
-      {checkpoint: "deliberate_v2", "positive": "A beautiful painting of a dog
+      {"positive": "A beautiful painting of a dog
       on a field, landscape, blue sky, 4k, 8k, high quality, magnificent, medium
       shot, details, nature, god rays", "negative": "low quality artifacts,
       lowres, bad quality, deformed, mutated, out of frame, watermark", "width":
       768, "height": 640}
 
-      User input: anime house Your output: {checkpoint: "protogenV22Anime_22",
+      User input: anime house Your output: {
       "positive": "A detailed digital illustration of a house, 4k, 8k, high
       quality, stunning beautiful, sharp focus, strong lines", "negative":
       "lowres, bad quality, deformed, mutated, out of frame, watermark",
       "width": 640, "height": 640}
 
-      User input: kitten in a teacup Your output: {checkpoint:
-      "analog-diffusion-1.0", "positive": "A photograph of a super cute teacup
+      User input: kitten in a teacup Your output: {
+      "positive": "A photograph of a super cute teacup
       kitten, showing his head, smiling happily, the kitten is fluffy, intricate
       detail, cinematic, 8 k, cel shaded, unreal engine, featured on artstation,
       pixiv, insane detail", "negative": "lowres, bad quality, deformed,
@@ -102,21 +96,17 @@ outputs:
     scripts:
       jsonata: >-
         $eval(choices[0].message.content).width ?
-        $eval(choices[0].message.content).width : 640
+        $eval(choices[0].message.content).width : 1024
     type: number
   height:
     scripts:
       jsonata: >-
         $eval(choices[0].message.content).height ?
-        $eval(choices[0].message.content).height: 640
+        $eval(choices[0].message.content).height: 1024
     type: number
   negative:
     scripts:
       jsonata: $eval(choices[0].message.content).negative
-    type: string
-  checkpoint:
-    scripts:
-      jsonata: $eval(choices[0].message.content).checkpoint
     type: string
   model:
     hidden: true
