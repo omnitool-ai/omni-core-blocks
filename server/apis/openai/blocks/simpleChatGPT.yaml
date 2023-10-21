@@ -1,6 +1,6 @@
 category: Text Generation
 description: >-
-  Generate text using OpenAI's GPT models
+  Generate text using OpenAI's GPT models.
 meta:
   source:
     title: 'ChatGPT: Conversational LLM'
