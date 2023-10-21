@@ -7,7 +7,6 @@ meta:
     links:
       Website: https://platform.openai.com/docs/guides/embeddings/what-are-embeddings
       Blog: https://openai.com/blog/new-and-improved-embedding-model
-      API Docs: https://platform.openai.com/docs/guides/embeddings/what-are-embeddings
       Subscription: https://platform.openai.com/apps
       Research: https://openai.com/research
     summary: OpenAI’s text embeddings measure the relatedness of text strings.
@@ -22,7 +21,7 @@ scripts:
 inputs:
   input:
     required: true
-    default: The text you want to compute the embeddings of.
+    default: The text to transform into a vector representation.
     type: string
     customSocket: text
   model:
