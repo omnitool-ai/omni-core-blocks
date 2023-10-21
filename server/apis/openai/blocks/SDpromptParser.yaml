@@ -13,9 +13,9 @@ scripts:
     - instruction
 inputs:
   temperature:
-    default: 0.2
+    default: 0.7
     minimum: 0
-    maximum: 2
+    maximum: 1
     step: 0.1
   prompt:
     default: Butterfly in a field
@@ -44,8 +44,35 @@ inputs:
 
       * Positive Terms
        Include any elements the user wants in their image.
-       Always append: 4k, 8k, high quality.
-       If the input is one word or absent, creatively enhance the description.
+       Always integrate baseline descriptors such as: 4k, 8k, high quality, HD, max quality.
+       For imagery focusing on precision or artistry: meticulous, arresting, sublime, crafted, exquisite, masterpiece.
+       Dynamic or vivid visuals: breathtaking, mesmerizing, vibrant, gradient, lens flare, dynamic lighting, and dreamy.
+       Digital or rendered artwork: octane render, unreal engine, rtx, artstation quality, cgsociety standard, and pixar-style.
+       Scene-setting or larger vistas: establishing shot, cityscape, fantasy art, and cinematic.
+       Time-specific or trendy visuals: 2019, 2020, 2021, 2022, 2020s, 2030s, vintage, futuristic
+       Recognition and achievement-based: contest winner, award-winning, and best quality.
+       Close-ups or detailed sections: intricately detailed, macrolens, and meticulous.
+       Atmosphere or mood: ominous vibe, gothic, and soft light.
+       Format or medium: vector illustration, product render, sculpture, animation, and motion graphics.
+       Unique visual elements: asymmetric, symmetric, vibrant, lens flare, with flames, and bokeh.
+
+      * Missing Input
+       When context is ambiguous or not specified, diversify and curate descriptors for a harmonious and dynamic result.
+
+      * Crafting Effective Image Prompts: A Guideline
+       1. Introduce the Medium:
+         Specifying the desired medium or art form of the image.
+         Examples: "oil painting", "vector illustration", "3D render", "watercolor sketch", "digital art", "photograph", "ceramic sculpture".
+       2. Present the Subject:
+        Clearly define the primary subject or focal point of the image.
+         The subject can be a person, animal, object, scene, or abstract concept.
+         Examples: "a serene woman", "a majestic lion", "a vintage pocket watch", "a bustling city square", "the emotion of joy".
+       3. Provide Context or Background:
+         Detail the environment, setting, or background to give context to the subject.
+         Examples: "surrounded by a misty forest", "overlooking a calm ocean at sunset", "amidst a crowd of bustling people", "floating in an abstract space filled with geometric shapes".
+       4. Qualifiers
+         Include as many qualifiers to improve overall image quality. These are the terms outlined earlier.
+         Note: Diversity Over Coherence: Contradictory elements can lead to some of the most creative outputs. Coherence isn't a necessity; embrace the contrasts.
 
       * Negative Terms
        Incorporate any elements the user wishes to exclude.
@@ -59,36 +86,31 @@ inputs:
        If the user specifies dimensions, they MUST align with one of the following values: 512, 640, 768, 896, 1024. Choose the closest value. Any dimension not on this list is unacceptable and will result in errors.
        Dimensions should never appear in the positive or negative terms.
 
-      * Token Compression:
+      * Formatting Terms:
        Separate terms within the fields with commas.
 
       * Examples:
       User input: A dog on a field under a blue sky
       Your output:
-      { "positive": "A beautiful oil painting of a dog with a shiny coat standing proudly on a vast green field, landscape, blue sky, fluffy cirrus clouds, 4k, 8k, high quality, magnificent, medium shot, details, nature, god rays",
-      "negative": "low quality artifacts, lowres, bad quality, deformed, mutated, out of frame, watermark",
+      { "positive": "A captivating photograph of a Golden Retriever gleefully running across a vast green meadow, clear blue sky overhead, fluffy white clouds, sunlight streaming down, 4k, 8k, high quality, dynamic lighting, meticulously captured, nature's beauty, magnificent, medium shot, details, nature, god rays",
+        "negative": "lowres, bad quality, deformed, mutated, out of frame, watermark",
       "width": 1024, "height": 768 }
 
       User input: Anime house.
       Your output:
-       { "positive": "A detailed anime digital illustration of a cozy house, nestled between trees
-       with tiled roof. koi pond, cherry blossoms. 4k, 8k, high
-       quality, stunning beautiful, sharp focus, strong lines", "negative":
-       "lowres, bad quality, deformed, mutated, out of frame, watermark",
+       { "positive": "An vivid intricate vector artwork of a classic anime house, nestled between trees with tiled roof. koi pond, cherry blossoms. traditional design, paper lanterns glowing softly, garden with stone path, 4k, 8k, high quality, sharp lines, dynamic lighting, reminiscent of Studio Ghibli aesthetics, featured on ArtStation, stunning beautiful, sharp focus, strong lines",
+       "negative": "lowres, bad quality, deformed, mutated, out of frame, watermark",
        "width": 1024, "height": 1024 }
 
       User input: Kitten in a teacup.
       Your output:
-       { "positive": "A photograph of a super cute teacup
-       kitten, showing his head, smiling happily, the kitten is fluffy, intricate
-       detail, cinematic, 8 k, cel shaded, unreal engine, featured on artstation,
-       pixiv, insane detail", "negative": "lowres, bad quality, deformed,
-       mutated, out of frame, watermark",
+       { "positive": "A delightful digital artwork of a super cute fluffy kitten, snugly fit inside an ornate teacup. intricate brush strokes, soft pastel palette, cinematic, 8k, cel shaded, unreal engine, featured on artstation, handcrafted masterpiece, soft ambient light, pixiv, insane detail",
+       "negative": "lowres, bad quality, deformed, mutated, out of frame, watermark",
        "width": 1024, "height": 1024 }
 
       User input: Snowy mountain at dawn. Landscape.
       Your output:
-       { "positive": "A breathtaking panorama of a snow-capped mountain peak, first light of dawn casting a golden hue, shimmering snowflakes, untouched snow, pristine wilderness, alpenglow, high-altitude, serene atmosphere, 4k, 8k, high quality"
+       { "positive": "A breathtaking panorama of a snow-capped mountain peak, first rays of dawn casting a golden hue, shimmering snowflakes, untouched snow, pristine wilderness, alpenglow, high-altitude, serene atmosphere, cinematic composition, 4k, 8k, high quality. majestic. Octane rendered beauty. ArtStation"
        "negative": "low quality artifacts, lowres, bad quality, deformed, mutated, out of frame, watermark",
        "width": 1024, "height": 768 }
 
