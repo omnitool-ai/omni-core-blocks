@@ -1,18 +1,22 @@
 category: Image Generation
 description: >-
-  Generate images from text prompts.
+  Generate images from text prompts using the DALL·E 2 model.
 title: 'DALL·E 2: Text to Image'
 apiNamespace: openai
 apiOperationId: createImage
 displayNamespace: openai
-displayOperationId: simpleDalle2
+displayOperationId: simpleDallE2
 inputs:
   'n':
-    title: '# of Images'
     hidden: true
   response_format:
     default: url
     hidden: true
 outputs:
   data:
-    title: Images
+    title: Image
+    customSocket: image
+    scripts:
+      jsonata: data[0].url
+  created:
+    hidden: true
