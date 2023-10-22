@@ -15,11 +15,12 @@ inputs:
       - title: whisper-1
         value: whisper-1
     customSocket: text
+    hidden: true
   temperature:
     default: 0
     minimum: 0
     maximum: 1
-    step: 0.01
+    step: 0.05
   response_format:
     default: json
     choices:
