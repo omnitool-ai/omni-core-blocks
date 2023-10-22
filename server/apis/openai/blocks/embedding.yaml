@@ -14,7 +14,7 @@ title: Create Text Embeddings
 apiNamespace: openai
 apiOperationId: createEmbedding
 displayNamespace: openai
-displayOperationId: embeddings
+displayOperationId: embedding
 scripts:
   hideExcept:inputs:
     - input
