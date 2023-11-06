@@ -5,6 +5,7 @@ api:
 componentType: OAIComponent31
 filter:
   operationIds:
-    - gmail.users.messages.list
-    - gmail.users.messages.send
+    - gmail_users_messages_list
+    - gmail_users_messages_send
+    - gmail_users_messages_get
 title: google-gmail
