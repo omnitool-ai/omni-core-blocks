@@ -1,0 +1,25 @@
+category: Data Extraction
+title: List Messages
+apiNamespace: google-gmail
+apiOperationId: gmail_users_messages_list
+displayNamespace: google-gmail
+displayOperationId: gmail_users_messages_list_omni
+scripts:
+  hideExcept:inputs:
+    - userId
+    - maxResults
+    - pageToken
+    - q
+    - labelIds
+    - includeSpamTrash
+inputs:
+  userId:
+    title: User ID
+    required: true
+    type: string
+    customSocket: text
+    default: me
+outputs:
+  messages:
+    customSocket: object
+    

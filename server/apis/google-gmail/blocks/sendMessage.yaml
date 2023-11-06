@@ -1,0 +1,9 @@
+category: Data Extraction
+title: Send Messages
+apiNamespace: google-gmail
+apiOperationId: gmail_users_messages_send
+displayNamespace: google-gmail
+displayOperationId: gmail_users_messages_send_omni
+scripts:
+  hideExcept:inputs:
+    - userId

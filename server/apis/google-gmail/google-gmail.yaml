@@ -1,0 +1,10 @@
+namespace: google-gmail
+api:
+  spec: ./api/google-gmail.yaml
+  basePath: https://gmail.googleapis.com
+componentType: OAIComponent31
+filter:
+  operationIds:
+    - gmail.users.messages.list
+    - gmail.users.messages.send
+title: google-gmail

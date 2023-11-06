@@ -1,0 +1,19 @@
+category: Data Extraction
+title: Get Messages
+apiNamespace: google-gmail
+apiOperationId: gmail_users_messages_get
+displayNamespace: google-gmail
+displayOperationId: gmail_users_messages_get_omni
+scripts:
+  hideExcept:inputs:
+    - userId
+    - id
+    - format
+    - metadataHeaders
+inputs:
+  userId:
+    title: User ID
+    required: true
+    type: string
+    customSocket: text
+    default: me
