@@ -84,6 +84,8 @@ inputs:
       cache: user
       map:
         root: models
+        filter:
+          value: "^(?!.*gpt-4-vision-preview).*$"
   top_p:
     description: >-
       Implements nucleus sampling, where the model considers only tokens whose cumulative probability exceeds the specified `top_p` threshold.
