@@ -58,6 +58,8 @@ inputs:
       cache: user
       map:
         root: models
+        filter:
+          value: "^(?!.*gpt-4-vision-preview).*$"
 outputs:
   text:
     title: Text
