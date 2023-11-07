@@ -1,0 +1,12 @@
+category: Text-to-Speech
+title: Text to speech
+apiNamespace: openai
+apiOperationId: createSpeech
+displayNamespace: openai
+displayOperationId: createSpeech
+inputs:
+  model:
+    default: tts-1
+    choices:
+      - tts-1
+      - tts-1-hd
