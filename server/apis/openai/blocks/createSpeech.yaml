@@ -1,5 +1,7 @@
 category: Text-to-Speech
 title: "TTS: Text to Speech"
+description: >-
+  Generates audio from the input text. The maximum length of the text to generate audio for is 4096 characters.
 apiNamespace: openai
 apiOperationId: createSpeech
 displayNamespace: openai
