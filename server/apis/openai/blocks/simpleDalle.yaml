@@ -1,22 +1,32 @@
 category: Image Generation
 description: >-
-  Generate images from text prompts using the DALL·E 2 model.
-title: 'DALL·E 2: Text to Image'
+  Generate images from text prompts using the DALL·E model. By default, images are generated at standard quality, but when using DALL·E 3 you can set quality: "hd" for enhanced detail. Square, standard quality images are the fastest to generate. You can request 1 image at a time with DALL·E 3 or up to 10 images at a time using DALL·E 2.
+title: 'DALL·E: Text to Image'
 apiNamespace: openai
 apiOperationId: createImage
 displayNamespace: openai
-displayOperationId: simpleDallE2
+displayOperationId: simpleDallE
 inputs:
   'n':
-    hidden: true
+    title: Number of Images
+    default: 1
+    type: integer
+    customSocket: number
   response_format:
     default: url
     hidden: true
+  model:
+    default: dall-e-3
+    choices:
+      - dall-e-2
+      - dall-e-3
 outputs:
   data:
-    title: Image
+    title: Images
     customSocket: image
+    socketOpts:
+      array: true
     scripts:
-      jsonata: data[0].url
+      jsonata: data[].url
   created:
     hidden: true
