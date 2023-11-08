@@ -1,0 +1,105 @@
+category: Text Generation
+description: >-
+  GPT-4 with Vision, sometimes referred to as GPT-4V, allows the model to take in images and answer questions about them.
+meta:
+  source:
+    title: 'ChatGPT: Conversational LLM'
+    links:
+      Website: https://openai.com/chatgpt
+      Blog: https://openai.com/blog/chatgpt
+      API Docs: https://openai.com/blog/introducing-chatgpt-and-whisper-apis
+      Subscription: https://platform.openai.com/apps
+      Research: https://openai.com/research
+    summary: >-
+      ChatGPT is a Large Language Model (LLM) by OpenAI trained to converse with
+      the user in a conversational way.
+title: ChatGPT-Vision
+apiNamespace: openai
+apiOperationId: createChatCompletion
+displayNamespace: openai
+displayOperationId: simpleChatGPT-vision
+scripts:
+  hideExcept:inputs:
+    - prompt
+    - temperature
+    - model
+    - top_p
+    - seed
+    - instruction
+    - images
+  hideExcept:outputs:
+    - text
+inputs:
+  temperature:
+    title: Temperature
+    description: >-
+      The randomness regulator, higher for more creativity, lower for more
+      structured, predictable text.
+    default: 0.3
+    minimum: 0
+    maximum: 1
+    step: 0.1
+  instruction:
+    default: You are a helpful bot. You can help people by answering their questions.
+    type: string
+  prompt:
+    required: true
+    type: string
+  messages:
+    scripts:
+      jsonata: >-
+        [
+          {
+            "role": "system",
+            "content": [
+              {
+                "type": "text",
+                "text": $string(instruction)
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": $string(prompt)
+              },
+              {
+                "type": "image_url",
+                "image_url": {
+                  "url": "data:image/jpeg;base64," & $string(images)
+                }
+              }
+            ]
+          }
+        ]
+      delete:
+        - prompt
+        - instruction
+        - images
+  model:
+    title: Model
+    default: gpt-4-vision-preview
+    choices:
+      block: openai.getGPTModels
+      cache: user
+      map:
+        root: models
+        filter:
+          value: ".*vision.*"
+  images:
+    title: Images
+    type: string
+    customSocket: image
+    socketOpts:
+      format: base64
+  max_tokens:
+    default: 300
+
+outputs:
+  text:
+    title: Text
+    scripts:
+      jsonata: choices[0].message.content
+    type: string
