@@ -26,6 +26,7 @@ scripts:
     - instruction
     - function
     - top_p
+    - seed
   hideExcept:outputs:
     - answer_text
     - function_call
