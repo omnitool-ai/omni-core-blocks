@@ -5,7 +5,7 @@ title: 'DALL·E: Text to Image'
 apiNamespace: openai
 apiOperationId: createImage
 displayNamespace: openai
-displayOperationId: simpleDallE
+displayOperationId: simpleDallE2
 inputs:
   'n':
     title: Number of Images
