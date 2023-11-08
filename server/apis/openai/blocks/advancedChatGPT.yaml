@@ -27,6 +27,7 @@ scripts:
     - function
     - top_p
     - seed
+    - json_mode
   hideExcept:outputs:
     - answer_text
     - function_call
@@ -69,6 +70,19 @@ inputs:
     scripts:
       jsonata: >-
         functions.length > 0 ? "auto" : None
+  json_mode:
+    title: JSON Mode
+    description: >-
+      If enabled, the output will be formatted in JSON.
+    type: boolean
+    default: false
+  response_format:
+    type: object
+    scripts:
+      jsonata: >-
+        { "type": $boolean(json_mode) ? "json_object" : "text" }
+      delete:
+        - json_mode
   messages:
     scripts:
       jsonata: >-
