@@ -20,8 +20,20 @@ inputs:
     choices:
       - dall-e-2
       - dall-e-3
+  user: 
+    hidden: true
 outputs:
-  data:
+  data: 
+    hidden: true
+  revised_prompts:
+    title: Revised Prompts
+    type: string
+    customSocket: text
+    socketOpts:
+      array: true
+    scripts:
+      jsonata: data[].revised_prompt
+  images:
     title: Images
     customSocket: image
     socketOpts:
