@@ -25,6 +25,7 @@ scripts:
     - model
     - top_p
     - seed
+    - max_tokens
     - instruction
     - images
   hideExcept:outputs:
@@ -95,7 +96,11 @@ inputs:
     socketOpts:
       format: base64
   max_tokens:
-    default: 300
+    type: number
+    minimum: 1
+    maximum: 4096
+    default: 4096
+    step: 1
 
 outputs:
   text:
