@@ -11,6 +11,7 @@ scripts:
   hideExcept:inputs:
     - prompt
     - instruction
+    - model
 inputs:
   temperature:
     default: 0.7
@@ -29,14 +30,15 @@ inputs:
         - prompt
         - instruction
   model:
-    default: gpt-3.5-turbo
+    default: gpt-4-1106-preview
     choices:
       - gpt-3.5-turbo
+      - gpt-4-1106-preview
       - gpt-4
   instruction:
     required: true
     default: >-
-      You are an assistant generating JSON outputs for a generative image program.
+      You are an assistant generating JSON outputs for the "Stable Diffusion" generative image program.
       Adhere to the following guidelines:
 
       * Output Structure:
@@ -115,6 +117,11 @@ inputs:
        "width": 1024, "height": 768 }
 
     type: string
+  response_format:
+    type: object
+    scripts:
+      jsonata: >-
+        { "type": ($string(model) = 'gpt-4-1106-preview' ? "json_object" : "text") }
 outputs:
   positive:
     scripts:
@@ -149,6 +156,8 @@ outputs:
   choices:
     hidden: true
   created:
+    hidden: true
+  system_fingerprint:
     hidden: true
   json:
     scripts:
