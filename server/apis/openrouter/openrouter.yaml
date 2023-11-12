@@ -1,0 +1,5 @@
+namespace: openrouter
+api:
+  spec: ./api/openrouter.yaml
+  basePath: https://openrouter.ai/api/v1
+title: OpenRouter

@@ -1,0 +1,13 @@
+category: Model Operations
+description: >-
+  Get a list of all available LLM models.
+title: Get Models
+apiNamespace: openrouter
+apiOperationId: listModels
+displayNamespace: openrouter
+displayOperationId: listModels
+outputs:
+  models:
+    scripts:
+      jsonata: data.id
+    type: list

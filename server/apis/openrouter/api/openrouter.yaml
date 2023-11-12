@@ -1,0 +1,196 @@
+openapi: 3.0.3
+info:
+  title: OpenRouter API
+  version: 1.0.0
+  description: API for generating chat completions using OpenRouter.
+servers:
+  - url: https://openrouter.ai/api/v1
+paths:
+  /models:
+      get:
+        operationId: listModels
+        summary: Get a list of available AI models
+        description: Returns a list of AI models with their details.
+        responses:
+          '200':
+            description: A list of models
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    data:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/Model'
+  /chat/completions:
+    post:
+      operationId: chatCompletions
+      summary: Generate chat completions based on the provided messages and model.
+      parameters:
+        - $ref: '#/components/parameters/RefererHeader'
+        - $ref: '#/components/parameters/XTitleHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  description: The AI model to use for generating the chat completion.
+                  default: "openai/gpt-3.5-turbo"
+                messages:
+                  type: array
+                  description: Array of message objects representing the chat history.
+                  items:
+                    $ref: '#/components/schemas/Message'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  choices:
+                    type: array
+                    description: Array of generated completion choices.
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          description: The generated completion message.
+      security:
+        - BearerToken: []
+  /generation:
+    get:
+      operationId: getGenerationStats
+      summary: Querying Cost and Stats by Generation ID
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The unique identifier of the generation.
+      responses:
+        '200':
+          description: Details of the requested generation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "gen-nNPYi0ZB6GOK5TNCUMHJGgXo"
+                  model:
+                    type: string
+                    example: "openai/gpt-4-32k"
+                  streamed:
+                    type: boolean
+                  generation_time:
+                    type: integer
+                  created_at:
+                    type: string
+                    format: date-time
+                  tokens_prompt:
+                    type: integer
+                  tokens_completion:
+                    type: integer
+                  native_tokens_prompt:
+                    type: string
+                    nullable: true
+                  native_tokens_completion:
+                    type: string
+                    nullable: true
+                  num_media_generations:
+                    type: integer
+                    nullable: true
+                  origin:
+                    type: string
+                  usage:
+                    type: number
+                    format: float
+      security:
+        - BearerToken: []
+components:
+  parameters:
+    RefererHeader:
+      in: header
+      name: HTTP-Referer
+      schema:
+        type: string
+        default: http://localhost:1688
+      required: true
+      description: HTTP Referer header
+    XTitleHeader:
+      in: header
+      name: X-Title
+      schema:
+        type: string
+        default: Omnitool
+      required: false
+      description: Custom title for your site. Optional. Shows on openrouter.ai
+  schemas:
+    Message:
+      type: object
+      required:
+        - content
+        - role
+      properties:
+        content:
+          type: string
+          description: Content of the message.
+        role:
+          type: string
+          description: Role of the entity sending the message.
+          enum: [system, user, assistant]
+    Model:
+      type: object
+      properties:
+        id:
+          type: string
+          example: openai/gpt-3.5-turbo
+        name:
+          type: string
+          example: "OpenAI: GPT-3.5 Turbo"
+        pricing:
+          type: object
+          properties:
+            prompt:
+              type: string
+            completion:
+              type: string
+            discount:
+              type: integer
+        context_length:
+          type: integer
+        architecture:
+          type: object
+          properties:
+            tokenizer:
+              type: string
+            instruct_type:
+              type: string
+        top_provider:
+          type: object
+          properties:
+            max_completion_tokens:
+              type: integer
+        per_request_limits:
+          type: object
+          properties:
+            prompt_tokens:
+              type: string
+            completion_tokens:
+              type: string
+  securitySchemes:
+    BearerToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Bearer token authentication using JWT.

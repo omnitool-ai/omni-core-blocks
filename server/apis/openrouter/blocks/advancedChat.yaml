@@ -1,0 +1,118 @@
+category: Text Generation
+description: >-
+  A unified API for LLMs. Let you choose your prefered LLM model, or let OpenRouter route for you.
+title: OpenRouter LLM
+apiNamespace: openrouter
+apiOperationId: chatCompletions
+displayNamespace: openrouter
+displayOperationId: advancedChat
+scripts:
+  hideExcept:inputs:
+    - prompt
+    - model
+    - fallback
+    - X-Title
+    - temperature
+    - json_mode
+    - top_p
+inputs:
+  X-Title:
+    title: App Title
+    description: >-
+      The title of your app. This will show on openrouter.ai/activity dashboard.
+    default: Omnitool
+  model:
+    title: Model
+    default: openai/gpt-3.5-turbo
+    choices:
+      block: openrouter.listModels
+      cache: user
+      map:
+        root: models
+  # fallback_model:
+  #   title: Fallback Model
+  #   description: >-
+  #     If the model you selected returns an error, OpenRouter will try to use the fallback model instead. OpenRouter will try the most appropriate open-source model available, with pricing less than the primary model (or very close to it). 
+  #   default: undefined
+  #   choices:
+  #     block: openrouter.listModels
+  #     cache: user
+  #     map:
+  #       root: models
+  prompt:
+    required: true
+    type: string
+    customSocket: text
+  messages:
+    scripts:
+      jsonata: >-
+        [{"role":"user",
+        "content": $string(prompt) }]
+      delete:
+        - prompt
+  temperature:
+    description: >-
+      The randomness regulator, higher for more creativity, lower for more
+      structured, predictable text.
+    minimum: 0
+    maximum: 1
+    step: 0.1
+    default: 0.3
+  json_mode:
+    title: JSON Mode
+    description: >-
+      If enabled, the output will be formatted in JSON if supported by the model.
+    type: boolean
+    default: false
+  response_format:
+    type: object
+    hidden: true
+    scripts:
+      jsonata: >-
+        { "type": $boolean(json_mode) ? "json_object" : "text" }
+      delete:
+        - json_mode
+  top_p:
+    title: Top P
+    description: >-
+      Implements nucleus sampling, where the model considers only tokens whose cumulative probability exceeds the specified `top_p` threshold.
+      Like `temperature`, this controls the diversity of the model's output.
+    default: 1
+    minimum: 0
+    maximum: 1
+    step: 0.05
+  stream:
+    type: boolean
+    default: false
+  fallback:
+    type: boolean
+    default: false
+    description: >-
+      If the model you selected returns an error, OpenRouter will try to use the fallback model instead. OpenRouter will try the most appropriate open-source model available, with pricing less than the primary model (or very close to it). 
+  route:
+    scripts:
+      jsonata: >- 
+        $.fallback = true ? "fallback" : undefined
+      delete:
+        - fallback
+
+outputs:
+  answer:
+    scripts:
+      jsonata: choices[0].message.content
+    type: string
+    customSocket: text
+  choices:
+    title: Raw
+    type: object
+  model:
+    scripts:
+      jsonata: model
+    type: string
+    customSocket: text
+  gen_id:
+    title: Gen ID
+    scripts:
+      jsonata: id
+    type: string
+    customSocket: text
