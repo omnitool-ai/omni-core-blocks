@@ -6,16 +6,20 @@ apiNamespace: openrouter
 apiOperationId: chatCompletions
 displayNamespace: openrouter
 displayOperationId: advancedChat
-scripts:
-  hideExcept:inputs:
-    - prompt
-    - model
-    - fallback
-    - X-Title
-    - temperature
-    - json_mode
-    - top_p
+# scripts:
+#   hideExcept:inputs:
+#     - prompt
+#     - instruction
+#     - model
+#     - fallback
+#     - X-Title
+#     - temperature
+#     - json_mode
+#     - top_p
+#     - seed
 inputs:
+  HTTP-Referer:
+    hidden: true
   X-Title:
     title: App Title
     description: >-
@@ -29,28 +33,49 @@ inputs:
       cache: user
       map:
         root: models
-  # fallback_model:
-  #   title: Fallback Model
-  #   description: >-
-  #     If the model you selected returns an error, OpenRouter will try to use the fallback model instead. OpenRouter will try the most appropriate open-source model available, with pricing less than the primary model (or very close to it). 
-  #   default: undefined
-  #   choices:
-  #     block: openrouter.listModels
-  #     cache: user
-  #     map:
-  #       root: models
+  fallback_model:
+    title: Fallback Model
+    type: string
+    customSocket: text
+    default: openrouter/auto
+    description: >-
+      When fallback mode is enabled, OpenRouter will automatically switch to a fallback model if the selected model encounters an error.
+    scripts:
+      jsonata: >- 
+        $.fallback = true ? fallback_model : undefined
+    choices:
+      block: openrouter.listModels
+      cache: user
+      map:
+        root: models
+  models:
+    hidden: true
+    scripts:
+      jsonata: >-
+        $exists(fallback_model) ? [model, fallback_model] : [model]
+      delete:
+        - fallback_model
+        - model
   prompt:
     required: true
     type: string
     customSocket: text
+  instruction:
+    type: string
+    customSocket: text
+    default: You are a helpful bot.  You can help people by answering their questions.
   messages:
     scripts:
       jsonata: >-
-        [{"role":"user",
-        "content": $string(prompt) }]
+        [{"role":"system",
+        "content": $string(instruction)}, 
+        {"role":"user",
+        "content": $string(prompt)}]
       delete:
         - prompt
+    hidden: true
   temperature:
+    title: Temperature
     description: >-
       The randomness regulator, higher for more creativity, lower for more
       structured, predictable text.
@@ -58,10 +83,15 @@ inputs:
     maximum: 1
     step: 0.1
     default: 0.3
+  seed:
+    type: integer
+    title: Seed
+    description: >-
+      If supported by the model, set the seed parameter to any integer of your choice and use the same value across requests you'd like deterministic outputs for. Note that this is still in beta for gpt models.
   json_mode:
     title: JSON Mode
     description: >-
-      If enabled, the output will be formatted in JSON if supported by the model.
+      If enabled, the output will be formatted in JSON if supported by the model e.g. gpt-4-1106-preview. Ensure that your prompt includes the word 'json' in some form; failure to do so may result in an error.
     type: boolean
     default: false
   response_format:
@@ -82,14 +112,17 @@ inputs:
     maximum: 1
     step: 0.05
   stream:
+    hidden: true
     type: boolean
     default: false
   fallback:
+    title: Fallback Mode
     type: boolean
     default: false
     description: >-
-      If the model you selected returns an error, OpenRouter will try to use the fallback model instead. OpenRouter will try the most appropriate open-source model available, with pricing less than the primary model (or very close to it). 
+      If the model you selected returns an error, OpenRouter will try to use the fallback model instead. If no fallback model specified, OpenRouter will try the most appropriate open-source model available, with pricing less than the primary model (or very close to it). 
   route:
+    hidden: true
     scripts:
       jsonata: >- 
         $.fallback = true ? "fallback" : undefined
@@ -102,8 +135,8 @@ outputs:
       jsonata: choices[0].message.content
     type: string
     customSocket: text
-  choices:
-    title: Raw
+  usage:
+    title: Usage
     type: object
   model:
     scripts:
@@ -116,3 +149,8 @@ outputs:
       jsonata: id
     type: string
     customSocket: text
+  system_fingerprint: 
+    title: Seed
+    type: integer
+  choices:
+    hidden: true
