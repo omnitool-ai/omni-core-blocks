@@ -90,6 +90,7 @@ inputs:
         filter:
           value: ".*vision.*"
   images:
+    required: true
     title: Images
     type: string
     customSocket: image
