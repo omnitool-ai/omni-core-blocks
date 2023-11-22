@@ -1,0 +1,5 @@
+namespace: automatic1111
+api:
+  url: $BASE_URL/openapi.json
+  basePath: $BASE_URL
+title: automatic1111
