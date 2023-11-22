@@ -1,0 +1,6 @@
+category: Communication
+title: Get Post Attachment
+apiNamespace: workplace
+apiOperationId: getPostAttachments
+displayNamespace: workplace
+displayOperationId: getPostAttachments

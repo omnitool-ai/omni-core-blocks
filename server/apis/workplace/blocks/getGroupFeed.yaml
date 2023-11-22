@@ -1,0 +1,17 @@
+category: Communication
+title: Get Group Feed
+apiNamespace: workplace
+apiOperationId: getGroupFeed
+displayNamespace: workplace
+displayOperationId: getGroupFeed
+outputs:
+  posts: 
+    type: object
+    socketOpts:
+      array: true
+    scripts:
+      jsonata: >-
+        $.data[]
+  fields:
+    default: 'attachments, message, id'
+

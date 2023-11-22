@@ -1,0 +1,35 @@
+category: Communication
+title: Create Group Post
+apiNamespace: workplace
+apiOperationId: createGroupPost
+displayNamespace: workplace
+displayOperationId: createGroupPost
+inputs:
+  markdown:
+    type: boolean
+    default: false
+    description: Whether the post is in markdown format
+  formatting:
+    type: string
+    default: MARKDOWN
+    hidden: true
+    scripts: 
+      jsonata: >-
+        $.markdown ? "MARKDOWN" : undefined
+      delete:
+        - markdown
+  message: 
+    type: string
+    customSocket: text
+  files:
+    type: array
+    customSocket: file
+    socketOpts: 
+      array: true
+    # scripts:
+    #   jsonata: >-
+    #     $map($, function($v, $i, $a) { $v.fid })
+
+    
+
+

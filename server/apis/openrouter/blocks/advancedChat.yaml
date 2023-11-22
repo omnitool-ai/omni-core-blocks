@@ -67,13 +67,37 @@ inputs:
   messages:
     scripts:
       jsonata: >-
-        [{"role":"system",
-        "content": $string(instruction)}, 
-        {"role":"user",
-        "content": $string(prompt)}]
+        [
+          {
+            "role":"system",
+            "content": $string(instruction)
+          }, 
+          {
+            "role":"user",
+            "content": [
+              {
+                "type": "text",
+                "text": $string(prompt)
+              },
+              {
+                "type": "image_url",
+                "image_url": {
+                  "url": "data:image/jpeg;base64," & $string(images)
+                }
+              }
+            ]
+          }
+        ]
       delete:
         - prompt
+        - images
     hidden: true
+  images:
+    title: Images
+    type: string
+    customSocket: image
+    socketOpts:
+      format: base64
   temperature:
     title: Temperature
     description: >-

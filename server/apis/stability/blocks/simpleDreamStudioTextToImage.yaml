@@ -7,10 +7,19 @@ apiOperationId: textToImage
 displayNamespace: stability
 displayOperationId: simpleDreamStudioTextToImage
 inputs:
-  engine_id:
-    default: stable-diffusion-v1-5
+  accept:
     hidden: true
+    default: application/json
+  Stability-Client-ID:
+    hidden: true
+    default: omnitool
+  engine_id:
+    title: Model
+    default: stable-diffusion-v1-6
     type: string
+    choices:
+      - stable-diffusion-v1-5
+      - stable-diffusion-v1-6
   prompts:
     title: Prompts
     description: >-

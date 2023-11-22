@@ -1,0 +1,14 @@
+category: Communication
+title: Get Post Comments
+apiNamespace: workplace
+apiOperationId: getPostComments
+displayNamespace: workplace
+displayOperationId: getPostComments
+outputs:
+  comments: 
+    type: object
+    socketOpts:
+      array: true
+    scripts:
+      jsonata: >-
+        $.data[]

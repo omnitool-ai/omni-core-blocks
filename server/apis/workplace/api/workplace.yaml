@@ -1,0 +1,746 @@
+openapi: 3.0.3
+info:
+  title: Workplace API
+  version: 1.0.0
+  description: API for operating on Workplace.
+servers:
+  - url: https://graph.facebook.com/v2.11
+paths:
+  /{post-id}:
+    get:
+      operationId: getPost
+      summary: Returns a single Post object representing a post in a group, an event or on a user's profile.
+      parameters:
+        - name: post-id
+          in: path
+          description: The ID of the post to retrieve.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+    delete:
+      operationId: deletePost
+      summary: Deletes a post.
+      parameters:
+        - name: post-id
+          in: path
+          description: The ID of the post to delete.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+    post:
+      operationId: updatePost
+      summary: Updates a post.
+      parameters:
+        - name: post-id
+          in: path
+          description: The ID of the post to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: The updated message for the post.
+      responses:
+        '200':
+          description: OK
+  /{post-id}/attachments:
+    get:
+      operationId: getPostAttachments
+      summary: Returns all media attachments associated with a post.
+      parameters:
+        - name: post-id
+          in: path
+          description: The ID of the post to retrieve attachments for.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Attachment'
+  /{post-id}/comments:
+    get:
+      operationId: getPostComments
+      summary: Returns comments on a post.
+      parameters:
+        - name: post-id
+          in: path
+          description: The ID of the post to retrieve comments for.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+  /{post-id}/reactions:
+    get:
+      operationId: getPostReactions
+      summary: Returns people who have reacted to a post.
+      parameters:
+        - name: post-id
+          in: path
+          description: The ID of the post to retrieve reactions for.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reaction'
+  /{post-id}/seen:
+    get:
+      operationId: getPostSeen
+      summary: Returns people who have seen a post.
+      parameters:
+        - name: post-id
+          in: path
+          description: The ID of the post to retrieve seen information for.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Seen'
+  /{group-id}:
+    get:
+      operationId: getGroup
+      summary: Returns a single Group object representing a Workplace group.
+      parameters:
+        - name: group-id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+    post:
+      operationId: updateGroup
+      summary: Updates a Workplace group.
+      parameters:
+        - name: group-id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupUpdate'
+      responses:
+        '200':
+          description: OK
+  /{group-id}/feed:
+    get:
+      operationId: getGroupFeed
+      summary: Returns the posts in a Workplace group, arranged into a feed.
+      parameters:
+        - name: group-id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: sorting_setting
+          in: query
+          description: Allows ordering of posts by recent activity or chronologically.
+          required: false
+          schema:
+            type: string
+            enum: [RECENT_ACTIVITY, CHRONOLOGICAL]
+        - name: fields
+          in: query
+          description: Specifies additional fields to be included in the response, such as attachments.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+    post:
+      operationId: createGroupPost
+      summary: Publish a new post to the group feed
+      description: |
+        Publishes a new post to the group feed. Either link or message must be supplied.
+      parameters:
+        - name: group-id
+          in: path
+          required: true
+          description: The ID of the group
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  description: The main body of the post, otherwise called the status message.
+                link:
+                  type: string
+                  description: The URL of a link to attach to the post.
+              oneOf:
+                - properties:    
+                    attached_media:
+                      type: array
+                      description: Array of media objects to be attached to the post.
+                      items:
+                        type: object
+                        required:
+                          - media_fbid
+                        properties:
+                          media_fbid:
+                            type: string
+                            description: The Facebook ID of the media to attach.
+                - properties:
+                    files:
+                      type: array
+                      items:
+                        type: string
+                      description: Array of file_ids to be attached to the post. Supports various file formats like .pdf, .csv, .jpeg, .mp4, etc.
+              required:
+                - message
+      responses:
+        '200':
+          description: Post successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The newly created post ID
+  /{group-id}/files:
+    get:
+      operationId: getGroupFiles
+      summary: Retrieve files from a group
+      description: Get a list of files uploaded to the specified group.
+      parameters:
+        - name: group-id
+          in: path
+          required: true
+          description: The ID of the group to retrieve files from.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of files from the group.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroupFile'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  /{group-id}/photos:
+    post:
+      operationId: uploadGroupPhoto
+      summary: Uploads a photo to a group.
+      parameters:
+        - name: group-id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: url
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uri
+          description: The URL of the image to be uploaded.
+        - name: caption
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Optional caption for the photo.
+      responses:
+        '200':
+          description: Photo uploaded successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Numeric string representing the ID of the uploaded photo.
+                  post_id:
+                    type: string
+                    description: Token representing the post ID associated with the uploaded photo.
+        '400':
+          description: Bad request.
+
+  /group_photos:
+    post:
+      operationId: createGroupPhoto
+      summary: Create a new group photo.
+      description: Animated photos are not supported, and photo must be less than 10MB in size.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                allow_spherical_photo:
+                  type: boolean
+                  description: Indicates if the photo should be treated as a spherical photo. If true, the photo can be spherical, where the viewer can navigate and change the view within the photo as if they were inside a sphere.
+                  default: false
+                alt_text_custom:
+                  type: string
+                  description: Accessible alternative description for an image.
+                android_key_hash:
+                  type: string
+                  description: Android key hash.
+                application_id:
+                  type: string
+                  description: ID of the app.
+                attempt:
+                  type: integer
+                  description: Denotes which attempt that has been made to upload this photo.
+                audience_exp:
+                  type: boolean
+                  description: Audience expansion for this photo.
+                  default: false
+                backdated_time:
+                  type: string
+                  description: A date earlier than the upload time for the photo.
+                backdated_time_granularity:
+                  type: string
+                  description: Unit of time for the backdated_time parameter for the photo. Can be year, month, day, hour, min, none.
+                caption:
+                  type: string
+                  description: The description of the photo.
+                composer_session_id:
+                  type: string
+                  description: Composer session ID.
+                direct_share_status:
+                  type: integer
+                  description: This status is about to share directly from the post UI.
+                feed_targeting:
+                  type: object
+                  description: Object that controls feed targeting for the post. Anyone in these groups will be more likely to see the post, but may still see it anyway due to the targeting limits. Most users can be targeted by age, gender, location, relationship status, interests, etc.
+                filter_type:
+                  type: integer
+                  description: Default value is 0.
+                  default: 0
+                is_explicit_place:
+                  type: boolean
+                  description: If set to true, this tags a place, not a person.
+                is_explicit_location:
+                  type: boolean
+                  description: If set to true, this tags a location.
+                manual_privacy:
+                  type: boolean
+                  description: Manually controls the privacy options instead of using the default privacy settings.
+                  default: false
+                no_story:
+                  type: boolean
+                  description: If set to true, this will suppress the Feed story that is automatically generated on a profile and Pages timeline when a photo is uploaded. Use this parameter to prevent stories when you intend to generate a story later.
+                  default: false
+                offer_id:
+                  type: string
+                  description: The Offer ID.
+                place:
+                  type: string
+                  description: Page ID for a place associated with the photo.
+                privacy:
+                  type: object
+                  description: Determines the privacy settings of the photo. If not supplied, this defaults to the privacy level granted to the app in the Login dialog. This field cannot be used to set more open privacy settings than the app is allowed.
+                published:
+                  type: boolean
+                  description: Set to false if you don't want the photo to be published immediately.
+                  default: true
+                scheduled_publish_time:
+                  type: string
+                  description: The time at which a scheduled post should be published. Unix timestamp or strtotime data value that points to a time in the future.
+                spherical_metadata:
+                  type: object
+                  description: A set of metadata representing an uploaded spherical photo. This kind of metadata must be included with any uploaded spherical photo. If not present, the photo is considered to be non-spherical. This metadata can be used to specify the initial view parameters when someone views the photo in the News Feed or on the Page timeline. For more information on the properties of this metadata, see the spherical_metadata documentation.
+                sponsor_id:
+                  type: string
+                  description: Facebook Page ID that is tagged as a sponsor in the photo post.
+                sponsor_relationship:
+                  type: integer
+                  description: Sponsor Relationship, such as Presented by or Paid partnership.
+                tags:
+                  type: array
+                  description: Tags on the photo.
+                  items:
+                    type: object
+                    properties:
+                      tag_uid:
+                        type: string
+                        description: ID of the user to tag in the photo.
+                      x:
+                        type: number
+                        description: The horizontal position (as a percentage) of the tag on the photo, from 0 to 100, from left to right. This is only used if the tagged object does not have a native location on Facebook.
+                      y:
+                        type: number
+                        description: The vertical position (as a percentage) of the tag on the photo, from 0 to 100, from top to bottom. This is only used if the tagged object does not have a native location on Facebook.
+                targeting:
+                  type: object
+                  description: Allows you to target posts to specific audiences. Applies to Pages only.
+                url:
+                  type: string
+                  description: The URL of a photo that is already uploaded to the Internet. This must be a photo in the .jpg, .png, .gif, or .tif format.
+                user_selected_tags:
+                  type: boolean
+                  description: Set to true if the person uploading the photo has allowed others to tag it.
+                  default: false
+              required:
+                - url
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The new photo's identifier.
+                  post_id:
+                    type: string
+                    description: The new post's identifier.
+        '400':
+          description: Invalid parameter
+        '500':
+          description: The action attempted has been deemed abusive or is otherwise disallowed
+        '190':
+          description: Invalid OAuth 2.0 Access Token
+        '325':
+          description: Missing or invalid image file
+    get:
+      operationId: readGroupPhotos
+      summary: Retrieve group photos.
+      description: This endpoint supports read-after-write and will read the node represented by id in the return type.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: The identifier of the group photo to retrieve.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: The photo's identifier.
+                  post_id:
+                    type: string
+                    description: The post's identifier.
+        '400':
+          description: Invalid parameter
+        '190':
+          description: Invalid OAuth 2.0 Access Token
+    patch:
+      operationId: updateGroupPhoto
+      summary: Update a group photo.
+      description: You can perform this operation on this endpoint.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: The identifier of the group photo to update.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                caption:
+                  type: string
+                  description: The new caption for the group photo.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Indicates if the update was successful.
+        '400':
+          description: Invalid parameter
+        '190':
+          description: Invalid OAuth 2.0 Access Token
+    delete:
+      operationId: deleteGroupPhoto
+      summary: Delete a group photo.
+      description: You can perform this operation on this endpoint.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: The identifier of the group photo to delete.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Indicates if the deletion was successful.
+        '400':
+          description: Invalid parameter
+        '190':
+          description: Invalid OAuth 2.0 Access Token
+  /{group-id}/videos:
+    get:
+      operationId: getGroupVideos
+      summary: Returns an array of Video objects owned by a Facebook Group.
+      description: Retrieve a list of videos posted to a specified Facebook Group.
+      parameters:
+        - name: group-id
+          in: path
+          required: true
+          description: The ID of the Facebook Group.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of Video objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Video'
+        '400':
+          description: Bad Request. The request is missing a required parameter or is malformed.
+        '401':
+          description: Unauthorized. The user token is missing or invalid.
+        '403':
+          description: Forbidden. The user does not have permission to view the group's videos.
+        '404':
+          description: Not Found. The group ID does not correspond to an existing group.
+components:
+  securitySchemes:
+      BearerAuth: 
+        type: http
+        scheme: bearer
+        bearerFormat: JWT
+  schemas:
+    Video:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the video.
+        title:
+          type: string
+          description: Title of the video.
+        description:
+          type: string
+          description: Description of the video.
+        created_time:
+          type: string
+          format: date-time
+          description: Timestamp of when the video was created.
+        length:
+          type: number
+          format: float
+          description: Length of the video in seconds.
+        permalink_url:
+          type: string
+          format: uri
+          description: A URL directly linking to the video on Facebook.
+        picture:
+          type: string
+          format: uri
+          description: A URL for the thumbnail picture of the video.
+        source:
+          type: string
+          format: uri
+          description: A URL for the source of the video.
+      required:
+        - id
+        - created_time
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+        created_time:
+          type: string
+          format: date-time
+        formatting:
+          type: string
+          enum: [MARKDOWN, PLAINTEXT]
+        from:
+          $ref: '#/components/schemas/Profile'
+        icon:
+          type: string
+          format: uri
+        link:
+          type: string
+          format: uri
+        message:
+          type: string
+        name:
+          type: string
+        object_id:
+          type: string
+        permalink_url:
+          type: string
+          format: uri
+        picture:
+          type: string
+          format: uri
+        place:
+          $ref: '#/components/schemas/Place'
+        poll:
+          $ref: '#/components/schemas/Question'
+        properties:
+          type: array
+          items:
+            type: object
+        status_type:
+          type: string
+          enum: [mobile_status_update, created_note, added_photos, added_video, shared_story, created_group, created_event, wall_post, app_created_story, published_story, tagged_in_photo]
+        story:
+          type: string
+        to:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+        type:
+          type: string
+          enum: [link, status, photo, video]
+        updated_time:
+          type: string
+          format: date-time
+    Profile:
+      type: object
+    Place:
+      type: object
+    Question:
+      type: object
+    Attachment:
+      type: object
+    Comment:
+      type: object
+    Reaction:
+      type: object
+    Seen:
+      type: object
+    Group:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        # Add other fields as per the Group API documentation
+    GroupUpdate:
+      type: object
+      properties:
+        # Define properties that can be updated
+        name:
+          type: string
+        description:
+          type: string
+    GroupFile:
+      type: object
+      properties:
+        download_link:
+          type: string
+          description: URL to download the file.
+        group:
+          type: string
+          description: The Group the file is uploaded to (the same Group as in the request).
+        id:
+          type: string
+          description: The ID of the file.
+        message:
+          type: string
+          description: The text included with the file post.
+        updated_time:
+          type: string
+          format: date-time
+          description: The last time the file was changed.
+security:
+  - BearerAuth: []
