@@ -1,12 +1,13 @@
 category: Communication
-title: Upload Photos
+title: Upload Photo
 apiNamespace: workplace
 apiOperationId: uploadGroupPhoto
 displayNamespace: workplace
 displayOperationId: uploadGroupPhoto
 inputs:
-  url:
-    title: Image URL
-    type: string
+  source:
+    title: Image
+  
+
 
 

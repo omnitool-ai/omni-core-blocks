@@ -1,5 +1,5 @@
 category: Communication
-title: Create Group Post
+title: Create Post
 apiNamespace: workplace
 apiOperationId: createGroupPost
 displayNamespace: workplace
@@ -21,14 +21,21 @@ inputs:
   message: 
     type: string
     customSocket: text
-  files:
+  photo_id:
+    type: string
+  attached_media:
+    hidden: true
     type: array
-    customSocket: file
-    socketOpts: 
-      array: true
-    # scripts:
-    #   jsonata: >-
-    #     $map($, function($v, $i, $a) { $v.fid })
+    scripts:
+      jsonata: >-
+        $exists(photo_id) ? [
+          {
+            "media_fbid": $string(photo_id)
+          }
+        ] : undefined
+      delete:
+        - photo_id
+
 
     
 

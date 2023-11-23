@@ -296,26 +296,38 @@ paths:
   /{group-id}/photos:
     post:
       operationId: uploadGroupPhoto
-      summary: Uploads a photo to a group.
+      summary: Uploads a photo to a group either by URL or by binary data.
       parameters:
         - name: group-id
           in: path
           required: true
           schema:
             type: string
-        - name: url
+            default: me
+        - name: published
           in: query
-          required: true
+          description: If set to false, this will not publish the photo, but will still return a photo ID.
           schema:
-            type: string
-            format: uri
-          description: The URL of the image to be uploaded.
-        - name: caption
-          in: query
-          required: false
-          schema:
-            type: string
-          description: Optional caption for the photo.
+            type: boolean
+            default: false
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                source:
+                  type: string
+                  format: binary
+                  description: Binary data of the image.
+                caption:
+                  type: string
+                  description: Optional caption for the photo.
+                url:
+                  type: string
+                  format: uri
+                  description: The URL of the image to be uploaded.
       responses:
         '200':
           description: Photo uploaded successfully.
