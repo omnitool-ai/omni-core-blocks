@@ -1,7 +1,7 @@
 namespace: paperless
 api:
   spec: ./api/paperless.yaml
-  basePath: https://paperless-ng.intern.mercenaries.ai/api
+  basePath: $BASE_URL
   auth:
     type: http_bearer
     requireKeys:

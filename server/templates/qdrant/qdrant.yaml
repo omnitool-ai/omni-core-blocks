@@ -1,5 +1,5 @@
 namespace: qdrant
 api:
   url: https://raw.githubusercontent.com/qdrant/qdrant/master/docs/redoc/master/openapi.json
-  basePath: https://qdrant.intern.mercenaries.ai
+  basePath: $BASE_URL
 title: qdrant
