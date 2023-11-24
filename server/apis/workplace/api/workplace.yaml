@@ -344,6 +344,88 @@ paths:
                     description: Token representing the post ID associated with the uploaded photo.
         '400':
           description: Bad request.
+  /{group-id}/videos:
+    get:
+      operationId: getGroupVideos
+      summary: Returns an array of Video objects owned by a Facebook Group.
+      description: Retrieve a list of videos posted to a specified Facebook Group.
+      parameters:
+        - name: group-id
+          in: path
+          required: true
+          description: The ID of the Facebook Group.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of Video objects.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Video'
+        '400':
+          description: Bad Request. The request is missing a required parameter or is malformed.
+        '401':
+          description: Unauthorized. The user token is missing or invalid.
+        '403':
+          description: Forbidden. The user does not have permission to view the group's videos.
+        '404':
+          description: Not Found. The group ID does not correspond to an existing group.
+    post:
+      operationId: uploadGroupVideo
+      summary: Uploads a video to a group either by URL or by binary data.
+      parameters:
+        - name: group-id
+          in: path
+          required: true
+          schema:
+            type: string
+            default: me
+        - name: published
+          in: query
+          description: If set to false, this will not publish the video, but will still return a video ID.
+          schema:
+            type: boolean
+            default: false
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                source:
+                  type: string
+                  format: binary
+                  description: Binary data of the video.
+                title:
+                  type: string
+                  description: Optional title for the video.
+                description:
+                  type: string
+                  description: Optional description for the video.
+                url:
+                  type: string
+                  format: uri
+                  description: The URL of the video to be uploaded.
+      responses:
+        '200':
+          description: Video uploaded successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Numeric string representing the ID of the uploaded video.
+                  post_id:
+                    type: string
+                    description: Token representing the post ID associated with the uploaded video.
+        '400':
+          description: Bad request.
 
   /group_photos:
     post:
@@ -578,35 +660,6 @@ paths:
           description: Invalid parameter
         '190':
           description: Invalid OAuth 2.0 Access Token
-  /{group-id}/videos:
-    get:
-      operationId: getGroupVideos
-      summary: Returns an array of Video objects owned by a Facebook Group.
-      description: Retrieve a list of videos posted to a specified Facebook Group.
-      parameters:
-        - name: group-id
-          in: path
-          required: true
-          description: The ID of the Facebook Group.
-          schema:
-            type: string
-      responses:
-        '200':
-          description: An array of Video objects.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Video'
-        '400':
-          description: Bad Request. The request is missing a required parameter or is malformed.
-        '401':
-          description: Unauthorized. The user token is missing or invalid.
-        '403':
-          description: Forbidden. The user does not have permission to view the group's videos.
-        '404':
-          description: Not Found. The group ID does not correspond to an existing group.
 components:
   securitySchemes:
       BearerAuth: 

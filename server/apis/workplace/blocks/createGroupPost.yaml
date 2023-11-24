@@ -7,7 +7,7 @@ displayOperationId: createGroupPost
 inputs:
   markdown:
     type: boolean
-    default: false
+    default: true
     description: Whether the post is in markdown format
   formatting:
     type: string
@@ -22,17 +22,20 @@ inputs:
     type: string
     customSocket: text
   photo_id:
+    title: Photo ID
     type: string
+    socketOpts:
+      array: true
   attached_media:
     hidden: true
     type: array
     scripts:
       jsonata: >-
-        $exists(photo_id) ? [
-          {
-            "media_fbid": $string(photo_id)
-          }
-        ] : undefined
+        $exists(photo_id) ? (
+          photo_id ~> $map(function($v, $i, $a) {
+              {"media_fbid": $string($v)}
+          })
+        ) : undefined
       delete:
         - photo_id
 
