@@ -10,7 +10,7 @@ meta:
         https://github.com/lmstudio-ai/examples/tree/main/Hello%2C%20world%20-%20OpenAI%20python%20client
       LM-Studio One-click-installer (win/mac): https://lmstudio.ai/
     summary: Run local LLMs
-title: Generate Text (Simple)
+title: Generate Text (LLM Studio)
 apiNamespace: lm-studio
 apiOperationId: createChatCompletion
 displayNamespace: lm-studio
@@ -20,9 +20,19 @@ scripts:
     - prompt
     - temperature
     - instruction
+    - max_tokens
   hideExcept:outputs:
     - text
+    - usage
 inputs:
+  max_tokens:
+    type: number
+    title: Max Tokens
+    description: >-
+      The randomness regulator, higher for more creativity, lower for more
+      structured, predictable text. -1 to disable.
+    default: -1
+    minimum: -1
   temperature:
     title: Temperature
     description: >-
@@ -47,6 +57,8 @@ inputs:
         - prompt
         - instruction
 outputs:
+  usage:
+    title: Usage Info
   text:
     title: Text
     scripts:
