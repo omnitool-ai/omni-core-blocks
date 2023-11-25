@@ -18,27 +18,26 @@ displayOperationId: simpleGenerateTextViaLmStudio
 scripts:
   hideExcept:inputs:
     - prompt
+    - temperature
     - instruction
-    - model
-    - max_tokens
   hideExcept:outputs:
     - text
 inputs:
   temperature:
+    title: Temperature
     description: >-
       The randomness regulator, higher for more creativity, lower for more
       structured, predictable text.
-    default: 0.7
+    default: 0.3
     minimum: 0
-    maximum: 2
-    step: 0.01
+    maximum: 1
+    step: 0.1
   instruction:
     default: You are a helpful bot. You can help people by answering their questions.
     type: string
   prompt:
-    description: A text description that guides the text generation process.
     required: true
-    type: AlpineTextComponent
+    type: string
   messages:
     scripts:
       jsonata: >-
@@ -47,12 +46,9 @@ inputs:
       delete:
         - prompt
         - instruction
-  max_tokens:
-    description: The maximum number of tokens to generate.
-    default: 2048
 outputs:
   text:
+    title: Text
     scripts:
       jsonata: choices[0].message.content
     type: string
-    customSocket: text
