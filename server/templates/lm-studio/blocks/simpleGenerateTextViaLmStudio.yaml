@@ -24,6 +24,7 @@ scripts:
   hideExcept:outputs:
     - text
     - usage
+
 inputs:
   max_tokens:
     type: number
