@@ -8,6 +8,7 @@ api:
   #spec: ./api/lm-studio.yaml
   #basePath: http://127.0.0.1:1234
   basePath: $BASE_URL/v1
+  defaultPath: http://127.0.0.1:1234
 filter:
   operationIds:
     - createChatCompletion
