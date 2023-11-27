@@ -10,7 +10,7 @@ meta:
         https://github.com/lmstudio-ai/examples/tree/main/Hello%2C%20world%20-%20OpenAI%20python%20client
       LM-Studio One-click-installer (win/mac): https://lmstudio.ai/
     summary: Run local LLMs
-title: Generate Text (Simple)
+title: Generate Text (LLM Studio)
 apiNamespace: lm-studio
 apiOperationId: createChatCompletion
 displayNamespace: lm-studio
@@ -18,27 +18,37 @@ displayOperationId: simpleGenerateTextViaLmStudio
 scripts:
   hideExcept:inputs:
     - prompt
+    - temperature
     - instruction
-    - model
     - max_tokens
   hideExcept:outputs:
     - text
+    - usage
+
 inputs:
+  max_tokens:
+    type: number
+    title: Max Tokens
+    description: >-
+      The randomness regulator, higher for more creativity, lower for more
+      structured, predictable text. -1 to disable.
+    default: -1
+    minimum: -1
   temperature:
+    title: Temperature
     description: >-
       The randomness regulator, higher for more creativity, lower for more
       structured, predictable text.
-    default: 0.7
+    default: 0.3
     minimum: 0
-    maximum: 2
-    step: 0.01
+    maximum: 1
+    step: 0.1
   instruction:
     default: You are a helpful bot. You can help people by answering their questions.
     type: string
   prompt:
-    description: A text description that guides the text generation process.
     required: true
-    type: AlpineTextComponent
+    type: string
   messages:
     scripts:
       jsonata: >-
@@ -47,12 +57,11 @@ inputs:
       delete:
         - prompt
         - instruction
-  max_tokens:
-    description: The maximum number of tokens to generate.
-    default: 2048
 outputs:
+  usage:
+    title: Usage Info
   text:
+    title: Text
     scripts:
       jsonata: choices[0].message.content
     type: string
-    customSocket: text
