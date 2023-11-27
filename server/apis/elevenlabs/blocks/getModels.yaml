@@ -1,0 +1,22 @@
+category: Model Operations
+title: Get Models
+description: >-
+  Gets a list of available models.
+apiNamespace: elevenlabs
+apiOperationId: Get_Models_v1_models_get
+displayNamespace: elevenlabs
+displayOperationId: getModels
+inputs:
+  xi-api-key:
+    required: true
+    hidden: true
+outputs:
+  models:
+    type: array
+    customSocket: object
+    socketOps: 
+      array: true
+    scripts:
+      jsonata: $string($)
+
+
