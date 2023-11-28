@@ -1,0 +1,13 @@
+category: Communication
+title: Upload Video
+apiNamespace: workplace
+apiOperationId: uploadGroupVideo
+displayNamespace: workplace
+displayOperationId: uploadGroupVideo
+inputs:
+  source:
+    title: Video
+  
+
+
+

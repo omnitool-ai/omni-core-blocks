@@ -1,0 +1,13 @@
+category: Communication
+title: Upload Photo
+apiNamespace: workplace
+apiOperationId: uploadGroupPhoto
+displayNamespace: workplace
+displayOperationId: uploadGroupPhoto
+inputs:
+  source:
+    title: Image
+  
+
+
+
