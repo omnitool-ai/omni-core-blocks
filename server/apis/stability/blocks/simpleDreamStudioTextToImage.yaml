@@ -7,10 +7,38 @@ apiOperationId: textToImage
 displayNamespace: stability
 displayOperationId: simpleDreamStudioTextToImage
 inputs:
-  engine_id:
-    default: stable-diffusion-v1-5
-    hidden: true
+  resolution:
+    title: resolution
+    description: Resolution of the image
     type: string
+    choices: ["1024x1024", "1152x896", "1216x832", "1344x768", "1536x640", "640x1536", "768x1344", "832x1216", "896x1152"]
+  height:
+    title: Height
+    description: Height of the image in pixels
+    type: integer
+    scripts:
+      jsonata: |
+        $number($split(resolution, "x")[1])
+    hidden: true
+  width:
+    title: Width
+    description: Width of the image in pixels
+    type: integer
+    scripts:
+      jsonata: |
+        $number($split(resolution, "x")[0])
+      delete:
+        - resolution
+    hidden: true
+  engine_id:
+    default: stable-diffusion-v1-6
+    type: string
+    choices:
+      block: stability.listEngines
+      cache: user
+      map:
+        title: name
+        value: id
   prompts:
     title: Prompts
     description: >-
