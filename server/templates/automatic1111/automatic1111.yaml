@@ -2,4 +2,5 @@ namespace: automatic1111
 api:
   url: $BASE_URL/openapi.json
   basePath: $BASE_URL
+  defaultPath: http://127.0.0.1:7860
 title: automatic1111

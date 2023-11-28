@@ -1,0 +1,4 @@
+namespace: workplace
+api:
+  spec: ./api/workplace.yaml
+  basePath: https://graph.facebook.com/v2.11

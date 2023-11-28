@@ -1,6 +1,14 @@
+# LMStudio implements the OpenAI API
 namespace: lm-studio
-api:
-  spec: ./api/lm-studio.yaml
-  #basePath: http://127.0.0.1:1234
-  basePath: $BASE_URL
 title: lm-studio
+api:
+  auth: 'disable'
+   # technically do not need this as we always load openai - should we ever not do that, this would be required
+  url: https://raw.githubusercontent.com/openai/openai-openapi/master/openapi.yaml
+  #spec: ./api/lm-studio.yaml
+  #basePath: http://127.0.0.1:1234
+  basePath: $BASE_URL/v1
+  defaultPath: http://127.0.0.1:1234
+filter:
+  operationIds:
+    - createChatCompletion

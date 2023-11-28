@@ -27,21 +27,32 @@ inputs:
   model_id:
     default: eleven_monolingual_v1
     choices:
-      - eleven_monolingual_v1
-      - eleven_multilingual_v1
-      - eleven_multilingual_v2
-    type: string
-    customSocket: text
+      block: elevenlabs.getModels
+      cache: user
+      map:
+        root: models
+        title: name
+        value: model_id
+        description: description
+  use_speaker_boost:
+    title: Speaker Boost
+    description: >-
+      Boosts the voice of the speaker, useful for when the speaker is not
+      speaking loudly enough. (Increases Latency)
+    type: boolean
+    default: false
   voice_settings:
     scripts:
-      jsonata: '{"stability": 0, "similarity_boost": 0, "style": $number(style)}'
+      jsonata: '{"stability": 0, "similarity_boost": 0, "style": style, "use_speaker_boost": use_speaker_boost}'
       delete:
         - style
+        - use_speaker_boost
     hidden: true
   style:
-    title: Style
-    description: Customizes the Style of the Voice
-    default: 0.5
+    title: Style Exaggeration
+    description: Customizes the Style of the Voice, but increases latency
+    type: number
+    default: 0
     minimum: 0
     maximum: 1
     step: 0.1

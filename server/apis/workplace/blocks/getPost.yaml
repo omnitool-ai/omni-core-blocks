@@ -1,0 +1,20 @@
+category: Communication
+title: Get Post
+apiNamespace: workplace
+apiOperationId: getPost
+displayNamespace: workplace
+displayOperationId: getPost
+outputs:
+  post: 
+    type: object
+  message: 
+    type: string
+    scripts:
+      jsonata: >-
+        $.message
+  picture:
+    
+  
+  
+
+

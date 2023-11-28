@@ -1,0 +1,45 @@
+category: Communication
+title: Create Post
+apiNamespace: workplace
+apiOperationId: createGroupPost
+displayNamespace: workplace
+displayOperationId: createGroupPost
+inputs:
+  markdown:
+    type: boolean
+    default: true
+    description: Whether the post is in markdown format
+  formatting:
+    type: string
+    default: MARKDOWN
+    hidden: true
+    scripts: 
+      jsonata: >-
+        $.markdown ? "MARKDOWN" : undefined
+      delete:
+        - markdown
+  message: 
+    type: string
+    customSocket: text
+  photo_id:
+    title: Photo ID
+    type: string
+    socketOpts:
+      array: true
+  attached_media:
+    hidden: true
+    type: array
+    scripts:
+      jsonata: >-
+        $exists(photo_id) ? (
+          photo_id ~> $map(function($v, $i, $a) {
+              {"media_fbid": $string($v)}
+          })
+        ) : undefined
+      delete:
+        - photo_id
+
+
+    
+
+

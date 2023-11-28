@@ -7,6 +7,10 @@ apiOperationId: textToImage
 displayNamespace: stability
 displayOperationId: simpleDreamStudioTextToImage
 inputs:
+  accept:
+    hidden: true
+    default: application/json
+  Stability-Client-ID:
   resolution:
     title: resolution
     description: Resolution of the image
@@ -30,15 +34,6 @@ inputs:
       delete:
         - resolution
     hidden: true
-  engine_id:
-    default: stable-diffusion-v1-6
-    type: string
-    choices:
-      block: stability.listEngines
-      cache: user
-      map:
-        title: name
-        value: id
   prompts:
     title: Prompts
     description: >-
