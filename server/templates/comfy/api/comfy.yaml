@@ -1,0 +1,35 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Comfy API
+  description: An API for Comfy UI
+paths:
+  /prompt:
+    post:
+      summary: Execute a ComfyUI Prompt
+      operationId: prompt
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt:
+                  type: object
+                  x-type: json
+                  description: The Comfy Workflow
+
+      x-patch:
+        outputs:
+          result:
+            type: object
+
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object

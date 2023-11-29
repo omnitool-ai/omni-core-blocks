@@ -1,0 +1,16 @@
+category: Image Generation
+description: >-
+  Run a Comfy UI Workflow.
+title: Run Comfy Workflow
+apiNamespace: comfy
+apiOperationId: prompt
+displayNamespace: comfy
+displayOperationId: RunCompfyWorkflow
+scripts:
+  'hoist:input': [prompt]
+inputs:
+  prompt:
+    type: object
+    x-type: json
+    description: The Comfy Workflow
+

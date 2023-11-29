@@ -1,0 +1,9 @@
+# LMStudio implements the OpenAI API
+namespace: comfy
+title: comfy
+api:
+  spec: ./api/comfy.yaml
+  basePath: $BASE_URL
+  defaultPath: http://127.0.0.1:8188
+
+
