@@ -20,7 +20,7 @@ paths:
                 model:
                   type: string
                   description: The AI model to use for generating the chat completion.
-                  enum: [llama-2-70b-chat, llama-2-13b-chat, codellama-34b-instruct, mistral-7b-instruct]
+                  enum: [pplx-7b-chat,pplx-70b-chat, pplx-7b-online, pplx-70b-online, llama-2-70b-chat, codellama-34b-instruct, mistral-7b-instruct]
                   default: mistral-7b-instruct
                 messages:
                   type: array
