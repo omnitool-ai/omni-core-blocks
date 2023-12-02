@@ -74,32 +74,15 @@ inputs:
           }, 
           {
             "role":"user",
-            "content": [
-              {
-                "type": "text",
-                "text": $string(prompt)
-              },
-              {
-                "type": "image_url",
-                "image_url": {
-                  "url": "data:image/jpeg;base64," & $string(images)
-                }
-              }
-            ]
+            "content": $string(prompt)
           }
         ]
       delete:
         - prompt
-        - images
     hidden: true
-  images:
-    title: Images
-    type: string
-    customSocket: image
-    socketOpts:
-      format: base64
   temperature:
     title: Temperature
+    type: number
     description: >-
       The randomness regulator, higher for more creativity, lower for more
       structured, predictable text.
@@ -108,8 +91,8 @@ inputs:
     step: 0.1
     default: 0.3
   seed:
-    type: integer
     title: Seed
+    type: integer
     description: >-
       If supported by the model, set the seed parameter to any integer of your choice and use the same value across requests you'd like deterministic outputs for. Note that this is still in beta for gpt models.
   json_mode:
@@ -128,6 +111,7 @@ inputs:
         - json_mode
   top_p:
     title: Top P
+    type: number
     description: >-
       Implements nucleus sampling, where the model considers only tokens whose cumulative probability exceeds the specified `top_p` threshold.
       Like `temperature`, this controls the diversity of the model's output.
