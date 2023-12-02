@@ -7,6 +7,18 @@ apiOperationId: textToImage
 displayNamespace: stability
 displayOperationId: simpleDreamStudioTextToImage
 inputs:
+  organization:
+    hidden: true
+  engine_id:
+    default: stable-diffusion-v1-6
+    type: string
+    choices:
+      block: stability.listEngines
+      cache: user
+      map:
+        root: engines
+        title: name
+        value: id
   steps:
     title: Steps
     description: Number of steps to run the model for
@@ -18,6 +30,7 @@ inputs:
     hidden: true
     default: application/json
   Stability-Client-ID:
+    default: Omnitool
     hidden: true
   samples:
     title: Samples
@@ -93,6 +106,7 @@ inputs:
     type: array
   style_preset:
     title: Style Preset
+    default: photographic
     choices:
       - enhance
       - anime
@@ -137,7 +151,7 @@ outputs:
     socketOpts:
       array: true
   finishReason:
-    title: Result
+    title: Finish Reason
     scripts:
       jsonata: artifacts[0].finishReason
     type: array

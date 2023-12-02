@@ -1,0 +1,18 @@
+category: Image Generation
+description: >-
+  List all engines available to your organization/user.
+title: Get Engines
+apiNamespace: stability
+apiOperationId: listEngines
+displayNamespace: stability
+displayOperationId: listEngines
+
+outputs:
+  engines:
+    type: array
+    customSocket: object
+    socketOps: 
+      array: true
+    scripts:
+      jsonata: $._omni_result
+
