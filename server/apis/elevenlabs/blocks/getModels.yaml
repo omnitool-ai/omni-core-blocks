@@ -12,11 +12,7 @@ inputs:
     hidden: true
 outputs:
   models:
-    type: array
-    customSocket: object
-    socketOps: 
-      array: true
     scripts:
-      jsonata: $string($)
+      jsonata: $._omni_result
 
 
