@@ -1,30 +1,39 @@
 category: Image Generation
 description: >-
   Generate images from a given image and text prompt.
-title: Image to Image (WIP)
+title: Image to Image
 apiNamespace: stability
 apiOperationId: imageToImage
 displayNamespace: stability
 displayOperationId: simpleDreamStudioImageToImage
 inputs:
-  engine_id:
-    default: stable-diffusion-v1-5
+  Accept:
     hidden: true
+    default: application/json
+  Organization:
+    hidden: true
+  engine_id:
+    default: stable-diffusion-xl-1024-v1-0
     type: string
-  init_image:
-    title: Initial Image
-    description: >-
-      Enter a base64 encoded image to use as the initial image. If left blank, a
-      random image will be used.
-    required: true
+    choices:
+      block: stability.listEngines
+      cache: user
+      map:
+        root: engines
+        title: name
+        value: id
+  image_strength:
     scripts:
-      jsonata: >-
-        $.[init_image.{  "name": $string($formatNumber($random() * 1000,
-        "img_###")) & "." & "png",  "data": "data:image/png;base64," & $}]
-    type: string
-    customSocket: image
-    socketOpts:
-      format: base64
+      jsonata: >
+        $exists(init_image_mode) and init_image_mode = "IMAGE_STRENGTH" ? image_strength : undefined
+  step_schedule_end:
+    scripts:
+      jsonata: >
+        $exists(init_image_mode) and init_image_mode = "STEP_SCHEDULE" ? step_schedule_end : undefined
+  step_schedule_start:
+    scripts:
+      jsonata: >
+        $exists(init_image_mode) and init_image_mode = "STEP_SCHEDULE" ? step_schedule_start : undefined
   text_prompts:
     scripts:
       jsonata: >
@@ -34,29 +43,39 @@ inputs:
       delete:
         - prompts
     hidden: true
-    type: array
   prompts:
-    title: Text Prompts
+    title: Prompts
     description: >-
       Enter a text prompt and weight for each line or seperate by commas. The
       weight is a number between 0 and 1 that determines how much the prompt
       affects the image. A weight of 0 means the prompt will not affect the
       image at all. A weight of 1 means the prompt will have the maximum effect
       on the image.
+    type: string
     customSocket: text
 outputs:
-  base64:
+  _omni_result:
+    hidden: true
+  image:
     title: Image
-    scripts: {}
-    type: string
+    scripts:
+      jsonata: _omni_result.artifacts.base64
     customSocket: image
     socketOpts:
-      format: base64
+      array: true
   seed:
     title: Seed
-    scripts: {}
-    type: integer
+    scripts:
+      jsonata: _omni_result.artifacts.seed
+    type: array
+    customSocket: text
+    socketOpts:
+      array: true
   finishReason:
-    title: Result
-    scripts: {}
-    type: string
+    title: Finish Reason
+    scripts:
+      jsonata: _omni_result.artifacts.finishReason
+    type: array
+    customSocket: text
+    socketOpts:
+      array: true

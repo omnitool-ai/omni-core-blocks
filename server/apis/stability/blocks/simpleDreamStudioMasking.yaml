@@ -1,27 +1,27 @@
 category: Image Manipulation
 description: >-
-  Mask an image based on a text prompt.
-title: Mask Image (WIP)
+  Selectively modify portions of an image using a mask.
+title: Mask Image
 apiNamespace: stability
 apiOperationId: masking
 displayNamespace: stability
 displayOperationId: simpleDreamStudioMasking
 inputs:
-  engine_id:
-    default: stable-inpainting-512-v2-0
+  Accept:
     hidden: true
+    default: application/json
+  Organization:
+    hidden: true
+  engine_id:
+    default: stable-diffusion-xl-1024-v1-0
     type: string
-  init_image:
-    title: Initial Image
-    required: true
-    scripts:
-      jsonata: >-
-        $.[init_image.{  "name": $string($formatNumber($random() * 1000,
-        "img_###")) & "." & "png",  "data": "data:image/png;base64," & $}]
-    customSocket: image
-    socketOpts:
-      format: base64
-      array: true
+    choices:
+      block: stability.listEngines
+      cache: user
+      map:
+        root: engines
+        title: name
+        value: id
   mask_source:
     title: Mask Source
     description: Select the source of the mask.
@@ -31,17 +31,6 @@ inputs:
       - MASK_IMAGE_BLACK
       - INIT_IMAGE_ALPHA
     type: string
-  mask_image:
-    title: Mask Image
-    required: true
-    scripts:
-      jsonata: >-
-        $.[mask_image.{  "name": $string($formatNumber($random() * 1000,
-        "img_###")) & "." & "png",  "data": "data:image/png;base64," & $}]
-    type: string
-    customSocket: image
-    socketOpts:
-      format: base64
   text_prompts:
     scripts:
       jsonata: >
@@ -53,24 +42,39 @@ inputs:
     hidden: true
     type: array
   prompts:
-    title: Text Prompts
+    title: Prompts
     description: >-
       Enter a text prompt and weight for each line or seperate by commas. The
       weight is a number between 0 and 1 that determines how much the prompt
       affects the image. A weight of 0 means the prompt will not affect the
       image at all. A weight of 1 means the prompt will have the maximum effect
       on the image.
-    customSocket: text
-outputs:
-  base64:
-    title: Image
-    scripts: {}
     type: string
+    customSocket: text
+    
+outputs:
+  _omni_result:
+    hidden: true
+  image:
+    title: Image
+    scripts:
+      jsonata: _omni_result.artifacts.base64
+    customSocket: image
+    socketOpts:
+      array: true
   seed:
     title: Seed
-    scripts: {}
-    type: integer
+    scripts:
+      jsonata: _omni_result.artifacts.seed
+    type: array
+    customSocket: text
+    socketOpts:
+      array: true
   finishReason:
-    title: Result
-    scripts: {}
-    type: string
+    title: Finish Reason
+    scripts:
+      jsonata: _omni_result.artifacts.finishReason
+    type: array
+    customSocket: text
+    socketOpts:
+      array: true

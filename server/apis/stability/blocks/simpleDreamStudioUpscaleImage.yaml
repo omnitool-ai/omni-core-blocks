@@ -1,27 +1,60 @@
 category: Image Manipulation
 description: >-
-  Upscale an image based on a text prompt.
-title: Upscale Image (WIP)
+  Create a higher resolution version of an input image.
+title: Upscale Image
 apiNamespace: stability
 apiOperationId: upscaleImage
 displayNamespace: stability
 displayOperationId: simpleDreamStudioUpscaleImage
 inputs:
+  Accept:
+    hidden: true
+    default: application/json
+  Organization:
+    hidden: true
   engine_id:
     default: esrgan-v1-x2plus
-    hidden: true
     type: string
-  image:
-    title: Image
-    required: true
-    type: string
-    customSocket: image
-    socketOpts:
-      format: base64
+    choices:
+      block: stability.listEngines
+      cache: user
+      map:
+        root: engines
+        title: name
+        value: id
+  width:
+    scripts:
+      jsonata: >
+        (width = 0) or (height != 0 and $exists(height)) ? undefined : width
+        
+  height:
+    scripts:
+      jsonata: >
+        (height = 0) or (width != 0 and $exists(width)) ? undefined : height
+        
 outputs:
+  _omni_result:
+    hidden: true
   image:
     title: Image
-    type: string
+    scripts:
+      jsonata: _omni_result.artifacts.base64
     customSocket: image
     socketOpts:
-      format: base64
+      array: true
+  seed:
+    title: Seed
+    scripts:
+      jsonata: _omni_result.artifacts.seed
+    type: array
+    customSocket: text
+    socketOpts:
+      array: true
+  finishReason:
+    title: Finish Reason
+    scripts:
+      jsonata: _omni_result.artifacts.finishReason
+    type: array
+    customSocket: text
+    socketOpts:
+      array: true

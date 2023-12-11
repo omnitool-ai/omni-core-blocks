@@ -7,10 +7,13 @@ apiOperationId: textToImage
 displayNamespace: stability
 displayOperationId: simpleDreamStudioTextToImage
 inputs:
-  organization:
+  Accept:
+    hidden: true
+    default: application/json
+  Organization:
     hidden: true
   engine_id:
-    default: stable-diffusion-v1-6
+    default: stable-diffusion-xl-1024-v1-0
     type: string
     choices:
       block: stability.listEngines
@@ -26,9 +29,6 @@ inputs:
     minimum: 1
     maximum: 200
     default: 20
-  accept:
-    hidden: true
-    default: application/json
   Stability-Client-ID:
     default: Omnitool
     hidden: true
@@ -127,25 +127,19 @@ inputs:
       - tile-texture
     type: string
 outputs:
-  json:
-    title: JSON
-    scripts:
-      jsonata: artifacts[0]
-    type: object
-    customSocket: object
-    socketOpts:
-      array: true
+  _omni_result:
+    hidden: true
   image:
     title: Image
     scripts:
-      jsonata: artifacts[0].base64
+      jsonata: _omni_result.artifacts.base64
     customSocket: image
     socketOpts:
       array: true
   seed:
     title: Seed
     scripts:
-      jsonata: artifacts[0].seed
+      jsonata: _omni_result.artifacts.seed
     type: array
     customSocket: text
     socketOpts:
@@ -153,7 +147,7 @@ outputs:
   finishReason:
     title: Finish Reason
     scripts:
-      jsonata: artifacts[0].finishReason
+      jsonata: _omni_result.artifacts.finishReason
     type: array
     customSocket: text
     socketOpts:
