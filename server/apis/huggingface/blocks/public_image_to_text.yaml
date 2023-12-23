@@ -1,7 +1,0 @@
-category: Image Analysis
-description: Image To Text with Huggingface
-title: Image To Text (Huggingface)
-apiNamespace: huggingface
-apiOperationId: image_to_text
-displayNamespace: huggingface
-displayOperationId: public_image_to_text

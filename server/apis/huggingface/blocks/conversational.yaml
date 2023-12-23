@@ -1,0 +1,6 @@
+category: Text To Text
+title: Perform a Conversational task (Huggingface)
+apiNamespace: huggingface
+apiOperationId: conversational
+displayNamespace: huggingface
+displayOperationId: hf_conversational

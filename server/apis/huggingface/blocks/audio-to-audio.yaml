@@ -1,0 +1,6 @@
+category: Audio to Audio
+title: Perform an Audio to Audio task (Huggingface)
+apiNamespace: huggingface
+apiOperationId: audio-to-audio
+displayNamespace: huggingface
+displayOperationId: hf_audio_to_audio

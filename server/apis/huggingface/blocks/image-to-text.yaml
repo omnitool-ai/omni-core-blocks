@@ -1,0 +1,6 @@
+category: Image To Text
+title: Perform an Image To Text task (Huggingface)
+apiNamespace: huggingface
+apiOperationId: image-to-text
+displayNamespace: huggingface
+displayOperationId: hf_image_to_text

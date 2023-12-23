@@ -1,0 +1,18 @@
+category: Image Segmentation
+title: Perform an Image Segmentation task (Huggingface)
+apiNamespace: huggingface
+apiOperationId: image-segmentation
+displayNamespace: huggingface
+displayOperationId: hf_image_segmentation
+inputs:
+  model:
+    customSocket: text
+  data:
+    customSocket: imageArray
+outputs:
+  labels:
+    customSocket: objectArray
+  masks:
+    customSocket: imageB64Array
+  scores:
+    customSocket: numberArray

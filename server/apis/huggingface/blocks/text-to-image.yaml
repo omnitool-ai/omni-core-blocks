@@ -1,0 +1,18 @@
+category: Text To Image
+title: Perform a Text To Image task (Huggingface)
+apiNamespace: huggingface
+apiOperationId: text-to-image
+displayNamespace: huggingface
+displayOperationId: hf_text_to_image
+inputs:
+  model:
+    customSocket: text
+  prompt:
+    customSocket: text
+  negative_prompt:
+    customSocket: text
+outputs:
+  image:
+    customSocket: image
+    socketOpts:
+      object: true

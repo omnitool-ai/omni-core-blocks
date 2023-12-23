@@ -1,0 +1,6 @@
+category: Text Generation
+title: Perform a Document Question Answering task (Huggingface)
+apiNamespace: huggingface
+apiOperationId: document-question-answering
+displayNamespace: huggingface
+displayOperationId: hf_document_question_answering

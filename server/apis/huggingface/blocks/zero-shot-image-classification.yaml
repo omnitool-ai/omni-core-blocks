@@ -1,0 +1,6 @@
+category: Zero Shot Image Classification
+title: Perform Zero Shot Image Classification (Huggingface)
+apiNamespace: huggingface
+apiOperationId: zero-shot-image-classification
+displayNamespace: huggingface
+displayOperationId: hf_zero_shot_image_classification

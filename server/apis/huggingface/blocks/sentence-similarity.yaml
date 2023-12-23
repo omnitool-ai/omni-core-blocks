@@ -1,0 +1,6 @@
+category: Sentence Similarity
+title: Perform a Sentence Similarity task (Huggingface)
+apiNamespace: huggingface
+apiOperationId: sentence-similarity
+displayNamespace: huggingface
+displayOperationId: hf_sentence_similarity

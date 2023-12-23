@@ -1,0 +1,6 @@
+category: Tabular
+title: Perform a Visual Question Answering task (Huggingface)
+apiNamespace: huggingface
+apiOperationId: visual-question-answering
+displayNamespace: huggingface
+displayOperationId: hf_visual_question_answering
