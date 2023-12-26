@@ -1,7 +1,0 @@
-category: Image Segmentation
-description: Segment image with Huggingface public inference
-title: Image Segmentation (Huggingface)
-apiNamespace: huggingface
-apiOperationId: image_segmentation
-displayNamespace: huggingface
-displayOperationId: public_image_segmentation

@@ -1,0 +1,6 @@
+category: Translation
+title: Perform a Translation task (Huggingface)
+apiNamespace: huggingface
+apiOperationId: translation
+displayNamespace: huggingface
+displayOperationId: hf_perform_translation

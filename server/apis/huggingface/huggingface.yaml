@@ -1,6 +1,6 @@
 namespace: huggingface
 api:
-  spec: ./api/public_inference.yaml
+  spec: ./api/inferenceTask.yaml
   basePath: https://api-inference.huggingface.co/models/
   auth:
     type: http_bearer

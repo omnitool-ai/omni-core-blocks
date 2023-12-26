@@ -1,7 +1,0 @@
-category: Summarization
-description: Summarization Task with Huggingface
-title: Summarize (Huggingface)
-apiNamespace: huggingface
-apiOperationId: summarization_task
-displayNamespace: huggingface
-displayOperationId: public_summarization_task

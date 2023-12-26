@@ -1,0 +1,6 @@
+category: Tabular
+title: Perform a Tabular Regression task (Huggingface)
+apiNamespace: huggingface
+apiOperationId: tabular-regression
+displayNamespace: huggingface
+displayOperationId: hf_tabular-regression

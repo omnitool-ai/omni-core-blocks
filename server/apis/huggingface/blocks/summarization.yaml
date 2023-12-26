@@ -1,0 +1,6 @@
+category: Summarization
+title: Perform a Summarization task (Huggingface)
+apiNamespace: huggingface
+apiOperationId: summarization
+displayNamespace: huggingface
+displayOperationId: hf_summarization
