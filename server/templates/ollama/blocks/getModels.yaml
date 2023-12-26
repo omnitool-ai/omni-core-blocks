@@ -1,0 +1,25 @@
+category: Utilities
+title: Get Models
+description: Get a list of stable diffusion models available on the server.
+apiNamespace: ollama
+apiOperationId: listLocalModels
+displayNamespace: ollama
+displayOperationId: getModels
+outputs:
+  _omni_result:
+    hidden: true
+    title: Result
+    type: object
+    customSocket: object
+    socketOpts:
+      array: true
+  models:
+    type: array
+    title: Models
+    description: >
+      A list of stable diffusion models available on the server.
+    customSocket: object
+    socketOpts:
+      array: true
+    scripts:
+      jsonata: '_omni_result.models'

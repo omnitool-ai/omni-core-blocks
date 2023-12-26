@@ -1,0 +1,8 @@
+# LMStudio implements the OpenAI API
+namespace: ollama
+title: Ollama
+api:
+  auth: 'disable'
+  spec: ./api/ollama.yaml
+  basePath: $BASE_URL
+  defaultPath: http://127.0.0.1:11434

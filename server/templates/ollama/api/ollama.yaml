@@ -1,0 +1,146 @@
+# Generated via GPT-4 Advanced Data Analysis: https://chat.openai.com/share/f25b4583-90c2-40ce-a310-eb735bc84c6c
+info:
+  description: API for generating completions, managing models, and more.
+  title: Ollama API
+  version: 1.0.0
+openapi: 3.0.0
+paths:
+  /api/chat:
+    post:
+      operationId: generateChatCompletion
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Successful response
+      summary: Generate a chat completion
+  /api/copy:
+    post:
+      operationId: copyModel
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Successful response
+      summary: Copy a model
+  /api/create:
+    post:
+      operationId: createModel
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Successful response
+      summary: Create a model
+  /api/delete:
+    delete:
+      operationId: deleteModel
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Successful response
+      summary: Delete a model
+  /api/embeddings:
+    post:
+      operationId: generateEmbeddings
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Successful response
+      summary: Generate embeddings
+  /api/generate:
+    post:
+      description: Generate a response for a given prompt with a provided model.
+      operationId: generateCompletion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                images:
+                  items:
+                    type: string
+                  type: array
+                model:
+                  type: string
+                prompt:
+                  type: string
+              required:
+              - model
+              type: object
+        description: Input for generating a completion
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  created_at:
+                    type: string
+                  done:
+                    type: boolean
+                  model:
+                    type: string
+                  response:
+                    type: string
+                type: object
+          description: Successful response
+      summary: Generate a completion
+  /api/pull:
+    post:
+      operationId: pullModel
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Successful response
+      summary: Pull a model
+  /api/push:
+    post:
+      operationId: pushModel
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Successful response
+      summary: Push a model
+  /api/show:
+    post:
+      operationId: showModelInformation
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Successful response
+      summary: Show model information
+  /api/tags:
+    get:
+      operationId: listLocalModels
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+          description: Successful response
+      summary: List local models
+

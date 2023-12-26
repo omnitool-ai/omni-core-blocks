@@ -1,0 +1,115 @@
+category: Text Generation
+description: >
+  Produce text responses based on a given prompt, utilizing the currently loaded model. See [here](https://github.com/jmorganca/ollama/blob/main/docs/api.md) 
+title: Generate Text (Ollama)
+apiNamespace: ollama
+apiOperationId: generateCompletion
+displayNamespace: ollama
+displayOperationId: generateText
+scripts:
+  hideExcept:inputs:
+    - model
+    - prompt
+    - options
+    - temp
+    - json_mode
+    - images
+  hideExcept:outputs:
+    - response
+    - additionalData
+ 
+
+inputs:
+  model:
+    required: true
+    type: string
+    title: Model
+    choices:
+      block: getModels
+      cache: global
+      map:
+        root: models
+        title: name
+        value: name
+    description: >
+      The name of the model to use for text generation.
+  prompt:
+    required: true
+    type: string
+    title: Prompt
+    description: >
+      The prompt based on which the text response will be generated.
+  images:
+    title: Images
+    description: >
+      For multi-modal vision models, such as llava, optionally include a list of images to provide to the model.
+    required: false
+    customSocket: image
+    socketOpts:
+      format: base64
+      array: true
+  temp:
+    type: float
+    title: Temperature
+    default: 0.7
+    description: >
+      The randomness regulator, higher for more creativity, lower for more structured, predictable text.
+    minimum: 0
+    maximum: 2
+  format:
+    type: string
+    hidden: true
+    scripts:
+      jsonata: 'json_mode ? "json" : ""'
+      delete:
+        - json_mode
+
+  json_mode:
+    type: boolean
+    title: JSON Mode
+    default: false
+    description: >
+      Whether to coerce a JSON formatted response.
+  options:
+    hidden: true
+    type: object
+    title: Advanced Options
+    description: >
+      Additional model parameters like temperature, max_tokens, etc.
+    scripts:
+      jsonata: '{ "temperature": temp }'
+      
+  stream:
+    type: boolean
+    title: Stream Mode
+    default: false
+
+
+
+outputs:
+  response:
+    title: Response Text
+    type: string
+    scripts:
+      jsonata: response
+  json:
+    title: Response JSON
+    type: object
+    scripts:
+      jsonata: response
+  additionalData:
+    title: Additional Data
+    type: object
+    scripts:
+      jsonata: >
+        {
+          "created_at": created_at,
+          "context": context,
+          "model": model,
+          "total_duration": total_duration,
+          "load_duration": load_duration,
+          "done": done,
+          "prompt_eval_duration": prompt_eval_duration,
+          "prompt_eval_count": prompt_eval_count,
+          "eval_count": eval_count
+        }
