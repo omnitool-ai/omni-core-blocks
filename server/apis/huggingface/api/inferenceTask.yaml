@@ -19,7 +19,6 @@ paths:
                 model: 
                   type: string
                   description: model
-                  default: 'superb/hubert-large-superb-er'
 
                 use_cache:
                   type: boolean
@@ -82,7 +81,6 @@ paths:
                 model: 
                   type: string
                   description: model
-                  default: 'speechbrain/sepformer-wham'
 
                 use_cache:
                   type: boolean
@@ -138,7 +136,6 @@ paths:
                 model: 
                   type: string
                   description: model
-                  default: 'facebook/wav2vec2-base-960h'
 
                 use_cache:
                   type: boolean
@@ -189,7 +186,6 @@ paths:
                   type: string
                   description: The model to use for the conversion
                   required: true
-                  default: "microsoft/DialoGPT-medium"
 
                 use_cache:
                   type: boolean
@@ -205,7 +201,6 @@ paths:
                   type: string
                   description: The text to be converted to audio
                   required: true
-                  default: "Hello, my name is John. What is your name?"
 
                 generated_responses:
                   type: string
@@ -225,7 +220,6 @@ paths:
                   type: number
                   description: Integer to define the maximum length in tokens of the output summary.
                   required: false
-                  default: 1024
 
                 max_time:
                   type: number
@@ -324,7 +318,6 @@ paths:
                   type: string
                   description: The model to use for the task
                   required: true
-                  default: "impira/layoutlm-document-qa"
 
                 use_cache:
                   type: boolean
@@ -393,7 +386,6 @@ paths:
                   type: string
                   description: The model to use for the task
                   required: true
-                  default: "your-default-model"
 
                 use_cache:
                   type: boolean
@@ -445,7 +437,6 @@ paths:
                 model: 
                   type: string
                   description: model
-                  default: 'bert-base-uncased'
 
                 use_cache:
                   type: boolean
@@ -498,7 +489,6 @@ paths:
                 model: 
                   type: string
                   description: model
-                  default: 'google/vit-base-patch16-224-in21k'
 
                 use_cache:
                   type: boolean
@@ -556,7 +546,6 @@ paths:
                 model: 
                   type: string
                   description: model
-                  default: 'facebook/deit-base-distilled-patch16-224'
 
                 use_cache:
                   type: boolean
@@ -616,7 +605,6 @@ paths:
                 model: 
                   type: string
                   description: model
-                  default: 'stabilityai/stable-diffusion-xl-1.0'
 
                 use_cache:
                   type: boolean
@@ -642,7 +630,6 @@ paths:
                 strength:
                   type: number
                   description: Conceptually, indicates how much to transform the reference image. Must be between 0 and 1.
-                  default: 0.5
                 
                 negative_prompt:
                   type: string
@@ -665,13 +652,11 @@ paths:
 
                 guidance_scale:
                   type: number
-                  description: Higher guidance scale encourages to generate images closely linked to the text prompt, usually at the expense of lower image quality.
-                  default: 3
+                  description: Higher guidance scale encourages to generate images closely linked to the text prompt, usually at the expense of lower image quality. 3.5 to 7.5 are typical
 
                 guess_mode:
                   type: boolean
                   description: Works for ControlNet models, enables the encoder to recognize the content of the input image even without prompts. Recommended guidance_scale between 3.0 and 5.0.
-                  default: false
 
       responses: 
         '200': 
@@ -705,7 +690,6 @@ paths:
                 model: 
                   type: string
                   description: model
-                  default: 'nlpconnect/vit-gpt2-image-captioning'
 
                 use_cache:
                   type: boolean
@@ -757,7 +741,6 @@ paths:
                   type: string
                   description: The model to use for the task
                   required: true
-                  default: "facebook/detr-resnet-50"
 
                 use_cache:
                   type: boolean
@@ -818,7 +801,6 @@ paths:
                   type: string
                   description: The model to use for the task
                   required: true
-                  default: "deepset/roberta-base-squad2"
 
                 use_cache:
                   type: boolean
@@ -876,7 +858,6 @@ paths:
                   type: string
                   description: The model to use for the task
                   required: true
-                  default: "sentence-transformers/paraphrase-MiniLM-L6-v2"
 
                 use_cache:
                   type: boolean
@@ -929,7 +910,6 @@ paths:
                   type: string
                   description: The model to use for the task
                   required: true
-                  default: "sshleifer/distilbart-cnn-12-6"
 
                 use_cache:
                   type: boolean
@@ -951,43 +931,36 @@ paths:
                   type: number
                   description: Integer to define the minimum length in tokens of the output summary.
                   required: false
-                  default: 0
 
                 max_length:
                   type: number
                   description: Integer to define the maximum length in tokens of the output summary.
                   required: false
-                  default: 100
 
                 top_k:
                   type: number
                   description: Integer to define the top tokens considered within the sample operation to create new text.
                   required: false
-                  default: 50
 
                 top_p:
                   type: number
                   description: Float to define the tokens that are within the sample operation of text generation. Add tokens in the sample for more probable to least probable until the sum of the probabilities is greater than top_p.
                   required: false
-                  default: 1.0
 
                 temperature:
                   type: number
                   description: Float (0.0-100.0). The temperature of the sampling operation. 1 means regular sampling, 0 means always take the highest score, 100.0 is getting closer to uniform probability.
                   required: false
-                  default: 1.0
 
                 repetition_penalty:
                   type: number
                   description: Float (0.0-100.0). The more a token is used within generation the more it is penalized to not be picked in successive generation passes.
                   required: false
-                  default: 1.0
 
                 max_time:
                   type: number
                   description: Float (0-120.0). The amount of time in seconds that the query should take maximum. Network can cause some overhead so it will be a soft limit.
                   required: false
-                  default: 120.0
 
       responses:
         '200':
@@ -1020,7 +993,6 @@ paths:
                   type: string
                   description: The model to use for the task
                   required: true
-                  default: "google/tapas-base-finetuned-wtq"
 
                 use_cache:
                   type: boolean
@@ -1081,7 +1053,6 @@ paths:
                   type: string
                   description: The model to use for the task
                   required: true
-                  default: "mrm8488/t5-base-finetuned-emotion"
 
                 use_cache:
                   type: boolean
@@ -1128,7 +1099,6 @@ paths:
                   type: string
                   description: The model to use for the task
                   required: true
-                  default: "mrm8488/t5-base-finetuned-emotion"
 
                 use_cache:
                   type: boolean
@@ -1175,7 +1145,6 @@ paths:
                 model: 
                   type: string
                   description: model
-                  default: 'distilbert-base-uncased-finetuned-sst-2-english'
 
                 use_cache:
                   type: boolean
@@ -1227,7 +1196,6 @@ paths:
                   type: string
                   description: The model to use for the task
                   required: true
-                  default: "sshleifer/distilbart-cnn-12-6"
 
                 use_cache:
                   type: boolean
@@ -1244,53 +1212,46 @@ paths:
                   description: A string to be summarized
                   customSocket: text
                   required: true
-                  default: "My name is Sarah and I live in London"
 
                 do_sample:
                   type: boolean
                   description: Whether or not to use sampling; use greedy decoding otherwise.
                   required: false
-                  default: false
 
                 max_time:
                   type: number
                   description: Float (0-120.0). The amount of time in seconds that the query should take maximum. Network can cause some overhead so it will be a soft limit.
                   required: false
-                  default: 120.0
 
                 num_return_sequences:
                   type: number
                   description: The number of independently computed returned sequences for each element in the batch.
                   required: false
-                  default: 1
 
                 repetition_penalty:
                   type: number
                   description: Float (0.0-100.0). The more a token is used within generation the more it is penalized to not be picked in successive generation passes.
+                  required: false
 
                 temperature:
                   type: number
                   description: Float (0.0-100.0). The temperature of the sampling operation. 1 means regular sampling, 0 means always take the highest score, 100.0 is getting closer to uniform probability.
                   required: false
-                  default: 1.0
 
                 top_k:
                   type: number
                   description: Integer to define the top tokens considered within the sample operation to create new text.
                   required: false
-                  default: 50
 
                 top_p:
                   type: number
                   description: Float to define the tokens that are within the sample operation of text generation. Add tokens in the sample for more probable to least probable until the sum of the probabilities is greater than top_p.
                   required: false
-                  default: 1.0
 
                 truncate:
                   type: boolean
                   description: Whether to truncate the input texts to model maximum input length. If set to false, the texts might not be correctly decoded.
                   required: false
-                  default: true
 
                 stop_sequences:
                   type: string
@@ -1332,7 +1293,6 @@ paths:
                 model: 
                   type: string
                   description: model
-                  default: 'clip-ViT-B-32'
                 
                 use_cache:
                   type: boolean
@@ -1371,8 +1331,8 @@ paths:
 
                 guidance_scale:
                   type: number
-                  description: Higher guidance scale encourages to generate images closely linked to the text prompt, usually at the expense of lower image quality.
-                  default:  7.5                
+                  description: Higher guidance scale encourages to generate images closely linked to the text prompt, usually at the expense of lower image quality. 3.5 to 7.5 is typical
+    
       responses: 
         '200': 
           description: Successful operation
@@ -1403,7 +1363,6 @@ paths:
                 model: 
                   type: string
                   description: model
-                  default: 'facebook/wav2vec2-base-960h'
 
                 use_cache:
                   type: boolean
@@ -1450,8 +1409,7 @@ paths:
                 model: 
                   type: string
                   description: model
-                  default: 'dslim/bert-base-NER'
-                
+                              
                 inputs: 
                   type: string
                   description: A string or a list of strings to get the classification from    
@@ -1508,7 +1466,6 @@ paths:
                 model: 
                   type: string
                   description: model
-                  default: 'Helsinki-NLP/opus-mt-en-ROMANCE'
 
                 use_cache:
                   type: boolean
@@ -1553,7 +1510,6 @@ paths:
                   type: string
                   description: The model to use for the task
                   required: true
-                  default: "google/vit-base-patch16-224-in21k"
 
                 use_cache:
                   type: boolean
@@ -1578,7 +1534,6 @@ paths:
                   type: string
                   description: The question to ask about the image
                   required: true
-                  default: "What is the color of the sky?"
       responses:
         '200':
           description: Successful operation
@@ -1615,7 +1570,6 @@ paths:
                 model: 
                   type: string
                   description: model
-                  default: 'facebook/bart-large-mnli'
                 
                 inputs: 
                   type: string
@@ -1631,7 +1585,6 @@ paths:
                 multi_label:
                   type: boolean
                   description: Boolean that is set to True if classes can overlap
-                  default: false
       responses:
         '200':
           description: Successful operation
@@ -1668,7 +1621,6 @@ paths:
                 model: 
                   type: string
                   description: model
-                  default: 'clip-ViT-B-32'
                 
                 image: 
                   type: object
