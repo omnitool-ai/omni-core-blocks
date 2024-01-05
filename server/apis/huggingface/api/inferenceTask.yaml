@@ -653,7 +653,8 @@ paths:
                 guidance_scale:
                   type: number
                   description: Higher guidance scale encourages to generate images closely linked to the text prompt, usually at the expense of lower image quality. 3.5 to 7.5 are typical
-
+                  default: 3.5
+                  
                 guess_mode:
                   type: boolean
                   description: Works for ControlNet models, enables the encoder to recognize the content of the input image even without prompts. Recommended guidance_scale between 3.0 and 5.0.
@@ -1332,7 +1333,8 @@ paths:
                 guidance_scale:
                   type: number
                   description: Higher guidance scale encourages to generate images closely linked to the text prompt, usually at the expense of lower image quality. 3.5 to 7.5 is typical
-    
+                  default: 3.5
+
       responses: 
         '200': 
           description: Successful operation
