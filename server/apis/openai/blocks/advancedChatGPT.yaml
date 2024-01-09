@@ -73,7 +73,7 @@ inputs:
   json_mode:
     title: JSON Mode
     description: >-
-      If enabled, the output will be formatted in JSON.
+      When enabled, the output from newer models such as **gpt-4-1106-preview** and **gpt-3.5-turbo-1106** can be formatted as valid JSON objects based on your instruction in the prompt. For additional information, please refer to [OpenAI JSON Mode Documentation](https://platform.openai.com/docs/guides/text-generation/json-mode).
     type: boolean
     default: false
   response_format:
