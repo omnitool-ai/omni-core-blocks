@@ -1,11 +1,11 @@
 category: Text Generation
 description: >-
   A unified API for LLMs. Let you choose your prefered LLM model, or let OpenRouter route for you.
-title: OpenRouter LLM
+title: OpenRouter LLM - Vision
 apiNamespace: openrouter
 apiOperationId: chatCompletions
 displayNamespace: openrouter
-displayOperationId: advancedChat
+displayOperationId: advancedChatVision
 # scripts:
 #   hideExcept:inputs:
 #     - prompt
@@ -25,16 +25,68 @@ inputs:
     description: >-
       The title of your app. This will show on openrouter.ai/activity dashboard.
     default: Omnitool
+  temperature:
+    title: Temperature
+    type: number
+    description: >-
+      The randomness regulator, higher for more creativity, lower for more
+      structured, predictable text.
+    minimum: 0
+    maximum: 1
+    step: 0.1
+    default: 0.3
+  prompt:
+    required: true
+    type: string
+    customSocket: text
+  instruction:
+    type: string
+    customSocket: text
+    default: You are a helpful bot.  You can help people by answering their questions.
+  messages:
+    hidden: true
+    scripts:
+      jsonata: >-
+        [
+          {
+            "role": "system",
+            "content": [
+              {
+                "type": "text",
+                "text": $string(instruction)
+              }
+            ]
+          },
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "text",
+                "text": $string(prompt)
+              },
+              {
+                "type": "image_url",
+                "image_url": {
+                  "url": "data:image/jpeg;base64," & $string(images)
+                }
+              }
+            ]
+          }
+        ]
+      delete:
+        - prompt
+        - instruction
+        - images
   model:
     title: Model
-    default: openai/gpt-3.5-turbo
+    default: openai/gpt-4-vision-preview
     choices:
       block: openrouter.listModels
       cache: user
       map:
         root: models
         filter:
-          value: "^(?!.*vision).*$"
+          value: ".*vision.*"
   fallback_model:
     title: Fallback Model
     type: string
@@ -51,7 +103,7 @@ inputs:
       map:
         root: models
         filter:
-          value: "^(?!.*vision).*$"
+          value: ".*vision.*"
   models:
     hidden: true
     scripts:
@@ -60,69 +112,48 @@ inputs:
       delete:
         - fallback_model
         - model
-  prompt:
+  images:
     required: true
+    title: Images
     type: string
-    customSocket: text
-  instruction:
-    type: string
-    customSocket: text
-    default: You are a helpful bot.  You can help people by answering their questions.
-  messages:
-    scripts:
-      jsonata: >-
-        [
-          {
-            "role":"system",
-            "content": $string(instruction)
-          }, 
-          {
-            "role":"user",
-            "content": $string(prompt)
-          }
-        ]
-      delete:
-        - prompt
-    hidden: true
-  temperature:
-    title: Temperature
-    type: number
-    description: >-
-      The randomness regulator, higher for more creativity, lower for more
-      structured, predictable text.
-    minimum: 0
-    maximum: 1
-    step: 0.1
-    default: 0.3
+    customSocket: image
+    socketOpts:
+      format: base64
   seed:
     title: Seed
     type: integer
     description: >-
       If supported by the model, set the seed parameter to any integer of your choice and use the same value across requests you'd like deterministic outputs for. Note that this is still in beta for gpt models.
-  json_mode:
-    title: JSON Mode
-    description: >-
-      If enabled, the output will be formatted in JSON if supported by the model e.g. gpt-4-1106-preview and gpt-3.5-turbo-1106. Ensure that your prompt includes the word 'json' in some form; failure to do so may result in an error.
-    type: boolean
-    default: false
-  response_format:
-    type: object
-    hidden: true
-    scripts:
-      jsonata: >-
-        { "type": $boolean(json_mode) ? "json_object" : "text" }
-      delete:
-        - json_mode
-  top_p:
-    title: Top P
+  # json_mode:
+  #   title: JSON Mode
+  #   description: >-
+  #     If enabled, the output will be formatted in JSON if supported by the model e.g. gpt-4-1106-preview and gpt-3.5-turbo-1106. Ensure that your prompt includes the word 'json' in some form; failure to do so may result in an error.
+  #   type: boolean
+  #   default: false
+  # response_format:
+  #   type: object
+  #   hidden: true
+  #   scripts:
+  #     jsonata: >-
+  #       { "type": $boolean(json_mode) ? "json_object" : "text" }
+  #     delete:
+  #       - json_mode
+  # top_p:
+  #   title: Top P
+  #   type: number
+  #   description: >-
+  #     Implements nucleus sampling, where the model considers only tokens whose cumulative probability exceeds the specified `top_p` threshold.
+  #     Like `temperature`, this controls the diversity of the model's output.
+  #   default: 1
+  #   minimum: 0
+  #   maximum: 1
+  #   step: 0.05
+  max_tokens:
     type: number
-    description: >-
-      Implements nucleus sampling, where the model considers only tokens whose cumulative probability exceeds the specified `top_p` threshold.
-      Like `temperature`, this controls the diversity of the model's output.
-    default: 1
-    minimum: 0
-    maximum: 1
-    step: 0.05
+    minimum: 1
+    maximum: 4096
+    default: 4096
+    step: 1
   stream:
     hidden: true
     type: boolean
