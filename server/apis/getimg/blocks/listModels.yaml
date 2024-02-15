@@ -15,9 +15,13 @@ inputs:
     type: string
 
 outputs:
+  _omni_result:
+    hidden: true
   models:
     type: object
     customSocket: object
+    scripts:
+      jsonata: $._omni_result
     socketOpts:
       array: true
     

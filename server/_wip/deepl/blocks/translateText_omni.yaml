@@ -4,11 +4,19 @@ apiNamespace: deepl
 apiOperationId: translateText
 displayNamespace: deepl
 displayOperationId: translateText_omni
+# scripts:
+#   hideExcept:inputs:
+#     - texts
+#     - source_lang
+#     - target_lang
 inputs:
   text:
-    required: true
     scripts:
-      jsonata:
-        - $.text
+      jsonata: $.texts
+    # type: array
+    # hidden: true
+  texts:
+    required: true
     type: string
     customSocket: text
+
