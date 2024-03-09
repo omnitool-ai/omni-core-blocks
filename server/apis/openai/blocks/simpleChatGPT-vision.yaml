@@ -79,6 +79,7 @@ inputs:
         - prompt
         - instruction
         - images
+        - logprobs
   model:
     title: Model
     default: gpt-4-vision-preview
