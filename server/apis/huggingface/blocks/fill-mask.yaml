@@ -1,6 +1,6 @@
 category: Text Generation
 title: Perform a Fill Mask task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: fill-mask
+apiOperationId: fillMask
 displayNamespace: huggingface
 displayOperationId: hf_fill_mask

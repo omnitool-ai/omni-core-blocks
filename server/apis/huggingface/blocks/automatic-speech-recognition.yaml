@@ -1,6 +1,6 @@
 category: Speech Recognition
 title: Perform an Automatic Speech Recognition task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: automatic-speech-recognition
+apiOperationId: automaticSpeechRecognition
 displayNamespace: huggingface
 displayOperationId: hf_automatic_speech_recognition

@@ -50,6 +50,7 @@ inputs:
       delete:
         - prompt
         - instruction
+        - parallel_tool_calls
   model:
     title: Model
     default: gpt-3.5-turbo

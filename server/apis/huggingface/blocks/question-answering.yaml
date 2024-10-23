@@ -1,6 +1,6 @@
 category: Question Answering
 title: Perform a Question Answering task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: question-answering
+apiOperationId: questionAnswering
 displayNamespace: huggingface
 displayOperationId: hf_question_answering

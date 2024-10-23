@@ -6,7 +6,7 @@ paths:
 
   audio-classification:
     post: 
-      operationId: audio-classification
+      operationId: audioClassification
       title: Huggingface Audio Classification
       requestBody: 
         required: true
@@ -68,7 +68,7 @@ paths:
 
   audio-to-audio: 
     post: 
-      operationId: audio-to-audio
+      operationId: audioToAudio
       title: Huggingface Audio to Audio
       requestBody: 
         required: true
@@ -123,7 +123,7 @@ paths:
  
   automatic-speech-recognition:
     post: 
-      operationId: automatic-speech-recognition
+      operationId: automaticSpeechRecognition
       title: Huggingface Automatic Speech Recognition
       requestBody: 
         required: true
@@ -305,7 +305,7 @@ paths:
 
   document-question-answering:
     post:
-      operationId: document-question-answering
+      operationId: documentQuestionAnswering
       title: Document Question Answering
       requestBody:
         required: true
@@ -372,7 +372,7 @@ paths:
 
   feature-extraction:
     post:
-      operationId: feature-extraction
+      operationId: featureExtraction
       title: Feature Extraction
       requestBody:
         required: true
@@ -424,7 +424,7 @@ paths:
 
   fill-mask:
     post: 
-      operationId: fill-mask
+      operationId: fillMask
       title: Fill Mask
       requestBody: 
         required: true
@@ -476,7 +476,7 @@ paths:
 
   image-classification:
     post: 
-      operationId: image-classification
+      operationId: imageClassification
       title: Huggingface Image Classification
       requestBody: 
         required: true
@@ -533,7 +533,7 @@ paths:
 
   image-segmentation:
     post: 
-      operationId: image-segmentation
+      operationId: imageSegmentation
       title: Huggingface Image Segmentation
       requestBody: 
         required: true
@@ -592,7 +592,7 @@ paths:
 
   image-to-image:
     post: 
-      operationId: image-to-image
+      operationId: imageToImage
       title: Huggingface Image to Image Transformation 
       requestBody: 
         required: true
@@ -678,7 +678,7 @@ paths:
 
   image-to-text:
     post: 
-      operationId: image-to-text
+      operationId: imageToText
       title: Huggingface Image to Text
       requestBody: 
         required: true
@@ -728,7 +728,7 @@ paths:
 
   object-detection:
     post:
-      operationId: object-detection
+      operationId: objectDetection
       title: Object Detection
       requestBody:
         required: true
@@ -788,7 +788,7 @@ paths:
 
   question-answering:
     post:
-      operationId: question-answering
+      operationId: questionAnswering
       title: Question Answering
       requestBody:
         required: true
@@ -846,7 +846,7 @@ paths:
 
   sentence-similarity:
     post:
-      operationId: sentence-similarity
+      operationId: sentenceSimilarity
       title: Sentence Similarity
       requestBody:
         required: true
@@ -980,7 +980,7 @@ paths:
 
   table-question-answering:
     post:
-      operationId: table-question-answering
+      operationId: tableQuestionAnswering
       title: Table Question Answering
       requestBody:
         required: true
@@ -1040,7 +1040,7 @@ paths:
 
   tabular-classification:
     post:
-      operationId: tabular-classification
+      operationId: tabularClassification
       title: Tabular Classification
       requestBody:
         required: true
@@ -1086,7 +1086,7 @@ paths:
 
   tabular-regression:
     post:
-      operationId: tabular-regression
+      operationId: tabularRegression
       title: Tabular Regression
       requestBody:
         required: true
@@ -1133,7 +1133,7 @@ paths:
 
   text-classification:
     post: 
-      operationId: text-classification
+      operationId: textClassification
       title: Huggingface Text Classification
       requestBody: 
         required: true
@@ -1183,7 +1183,7 @@ paths:
 
   text-generation:
     post:
-      operationId: text-generation
+      operationId: textGeneration
       title: Text Generation
       requestBody:
         required: true
@@ -1281,7 +1281,7 @@ paths:
 
   text-to-image:
     post: 
-      operationId: text-to-image
+      operationId: textToImage
       title: Huggingface Text to Image
       requestBody: 
         required: true
@@ -1352,7 +1352,7 @@ paths:
 
   text-to-speech:
     post: 
-      operationId: text-to-speech
+      operationId: textToSpeech
       title: Huggingface Text to Speech
       requestBody: 
         required: true
@@ -1398,7 +1398,7 @@ paths:
 
   token-classification:
     post: 
-      operationId: token-classification
+      operationId: tokenClassification
       title: Huggingface Token Classification
       requestBody: 
         required: true
@@ -1498,7 +1498,7 @@ paths:
 
   visual-question-answering:
     post:
-      operationId: visual-question-answering
+      operationId: visualQuestionAnswering
       title: Visual Question Answering
       requestBody:
         required: true
@@ -1559,7 +1559,7 @@ paths:
 
   zero-shot-classification:
     post: 
-      operationId: zero-shot-classification
+      operationId: zeroShotClassification
       title: Huggingface Zero Shot Classification
       requestBody: 
         required: true
@@ -1610,7 +1610,7 @@ paths:
 
   zero-shot-image-classification:
     post: 
-      operationId: zero-shot-image-classification
+      operationId: zeroShotImageClassification
       title: Huggingface Zero Shot Image Classification
       requestBody: 
         required: true

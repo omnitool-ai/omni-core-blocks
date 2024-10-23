@@ -80,16 +80,15 @@ inputs:
         - instruction
         - images
         - logprobs
+        - parallel_tool_calls
   model:
     title: Model
-    default: gpt-4-vision-preview
+    default: gpt-4o
     choices:
       block: openai.getGPTModels
       cache: user
       map:
         root: models
-        filter:
-          value: ".*vision.*"
   images:
     required: true
     title: Images

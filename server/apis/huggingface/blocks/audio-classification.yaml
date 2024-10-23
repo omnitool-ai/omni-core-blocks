@@ -1,6 +1,6 @@
 category: Audio Classification
 title: Perform an Audio Classification Task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: audio-classification
+apiOperationId: audioClassification
 displayNamespace: huggingface
 displayOperationId: hf_audio_classification

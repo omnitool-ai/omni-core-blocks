@@ -1,6 +1,6 @@
 category: Image To Image
 title: Perform a Image to Image Transformation task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: feature-extraction
+apiOperationId: featureExtraction
 displayNamespace: huggingface
 displayOperationId: hf_feature_extraction

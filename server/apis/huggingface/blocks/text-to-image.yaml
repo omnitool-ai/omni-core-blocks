@@ -1,7 +1,7 @@
 category: Text To Image
 title: Perform a Text To Image task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: text-to-image
+apiOperationId: textToImage
 displayNamespace: huggingface
 displayOperationId: hf_text_to_image
 inputs:

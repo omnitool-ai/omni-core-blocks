@@ -1,6 +1,6 @@
 category: Text Classification
 title: Perform a Text Classification task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: text-classification
+apiOperationId: textClassification
 displayNamespace: huggingface
 displayOperationId: hf_text_classification

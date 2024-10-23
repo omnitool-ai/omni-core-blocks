@@ -1,7 +1,7 @@
 category: Image Segmentation
 title: Perform an Image Segmentation task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: image-segmentation
+apiOperationId: imageSegmentation
 displayNamespace: huggingface
 displayOperationId: hf_image_segmentation
 inputs:

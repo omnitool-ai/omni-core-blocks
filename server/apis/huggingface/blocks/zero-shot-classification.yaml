@@ -1,6 +1,6 @@
 category: Zero Shot Classification
 title: Perform Zero Shot Classification Task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: zero-shot-classification
+apiOperationId: zeroShotClassification
 displayNamespace: huggingface
 displayOperationId: hf_zero_shot_classification

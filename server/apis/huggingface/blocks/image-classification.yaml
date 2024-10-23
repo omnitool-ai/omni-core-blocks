@@ -1,6 +1,6 @@
 category: Image Classification
 title: Perform an Image Classification task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: image-classification
+apiOperationId: imageClassification
 displayNamespace: huggingface
 displayOperationId: hf_image_classification

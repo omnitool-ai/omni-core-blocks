@@ -1,6 +1,6 @@
 category: Tokens
 title: Perform a Token Classification task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: token-classification
+apiOperationId: tokenClassification
 displayNamespace: huggingface
 displayOperationId: hf_token_classification

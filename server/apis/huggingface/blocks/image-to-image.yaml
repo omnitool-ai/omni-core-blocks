@@ -1,6 +1,6 @@
 category: Image Generation
 title: Perform an Image To Image task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: image-to-image
+apiOperationId: imageToImage
 displayNamespace: huggingface
 displayOperationId: hf_image_to_image

@@ -1,6 +1,6 @@
 category: Text Generation
 title: Perform a Text Generation task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: text-generation
+apiOperationId: textGeneration
 displayNamespace: huggingface
 displayOperationId: hf_text_generation

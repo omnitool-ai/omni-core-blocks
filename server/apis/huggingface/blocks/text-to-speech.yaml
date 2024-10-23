@@ -1,6 +1,6 @@
 category: Text to Speech
 title: Perform a Text to Speech task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: text-to-speech
+apiOperationId: textToSpeech
 displayNamespace: huggingface
 displayOperationId: hf_text_to_speech

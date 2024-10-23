@@ -1,6 +1,6 @@
 category: Table Question Answering
 title: Perform a Table Question Answering task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: table-question-answering
+apiOperationId: tableQuestionAnswering
 displayNamespace: huggingface
 displayOperationId: hf_table_question_answering

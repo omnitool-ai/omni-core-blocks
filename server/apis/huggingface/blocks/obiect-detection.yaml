@@ -1,6 +1,6 @@
 category: Object Detection
 title: Perform an Object Detection task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: object-detection
+apiOperationId: objectDetection
 displayNamespace: huggingface
 displayOperationId: hf_object_detection

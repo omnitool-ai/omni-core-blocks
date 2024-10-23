@@ -1,6 +1,6 @@
 category: Tabular
 title: Perform a Tabular Classification task (Huggingface)
 apiNamespace: huggingface
-apiOperationId: tabular-classification
+apiOperationId: tabularClassification
 displayNamespace: huggingface
 displayOperationId: hf_tabular-classification
